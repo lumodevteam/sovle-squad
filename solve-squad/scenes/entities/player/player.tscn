@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://d2y41t1gddvi0"]
+[gd_scene load_steps=17 format=3 uid="uid://d2y41t1gddvi0"]
 
 [ext_resource type="Texture2D" uid="uid://dp8m80k3241ri" path="res://assets/robedPlayerSpriteSheet.png" id="1_1hmtu"]
+[ext_resource type="Script" uid="uid://duwxpkrt2s0x4" path="res://scenes/entities/player/player.gd" id="1_635qg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_635qg"]
 radius = 9.0
@@ -94,6 +95,20 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8akj5"]
 resource_name = "idle"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_58kc7"]
 _data = {
@@ -120,12 +135,13 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bj7e2"]
 states/idle/node = SubResource("AnimationNodeAnimation_1hmtu")
-states/idle/position = Vector2(342, 113)
-states/walk_right/node = SubResource("AnimationNodeAnimation_635qg")
-states/walk_right/position = Vector2(462, 59)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_58kc7"), "idle", "walk_right", SubResource("AnimationNodeStateMachineTransition_nh4ur"), "walk_right", "idle", SubResource("AnimationNodeStateMachineTransition_bjvvg")]
+states/idle/position = Vector2(342, 114)
+states/walk/node = SubResource("AnimationNodeAnimation_635qg")
+states/walk/position = Vector2(462, 59)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_58kc7"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_nh4ur"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_bjvvg")]
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_635qg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -14)
