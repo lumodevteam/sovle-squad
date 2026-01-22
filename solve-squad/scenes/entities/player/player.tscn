@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d2y41t1gddvi0"]
 
-[ext_resource type="Texture2D" path="res://scenes/entities/player/assets/robedPlayerSpriteSheet.png" id="1_1hmtu"]
+[ext_resource type="Texture2D" uid="uid://dp8m80k3241ri" path="res://assets/robedPlayerSpriteSheet.png" id="1_1hmtu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_635qg"]
 radius = 9.0
