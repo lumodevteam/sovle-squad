@@ -2,7 +2,10 @@ extends CharacterBody2D
 
 enum State { # player states
 	IDLE,
-	WALK,
+	WALK_RIGHT,
+	WALK_LEFT,
+	WALK_AWAY,
+	WALK_TOWARD,
 	ATTACK,
 	DEAD
 }
@@ -27,25 +30,31 @@ func movement_loop() -> void: # handles player movement input and movement
 	set_velocity(motion) # set the player's velocity
 	move_and_slide() # move the player based on velocity
 
-	if state == State.IDLE or State.WALK: # change sprite direction only if idle or walking
-		if move_direction.x < -0.01: # facing left
-			$Sprite2D.flip_h = true
-		elif move_direction.x > 0.01: # facing right
-			$Sprite2D.flip_h = false
-
-	if motion != Vector2.ZERO and state == State.IDLE: # if the player is moving and was idle
-		state = State.WALK # change state to WALK
+	if move_direction.x > 0.01 and state != State.WALK_RIGHT:
+		state = State.WALK_RIGHT
 		update_animation()
-	elif motion == Vector2.ZERO and state == State.WALK: # if the player is not moving and was walking
-		state = State.IDLE # change state to IDLE
+	elif move_direction.x < -0.01 and state != State.WALK_LEFT:
+		state = State.WALK_LEFT
+		update_animation()
+	if move_direction.y > 0.01 and state != State.WALK_AWAY:
+		state = State.WALK_AWAY
+		update_animation()
+	elif move_direction.y < -0.01 and state != State.WALK_TOWARD:
+		state = State.WALK_TOWARD
 		update_animation()
 
 func update_animation() -> void: # updates the animation based on the current state
 	match state:
 		State.IDLE:
 			animation_playback.travel("idle")
-		State.WALK:	
-			animation_playback.travel("walk")
+		State.WALK_RIGHT:	
+			animation_playback.travel("walk_right")
+		State.WALK_LEFT:	
+			animation_playback.travel("walk_left")
+		State.WALK_AWAY:	
+			animation_playback.travel("walk_away")
+		State.WALK_TOWARD:	
+			animation_playback.travel("walk_toward")
 		State.ATTACK:
 			animation_playback.travel("attack")
 		State.DEAD:
