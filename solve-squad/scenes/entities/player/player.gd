@@ -2,16 +2,13 @@ extends CharacterBody2D
 
 enum State { # player states
 	IDLE,
-	IDLE_AWAY,
-	IDLE_TOWARD,
-	WALK,
+	WALK_RIGHT,
+	WALK_LEFT,
 	WALK_AWAY,
 	WALK_TOWARD,
 	ATTACK,
 	DEAD
 }
-
-var moving = [State.WALK, State.WALK_AWAY, State.WALK_TOWARD]
 
 @export_category("Stats")
 @export var speed: int = 400 # movement speed of the player
@@ -32,42 +29,28 @@ func movement_loop() -> void: # handles player movement input and movement
 	var motion: Vector2 = move_direction.normalized() * speed # calculate motion vector
 	set_velocity(motion) # set the player's velocity
 	move_and_slide() # move the player based on velocity
-	
-	
-	if state == State.WALK or state == State.IDLE:
-		if motion.x > 0.01:
-			$Sprite2D.flip_h = false
-		elif motion.x < -0.01:
-			$Sprite2D.flip_h = true
-	
-	if motion.x != 0 and state not in moving:
-		state = State.WALK
+
+	if move_direction.x > 0.01 and state != State.WALK_RIGHT:
+		state = State.WALK_RIGHT
 		update_animation()
-	elif motion.y != 0 and state not in moving:
-		if move_direction.y > 0.01:
-			state = State.WALK_AWAY
-		elif move_direction.y < -0.01:
-			state = State.WALK_TOWARD
+	elif move_direction.x < -0.01 and state != State.WALK_LEFT:
+		state = State.WALK_LEFT
 		update_animation()
-	elif motion == Vector2.ZERO and state in moving:
-		if state == State.WALK:
-			state = State.IDLE
-		elif state == State.WALK_AWAY:
-			state = State.IDLE_AWAY
-		elif state == State.WALK_TOWARD:
-			state = State.IDLE_TOWARD
+	if move_direction.y > 0.01 and state != State.WALK_AWAY:
+		state = State.WALK_AWAY
+		update_animation()
+	elif move_direction.y < -0.01 and state != State.WALK_TOWARD:
+		state = State.WALK_TOWARD
 		update_animation()
 
 func update_animation() -> void: # updates the animation based on the current state
 	match state:
 		State.IDLE:
 			animation_playback.travel("idle")
-		State.IDLE_AWAY:
-			animation_playback.travel("idle_away")
-		State.IDLE_TOWARD:
-			animation_playback.travel("idle_toward")
-		State.WALK:	
-			animation_playback.travel("walk")
+		State.WALK_RIGHT:	
+			animation_playback.travel("walk_right")
+		State.WALK_LEFT:	
+			animation_playback.travel("walk_left")
 		State.WALK_AWAY:	
 			animation_playback.travel("walk_away")
 		State.WALK_TOWARD:	
