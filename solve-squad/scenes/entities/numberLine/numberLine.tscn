@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://cvnis7n08fsfd"]
+[gd_scene load_steps=3 format=3 uid="uid://cvnis7n08fsfd"]
 
-[node name="NumberLine" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://m5ytfijqa3mq" path="res://assets/NumbersAndLine.png" id="1_4en1t"]
+[ext_resource type="Script" uid="uid://b3inqvl1g3ic" path="res://scenes/entities/numberLine/numberLine.gd" id="2_tgvt4"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_4en1t")
+hframes = 4
+vframes = 4
+script = ExtResource("2_tgvt4")
