@@ -24,4 +24,4 @@ func change_state(state) -> void:
 func ready() -> void:
 	var clone = originSprite.duplicate()
 	add_child(clone)
-	clone.position = Vector2(32,0) # sets location of number line
+	clone.position = Vector2(32,0) # sets location of next part of number line number line
