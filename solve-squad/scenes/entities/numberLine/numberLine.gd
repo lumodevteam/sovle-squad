@@ -1,5 +1,7 @@
-extends Node
-
+extends Sprite2D
+var isDragging = false # state management
+var mouseOffset #center's the mouse on click
+var delay = 10
 enum State { #different parts of line and numbers
 	middle,
 	right,
@@ -25,3 +27,18 @@ func ready() -> void:
 	var clone = originSprite.duplicate()
 	add_child(clone)
 	clone.position = Vector2(32,0) # sets location of next part of number line number line
+
+
+func _physics_process(delta):
+	if isDragging == true:
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "position", get_global_mouse_position(), delay * delta)
+
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			if get_rect().has_point(to_local(event.position)):
+				print('clicked')
+				isDragging = true
+			else:
+				isDragging = false
