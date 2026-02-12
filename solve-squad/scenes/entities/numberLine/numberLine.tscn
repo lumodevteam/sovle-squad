@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=3 format=3 uid="uid://cvnis7n08fsfd"]
 
 [ext_resource type="Texture2D" uid="uid://m5ytfijqa3mq" path="res://assets/NumbersAndLine.png" id="1_4en1t"]
 [ext_resource type="Script" uid="uid://b3inqvl1g3ic" path="res://scenes/entities/numberLine/numberLine.gd" id="2_tgvt4"]
+=======
+[gd_scene load_steps=3 format=3 uid="uid://b72yrr2w8eddv"]
+
+[ext_resource type="Texture2D" path="res://assets/NumbersAndLine.png" id="1_4en1t"]
+[ext_resource type="Script" path="res://scenes/entities/numberLine/numberLine.gd" id="2_tgvt4"]
+>>>>>>> Stashed changes
 
 [node name="Sprite2D" type="Sprite2D"]
 texture = ExtResource("1_4en1t")
