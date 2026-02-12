@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bebuopcsftvm0"]
+
+[ext_resource type="Script" uid="uid://mh4t2eaiu02a" path="res://scenes/entities/numberLine/number_line.gd" id="1_c6f3n"]
+
+[node name="NumberLine" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+script = ExtResource("1_c6f3n")
