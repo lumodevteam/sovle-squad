@@ -83,10 +83,3 @@ func update_animation() -> void: # updates the animation based on the current st
 			animation_playback.travel("attack")
 		State.DEAD:
 			animation_playback.travel("dead")
-
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("hello")
-	print(area.get_groups())
-	if area.is_in_group("npc"):
-		print("npc")

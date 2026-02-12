@@ -3,9 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dp8m80k3241ri" path="res://assets/robedPlayerSpriteSheet.png" id="1_1hmtu"]
 [ext_resource type="Script" uid="uid://duwxpkrt2s0x4" path="res://scenes/entities/player/player.gd" id="1_635qg"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_635qg"]
-radius = 9.0
-
 [sub_resource type="Animation" id="Animation_635qg"]
 length = 0.001
 tracks/0/type = "value"
@@ -205,7 +202,10 @@ states/walk_toward/node = SubResource("AnimationNodeAnimation_r4dfn")
 states/walk_toward/position = Vector2(518, 27)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_70kwc"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_yywfu"), "walk", "walk_toward", SubResource("AnimationNodeStateMachineTransition_pcd0u"), "walk", "walk_away", SubResource("AnimationNodeStateMachineTransition_w3p2j"), "idle", "walk_toward", SubResource("AnimationNodeStateMachineTransition_knby6"), "walk_toward", "idle_toward", SubResource("AnimationNodeStateMachineTransition_18p7g"), "idle_toward", "walk_toward", SubResource("AnimationNodeStateMachineTransition_fg2wu"), "idle_toward", "walk", SubResource("AnimationNodeStateMachineTransition_7dqom"), "idle_away", "walk", SubResource("AnimationNodeStateMachineTransition_go8vc"), "walk_away", "idle_away", SubResource("AnimationNodeStateMachineTransition_wghkl"), "idle_away", "walk_away", SubResource("AnimationNodeStateMachineTransition_yk2xr"), "walk_away", "walk", SubResource("AnimationNodeStateMachineTransition_vs62q"), "walk_toward", "walk", SubResource("AnimationNodeStateMachineTransition_qko2e"), "idle", "walk_away", SubResource("AnimationNodeStateMachineTransition_6u2ft"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_7nfft")]
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_635qg"]
+radius = 9.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_635qg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -215,12 +215,6 @@ hframes = 8
 vframes = 6
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Area2D" type="Area2D" parent="." groups=["player"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["player"]]
-position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_635qg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -232,4 +226,6 @@ autoplay = "idle_away"
 tree_root = SubResource("AnimationNodeStateMachine_bj7e2")
 anim_player = NodePath("../AnimationPlayer")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_635qg")
