@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhbfm8cangmv6"
-path="res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"
+uid="uid://dbudxtdi8r5kj"
+path="res://.godot/imported/calculatorSpriteSheet.png-f64ee94d6f12665ade4cbf3cd1ef3576.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldierDolphinSpriteSheet.png"
-dest_files=["res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"]
+source_file="res://assets/calculatorSpriteSheet.png"
+dest_files=["res://.godot/imported/calculatorSpriteSheet.png-f64ee94d6f12665ade4cbf3cd1ef3576.ctex"]
 
 [params]
 
