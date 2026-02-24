@@ -15,6 +15,11 @@ enum State { # player states
 @export var speed: int = 150 # base movement speed of the player
 @export var sprint_speed: int = 200 # sprint speed of the player
 @export var current_speed: int # speed of the player
+@export var health: int = 100 # health of the player
+@export var lvl: int = 1 # lvl of the player
+@export var dmg: int = 10 # dmg of the player
+@export var atk_spd: int = 5 # how fast the player attacks
+@export var def: int = 0 # how much defense the player has
 
 var state: State = State.IDLE # current state of the player
 var move_direction: Vector2 = Vector2.ZERO # direction the player is moving
@@ -24,7 +29,9 @@ var facing: String = "right" # what direction the player is facing
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
 
 func _physics_process(_delta: float) -> void: # called every physics frame
-	movement_loop() # handle player movement
+	if not battle.battling:
+		movement_loop() # handle player movement
+		
 
 func movement_loop() -> void: # handles player movement input and movement
 	move_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) # get horizontal input
@@ -83,3 +90,6 @@ func update_animation() -> void: # updates the animation based on the current st
 			animation_playback.travel("attack")
 		State.DEAD:
 			animation_playback.travel("dead")
+			
+func attack() -> void: # player is attacking enemy
+	pass
