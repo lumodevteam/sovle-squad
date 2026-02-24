@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://2mglw58c6tav"]
+
+[node name="Calculator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = -309.0
+offset_right = 163.0
+offset_bottom = 309.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AllComponentsContainer" type="VBoxContainer" parent="Panel/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DisplayContainer" type="VBoxContainer" parent="Panel/ColorRect/AllComponentsContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/ColorRect/AllComponentsContainer/DisplayContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 75
+theme_override_constants/margin_right = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ColorRect/AllComponentsContainer/DisplayContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PrevWorkArea" type="Label" parent="Panel/ColorRect/AllComponentsContainer/DisplayContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+text = "6 x 7"
+horizontal_alignment = 2
+
+[node name="Work Area" type="Label" parent="Panel/ColorRect/AllComponentsContainer/DisplayContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "42"
+horizontal_alignment = 2
