@@ -1,5 +1,4 @@
 extends Sprite2D
-
 enum State { #different parts of line and numbers
 	middle,
 	right,
