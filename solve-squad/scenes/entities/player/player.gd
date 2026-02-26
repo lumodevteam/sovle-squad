@@ -18,12 +18,20 @@ enum State { # player states
 @export var health: int = 100 # health of the player
 @export var lvl: int = 1 # lvl of the player
 @export var dmg: int = 10 # dmg of the player
-@export var atk_spd: int = 5 # how fast the player attacks
 @export var def: int = 0 # how much defense the player has
+
+var moves: Dictionary = {
+	1: {
+		"name" : "basic attack",
+		"spd" : randi() % 10 + 1,
+		"dmg" : dmg / 2
+	}
+}
 
 var state: State = State.IDLE # current state of the player
 var move_direction: Vector2 = Vector2.ZERO # direction the player is moving
 var facing: String = "right" # what direction the player is facing
+var atk: int # what attack will the player use
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
@@ -91,5 +99,9 @@ func update_animation() -> void: # updates the animation based on the current st
 		State.DEAD:
 			animation_playback.travel("dead")
 			
-func attack() -> void: # player is attacking enemy
-	pass
+func attack() -> int: # player is attacking enemy
+	atk = 1
+	print(moves[atk]["name"])
+	return moves[atk]["dmg"]
+	
+	

@@ -1,6 +1,6 @@
 extends Node
 
-@onready var camera: Camera2D = $Camera2D # camera for battle scene
+@export var camera: Camera2D
 
 var battling: bool = false # is there a battle happening
 var rng = RandomNumberGenerator.new()
@@ -17,5 +17,11 @@ func battle(player, enemy) -> void: # battle function
 	
 	if enemy.lvl <= 0:
 		enemy.lvl = 1
+		
+	var dmg: int # damage
 	
-	# while player.health > 0 and enemy.health > 0:
+	while player.health > 0 and enemy.health > 0:
+		dmg = player.attack() # player attacks first
+		enemy.health -= dmg
+		dmg = enemy.attack()
+		player.health -= dmg

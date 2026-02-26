@@ -206,6 +206,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 radius = 9.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+top_level = true
 script = ExtResource("1_635qg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
