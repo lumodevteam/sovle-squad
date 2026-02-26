@@ -29,7 +29,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 0.0
 }]
 
 [node name="NumberLine" type="Node2D"]
@@ -42,3 +42,5 @@ script = ExtResource("2_4en1t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
 position = Vector2(58, 0)
 sprite_frames = SubResource("SpriteFrames_r3762")
+frame = 1
+frame_progress = 0.42221522
