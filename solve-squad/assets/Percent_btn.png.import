@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp5vysmr5f8ju"
-path="res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"
+uid="uid://c4ildtmgvorvy"
+path="res://.godot/imported/Percent_btn.png-cdfef83c27e9217223104510177ab17c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldierDolphinSpriteSheet.png"
-dest_files=["res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"]
+source_file="res://assets/Percent_btn.png"
+dest_files=["res://.godot/imported/Percent_btn.png-cdfef83c27e9217223104510177ab17c.ctex"]
 
 [params]
 

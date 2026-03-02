@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp5vysmr5f8ju"
-path="res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"
+uid="uid://dh6mvnb75m1ux"
+path="res://.godot/imported/Addition_btn.png-52c7728ae3339396769b94774cc09c21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldierDolphinSpriteSheet.png"
-dest_files=["res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"]
+source_file="res://assets/Addition_btn.png"
+dest_files=["res://.godot/imported/Addition_btn.png-52c7728ae3339396769b94774cc09c21.ctex"]
 
 [params]
 

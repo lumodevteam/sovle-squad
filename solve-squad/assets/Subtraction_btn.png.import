@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp5vysmr5f8ju"
-path="res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"
+uid="uid://fjykpdiglfl4"
+path="res://.godot/imported/Subtraction_btn.png-06fdb351a23f4fdfdb6c7d4299acccea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldierDolphinSpriteSheet.png"
-dest_files=["res://.godot/imported/soldierDolphinSpriteSheet.png-e1e5e3df8d2908ab9ed454fdd06e8f7a.ctex"]
+source_file="res://assets/Subtraction_btn.png"
+dest_files=["res://.godot/imported/Subtraction_btn.png-06fdb351a23f4fdfdb6c7d4299acccea.ctex"]
 
 [params]
 
