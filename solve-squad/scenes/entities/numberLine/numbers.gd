@@ -13,6 +13,7 @@ enum State { #different parts of line and numbers
 	numEight,
 	numNine,
 	numZero,
+	point,
 }
 
 func change_state(state) -> void:
@@ -31,5 +32,5 @@ func _input(event):
 			if get_rect().has_point(to_local(event.position)):
 				print('clicked')
 				isDragging = true
-			else:
-				isDragging = false
+		else:
+			isDragging = false
