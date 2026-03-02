@@ -37,7 +37,7 @@ var atk: int # what attack will the player use
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
 
 func _physics_process(_delta: float) -> void: # called every physics frame
-	if not battle.battling:
+	if not Battle.battling:
 		movement_loop() # handle player movement
 		
 

@@ -1,14 +1,14 @@
 extends Node
 
-@export var camera: Camera2D
-
 var battling: bool = false # is there a battle happening
 var rng = RandomNumberGenerator.new()
 var weights = PackedFloat32Array([0.5, 0.7, 1, 0.7, 0.5])
 
 func battle(player, enemy) -> void: # battle function
+	Navigation.change_scene(Navigation.battle_scene)
+	
+	# camera.make_current()
 	battling = true
-	get_tree().change_scene_to_file('res://scenes/battle.tscn')
 	
 	var mid: int = player.lvl
 	var enemy_lvls: Array = [mid - 2, mid - 1, mid, mid + 1, mid + 2]

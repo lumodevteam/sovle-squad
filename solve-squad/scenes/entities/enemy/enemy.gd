@@ -23,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 			print("you already beat me!")
 		else:
 			collision(raycast.get_collider())
-	if battle.battling:
+	if Battle.battling:
 		$Sprite2D.flip_h = true
 		raycast.enabled = false
 
@@ -34,7 +34,7 @@ func collision(body: Node2D) -> void:
 		
 func interact() -> void:
 	print("battling")
-	battle.battle(player_in_range, self)
+	Battle.battle(player_in_range, self)
 	
 func attack() -> int:
 	atk = 1
