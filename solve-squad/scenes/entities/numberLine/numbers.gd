@@ -34,3 +34,9 @@ func _input(event):
 				isDragging = true
 		else:
 			isDragging = false
+"""
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed:
+			
+"""
