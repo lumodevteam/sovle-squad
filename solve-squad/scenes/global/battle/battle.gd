@@ -7,7 +7,7 @@ var weights = PackedFloat32Array([0.5, 0.7, 1, 0.7, 0.5])
 func battle(player, enemy) -> void: # battle function
 	Navigation.change_scene(Navigation.battle_scene)
 	
-	# camera.make_current()
+	var camera
 	battling = true
 	
 	var mid: int = player.lvl

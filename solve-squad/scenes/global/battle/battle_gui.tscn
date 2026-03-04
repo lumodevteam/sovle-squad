@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0jnhnrqsshx0"]
+
+[sub_resource type="Theme" id="Theme_0rgck"]
+
+[sub_resource type="Theme" id="Theme_eghyr"]
+
+[sub_resource type="Theme" id="Theme_eq12t"]
+
+[node name="BattleGui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -230.0
+offset_right = 230.0
+grow_vertical = 0
+localize_numeral_system = false
+theme = SubResource("Theme_0rgck")
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_eghyr")
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Button" type="Button" parent="Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Attack"
+
+[node name="Button2" type="Button" parent="Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_eq12t")
+text = "Run"
+
+[node name="Button3" type="Button" parent="Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Nothing"
+
+[node name="Button4" type="Button" parent="Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Nothing"

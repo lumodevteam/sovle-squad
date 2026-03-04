@@ -1,11 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqu1bdl7daoaa"]
+[gd_scene load_steps=5 format=3 uid="uid://dqu1bdl7daoaa"]
 
-[ext_resource type="Script" uid="uid://yyqw0uyadw73" path="res://scenes/global/battle/battle.gd" id="1_v2tsk"]
 [ext_resource type="PackedScene" uid="uid://c4ptsnun1j3k2" path="res://scenes/entities/enemy/enemy.tscn" id="2_qrdqo"]
 [ext_resource type="PackedScene" uid="uid://d2y41t1gddvi0" path="res://scenes/entities/player/player.tscn" id="3_aucy0"]
+[ext_resource type="PackedScene" uid="uid://b0jnhnrqsshx0" path="res://scenes/global/battle/battle_gui.tscn" id="3_v2tsk"]
+
+[sub_resource type="GDScript" id="GDScript_b1xms"]
+script/source = "extends Node
+
+var battling: bool = false # is there a battle happening
+var rng = RandomNumberGenerator.new()
+var weights = PackedFloat32Array([0.5, 0.7, 1, 0.7, 0.5])
+
+func battle(player, enemy) -> void: # battle function
+	
+	# camera.make_current()
+	battling = true
+	
+	var mid: int = player.lvl
+	var enemy_lvls: Array = [mid - 2, mid - 1, mid, mid + 1, mid + 2]
+	
+	enemy.lvl = enemy_lvls[rng.rand_weighted(weights)] # picks a random lvl for the enemy
+	
+	if enemy.lvl <= 0:
+		enemy.lvl = 1
+		
+	var dmg: int # damage
+	
+	while player.health > 0 and enemy.health > 0:
+		dmg = player.attack() # player attacks first
+		enemy.health -= dmg
+		dmg = enemy.attack()
+		player.health -= dmg
+"
 
 [node name="Battle" type="Node2D"]
-script = ExtResource("1_v2tsk")
+script = SubResource("GDScript_b1xms")
 
 [node name="Enemy" parent="." instance=ExtResource("2_qrdqo")]
 position = Vector2(100, 0)
@@ -14,3 +43,9 @@ position = Vector2(100, 0)
 position = Vector2(-100, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="BattleGui" parent="." instance=ExtResource("3_v2tsk")]
+offset_left = -676.0
+offset_top = 326.0
+offset_right = -676.0
+offset_bottom = 326.0
