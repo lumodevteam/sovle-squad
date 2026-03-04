@@ -1,7 +1,7 @@
 extends Sprite2D
 var isDragging = false # state management
 var mouseOffset #center's the mouse on click
-var delay = 10
+var delay = 15
 enum State { #different parts of line and numbers
 	numOne,
 	numTwo,
