@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://6dcbdnuudcvc"]
+
+[ext_resource type="PackedScene" uid="uid://2mglw58c6tav" path="res://scenes/tools/calculator/calculator.tscn" id="1_jrjjw"]
+
+[node name="Question" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.9882353, 1, 0.7529412, 1)
+
+[node name="Calculator" parent="." instance=ExtResource("1_jrjjw")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = 1019.2
+offset_top = 415.0
+offset_right = 1019.2
+offset_bottom = 415.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+size_flags_horizontal = 8
+size_flags_vertical = 8

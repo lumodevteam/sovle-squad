@@ -10,11 +10,12 @@ var second_number: float
 var operator := ""
 var decimal_allowed = true
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	for buttons in all_buttons.get_children():
 		for btn in buttons.get_children():
 			if btn.name.is_valid_int():
-				btn.pressed.connect(Callable(self,"_number_buttons").bind(btn))
+				btn.pressed.connect(Callable(self,"_number_buttons").bind(btn)) 
 
 func _number_buttons(btn):
 	if not has_been_used:
