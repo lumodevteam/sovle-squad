@@ -2,24 +2,11 @@ extends Sprite2D
 var isDragging = false # state management
 var mouseOffset #center's the mouse on click
 var delay = 15
-enum State { #different parts of line and numbers
-	numOne,
-	numTwo,
-	numThree,
-	numFour,
-	numFive,
-	numSix,
-	numSeven,
-	numEight,
-	numNine,
-	numZero,
-	point,
-}
 
 func change_state(state) -> void:
-	$sprite.set_frame(state)
+	self.set_frame(state)
 
-@onready var originSprite = $sprite
+@onready var originSprite = self
 
 func _physics_process(delta):
 	if isDragging == true:
@@ -34,9 +21,3 @@ func _input(event):
 				isDragging = true
 		else:
 			isDragging = false
-"""
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed:
-			
-"""
