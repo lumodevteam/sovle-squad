@@ -25,7 +25,17 @@ var moves: Dictionary = {
 		"name" : "basic attack",
 		"spd" : randi() % 10 + 1,
 		"dmg" : dmg / 2
-	}
+	},
+	2: {
+		"name" : "less basic attack",
+		"spd" : randi() % 10 + 1,
+		"dmg" : dmg / 2
+	},
+	3: {
+		"name" : "even less basic attack",
+		"spd" : randi() % 10 + 1,
+		"dmg" : dmg / 2
+	},
 }
 
 var state: State = State.IDLE # current state of the player
