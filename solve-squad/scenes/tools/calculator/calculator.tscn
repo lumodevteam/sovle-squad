@@ -77,15 +77,11 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6542321, 0.6542321, 0.654232, 1)
 horizontal_alignment = 2
-text_overrun_behavior = 2
-visible_characters = 10
 
 [node name="Work Area" type="Label" parent="Panel/ColorRect/AllComponentsContainer/DisplayContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 horizontal_alignment = 2
-text_overrun_behavior = 1
-visible_characters = 10
 
 [node name="AllButtons" type="VBoxContainer" parent="Panel/ColorRect/AllComponentsContainer"]
 layout_mode = 2

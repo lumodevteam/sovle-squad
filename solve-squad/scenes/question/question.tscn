@@ -1,14 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://6dcbdnuudcvc"]
+[gd_scene load_steps=5 format=3 uid="uid://6dcbdnuudcvc"]
 
 [ext_resource type="PackedScene" uid="uid://2mglw58c6tav" path="res://scenes/tools/calculator/calculator.tscn" id="1_jrjjw"]
-[ext_resource type="Script" uid="uid://c7qc77ainr0ob" path="res://scenes/question/question_area.gd" id="1_v7jrx"]
 
 [sub_resource type="GDScript" id="GDScript_jrjjw"]
 
-[node name="Question" type="Node2D"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrjjw"]
+
+[sub_resource type="Theme" id="Theme_v7jrx"]
+ItemList/colors/font_color = Color(0.65, 0.65, 0.65, 1)
+ItemList/styles/hovered_selected_focus = null
+ItemList/styles/panel = SubResource("StyleBoxEmpty_jrjjw")
+
+[node name="Question" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = SubResource("GDScript_jrjjw")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,27 +29,41 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0.9882353, 1, 0.7529412, 1)
 
-[node name="Question Area" type="Label" parent="ColorRect"]
+[node name="Question Area" type="Label" parent="."]
 layout_mode = 0
-offset_left = 99.0
-offset_top = 209.0
-offset_right = 658.0
-offset_bottom = 345.0
+offset_left = 27.0
+offset_top = 22.0
+offset_right = 1123.6555
+offset_bottom = 167.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "
-"
-script = ExtResource("1_v7jrx")
+theme_override_font_sizes/font_size = 32
+text = "Questions"
+vertical_alignment = 3
+autowrap_mode = 1
 
-[node name="LineEdit" type="LineEdit" parent="ColorRect"]
+[node name="Option Area" type="ItemList" parent="."]
 layout_mode = 0
-offset_left = 363.0
-offset_top = 204.0
-offset_right = 547.0
-offset_bottom = 325.0
-placeholder_text = "Type Answer"
-clear_button_enabled = true
+offset_left = 18.0
+offset_top = 195.0
+offset_right = 870.0
+offset_bottom = 628.0
+theme = SubResource("Theme_v7jrx")
+theme_override_colors/font_color = Color(1, 0.4696315, 0.32959348, 1)
+theme_override_colors/font_hovered_color = Color(0.9490196, 0.45882353, 0.83137256, 1)
+theme_override_colors/font_hovered_selected_color = Color(0.25490198, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 0.29803923, 1)
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 72
+theme_override_font_sizes/font_size = 24
+select_mode = 1
+item_count = 4
+item_0/text = "Option 1 "
+item_1/text = "Option 2"
+item_2/text = "Option 3"
+item_3/text = "Option 4"
 
 [node name="Calculator" parent="." instance=ExtResource("1_jrjjw")]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

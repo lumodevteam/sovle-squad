@@ -33,7 +33,7 @@ func _on_equal_btn_pressed():
 		"+":
 			result = first_number + second_number
 		"-":
-			result = first_number - second_number
+			result = second_number - first_number
 		"*":
 			result = first_number * second_number
 		"/":
