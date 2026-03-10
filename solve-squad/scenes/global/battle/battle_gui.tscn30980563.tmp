@@ -1,0 +1,124 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0jnhnrqsshx0"]
+
+[ext_resource type="Script" uid="uid://ms0bbk3nf778" path="res://scenes/global/battle/menu.gd" id="1_eghyr"]
+
+[sub_resource type="Theme" id="Theme_0rgck"]
+
+[sub_resource type="Theme" id="Theme_eghyr"]
+
+[sub_resource type="Theme" id="Theme_eq12t"]
+
+[node name="BattleGui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="Menu" type="Panel" parent="." node_paths=PackedStringArray("menu", "moves")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -230.0
+offset_right = 230.0
+grow_vertical = 0
+localize_numeral_system = false
+theme = SubResource("Theme_0rgck")
+script = ExtResource("1_eghyr")
+menu = NodePath("Menu")
+moves = NodePath("Moves")
+
+[node name="Menu" type="GridContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_eghyr")
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Attack" type="Button" parent="Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Attack"
+
+[node name="Run" type="Button" parent="Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_eq12t")
+text = "Run"
+
+[node name="tbd" type="Button" parent="Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Nothing"
+
+[node name="tbd2" type="Button" parent="Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Nothing"
+
+[node name="Moves" type="GridContainer" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_eghyr")
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Move1" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+
+[node name="Move2" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_eq12t")
+
+[node name="Move3" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+
+[node name="Back" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Back"
+
+[connection signal="pressed" from="Menu/Menu/Attack" to="Menu" method="_on_attack_pressed"]
+[connection signal="pressed" from="Menu/Moves/Back" to="Menu" method="_on_back_pressed"]

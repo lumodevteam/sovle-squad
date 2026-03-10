@@ -30,14 +30,9 @@ func _physics_process(_delta: float) -> void:
 func collision(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_in_range = body
-		interact()
-		
-func interact() -> void:
-	print("battling")
-	Battle.battle(player_in_range, self)
+		Battle.start_battle.emit(player_in_range, self)
 	
 func attack() -> int:
 	atk = 1
 	print(moves[atk]["name"])
 	return moves[atk]["dmg"]
-	

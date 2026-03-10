@@ -36,6 +36,9 @@ var moves: Dictionary = {
 		"spd" : randi() % 10 + 1,
 		"dmg" : dmg / 2
 	},
+	4: {
+		"name" : "back",
+	}
 }
 
 var state: State = State.IDLE # current state of the player
