@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0jnhnrqsshx0"]
 
-[ext_resource type="Script" uid="uid://ms0bbk3nf778" path="res://scenes/global/battle/menu.gd" id="1_eghyr"]
+[ext_resource type="Script" uid="uid://ms0bbk3nf778" path="res://scenes/global/battle/battle_gui.gd" id="1_eghyr"]
 
 [sub_resource type="Theme" id="Theme_0rgck"]
 
@@ -17,8 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
+script = ExtResource("1_eghyr")
 
-[node name="Menu" type="Panel" parent="." node_paths=PackedStringArray("menu", "moves")]
+[node name="Battle_Menu" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -28,11 +29,8 @@ offset_right = 230.0
 grow_vertical = 0
 localize_numeral_system = false
 theme = SubResource("Theme_0rgck")
-script = ExtResource("1_eghyr")
-menu = NodePath("Menu")
-moves = NodePath("Moves")
 
-[node name="Menu" type="GridContainer" parent="Menu"]
+[node name="Menu" type="GridContainer" parent="Battle_Menu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -50,34 +48,34 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="Attack" type="Button" parent="Menu/Menu"]
+[node name="Attack" type="Button" parent="Battle_Menu/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Attack"
 
-[node name="Run" type="Button" parent="Menu/Menu"]
+[node name="Run" type="Button" parent="Battle_Menu/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_eq12t")
 text = "Run"
 
-[node name="tbd" type="Button" parent="Menu/Menu"]
+[node name="tbd" type="Button" parent="Battle_Menu/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Nothing"
 
-[node name="tbd2" type="Button" parent="Menu/Menu"]
+[node name="tbd2" type="Button" parent="Battle_Menu/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Nothing"
 
-[node name="Moves" type="GridContainer" parent="Menu"]
+[node name="Moves" type="GridContainer" parent="Battle_Menu"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -96,29 +94,29 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="Move1" type="Button" parent="Menu/Moves"]
+[node name="Move1" type="Button" parent="Battle_Menu/Moves"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 
-[node name="Move2" type="Button" parent="Menu/Moves"]
+[node name="Move2" type="Button" parent="Battle_Menu/Moves"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_eq12t")
 
-[node name="Move3" type="Button" parent="Menu/Moves"]
+[node name="Move3" type="Button" parent="Battle_Menu/Moves"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 
-[node name="Back" type="Button" parent="Menu/Moves"]
+[node name="Back" type="Button" parent="Battle_Menu/Moves"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Back"
 
-[connection signal="pressed" from="Menu/Menu/Attack" to="Menu" method="_on_attack_pressed"]
-[connection signal="pressed" from="Menu/Moves/Back" to="Menu" method="_on_back_pressed"]
+[connection signal="pressed" from="Battle_Menu/Menu/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Battle_Menu/Moves/Back" to="." method="_on_back_pressed"]

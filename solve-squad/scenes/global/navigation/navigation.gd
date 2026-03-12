@@ -17,3 +17,5 @@ func change_scene(scene) -> void:
 		
 func _on_start_battle(_player, _enemy):
 	change_scene(battle_scene)
+	await Transition.on_transition_finished
+	Battle.instantiate_battle_gui.emit()
