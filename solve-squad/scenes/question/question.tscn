@@ -1,8 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://6dcbdnuudcvc"]
 
 [ext_resource type="PackedScene" uid="uid://2mglw58c6tav" path="res://scenes/tools/calculator/calculator.tscn" id="1_jrjjw"]
-
-[sub_resource type="GDScript" id="GDScript_jrjjw"]
+[ext_resource type="Script" uid="uid://d3fchw38qmwul" path="res://scenes/question/question.gd" id="1_v7jrx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrjjw"]
 
@@ -14,7 +13,7 @@ ItemList/styles/panel = SubResource("StyleBoxEmpty_jrjjw")
 [node name="Question" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = SubResource("GDScript_jrjjw")
+script = ExtResource("1_v7jrx")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
