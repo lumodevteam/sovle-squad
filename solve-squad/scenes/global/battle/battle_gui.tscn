@@ -126,5 +126,69 @@ theme = SubResource("Theme_eq12t")
 text = "Back"
 autowrap_mode = 2
 
+[node name="Player_Info" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -80.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="Player_Name" type="Label" parent="Player_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = 30.0
+
+[node name="Player_Health" type="ProgressBar" parent="Player_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -25.0
+offset_right = -10.0
+offset_bottom = -10.0
+value = 100.0
+show_percentage = false
+
+[node name="Enemy_Info" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 250.0
+offset_bottom = 80.0
+
+[node name="Enemy_Name" type="Label" parent="Enemy_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = 30.0
+
+[node name="Enemy_Health" type="ProgressBar" parent="Enemy_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -25.0
+offset_right = -10.0
+offset_bottom = -10.0
+value = 100.0
+show_percentage = false
+
 [connection signal="pressed" from="Battle_Menu/Menu/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Battle_Menu/Moves/Back" to="." method="_on_back_pressed"]

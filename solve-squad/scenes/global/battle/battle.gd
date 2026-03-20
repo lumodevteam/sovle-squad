@@ -32,6 +32,7 @@ func _on_instantiate_battle_gui() -> void:
 	var battle_gui = get_tree().get_root().get_node("BattleScene/BattleGui")
 	battle_gui.visible = true
 	battle_gui.populate_moves(battle_player.moves)
+	battle_gui.setup_health_bars(battle_player, battle_enemy)
 	
 func _on_move_selected(move_index: int) -> void:
 	player_turn(move_index)
@@ -40,8 +41,7 @@ func player_turn(move_index: int) -> void:
 	var move = battle_player.moves[move_index]
 	var damage = move["dmg"]
 	battle_enemy.health -= damage * (1 - battle_enemy.def)
-	print("Player used %s for %d damage! Enemy HP: %d" % [move["name"], damage, battle_enemy.health])
-
+	update_gui()
 	if battle_enemy.health <= 0:
 		battle_over(true)
 	else:
@@ -51,8 +51,7 @@ func enemy_turn() -> void:
 	var move = battle_enemy.attack()
 	var damage = move["dmg"]
 	battle_player.health -= damage * (1 - battle_player.def)
-	print("Enemy attacked for %d damage! Player HP: %d" % [damage, battle_player.health])
-
+	update_gui()
 	if battle_player.health <= 0:
 		battle_over(false)
 		
@@ -63,3 +62,7 @@ func battle_over(player_won: bool) -> void:
 	battle_player.reparent(self)
 	battle_enemy.reparent(self)
 	end_battle.emit(player_won)
+	
+func update_gui() -> void:
+	var battle_gui = get_tree().get_root().get_node("BattleScene/BattleGui")
+	battle_gui.update_health_bars(battle_player.health, battle_enemy.health)

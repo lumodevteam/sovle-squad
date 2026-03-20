@@ -4,6 +4,11 @@ extends Control
 @onready var menu: GridContainer = $Battle_Menu/Menu
 @onready var moves: GridContainer = $Battle_Menu/Moves
 
+@onready var enemy_health_bar: ProgressBar = $Enemy_Info/Enemy_Health
+@onready var enemy_name_label: Label = $Enemy_Info/Enemy_Name
+@onready var player_health_bar: ProgressBar = $Player_Info/Player_Health
+@onready var player_name_label: Label = $Player_Info/Player_Name
+
 var move_buttons: Array = []
 
 func _ready() -> void:
@@ -41,4 +46,16 @@ func _on_attack_pressed() -> void:
 func _on_back_pressed() -> void:
 	toggle_visibility(moves)
 	toggle_visibility(menu)
+	
+func setup_health_bars(player, enemy) -> void:
+	player_health_bar.max_value = player.health
+	player_health_bar.value = player.health
+	player_name_label.text = "Player"
+	enemy_health_bar.max_value = enemy.health
+	enemy_health_bar.value = enemy.health
+	enemy_name_label.text = "Enemy"
+
+func update_health_bars(player_hp: int, enemy_hp: int) -> void:
+	player_health_bar.value = player_hp
+	enemy_health_bar.value = enemy_hp
 	
