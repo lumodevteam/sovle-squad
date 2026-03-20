@@ -17,7 +17,7 @@ enum State { # player states
 @export var current_speed: int # speed of the player
 @export var health: int = 100 # health of the player
 @export var lvl: int = 1 # lvl of the player
-@export var dmg: int = 10 # dmg of the player
+@export var dmg: int = 100 # dmg of the player
 @export var def: int = 0 # how much defense the player has
 
 var moves: Dictionary = {
@@ -48,6 +48,7 @@ var atk: int # what attack will the player use
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
+@onready var camera: Camera2D = $Camera2D
 
 func _physics_process(_delta: float) -> void: # called every physics frame
 	if not Battle.battling:
@@ -116,5 +117,6 @@ func attack() -> int: # player is attacking enemy
 	atk = 1
 	print(moves[atk]["name"])
 	return moves[atk]["dmg"]
+	
 	
 	

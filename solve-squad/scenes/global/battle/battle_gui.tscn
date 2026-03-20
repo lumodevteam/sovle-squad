@@ -54,12 +54,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Attack"
+autowrap_mode = 2
 
 [node name="Run" type="Button" parent="Battle_Menu/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_eq12t")
 text = "Run"
+autowrap_mode = 2
 
 [node name="tbd" type="Button" parent="Battle_Menu/Menu"]
 layout_mode = 2
@@ -67,6 +69,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Nothing"
+autowrap_mode = 2
 
 [node name="tbd2" type="Button" parent="Battle_Menu/Menu"]
 layout_mode = 2
@@ -74,6 +77,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Nothing"
+autowrap_mode = 2
 
 [node name="Moves" type="GridContainer" parent="Battle_Menu"]
 visible = false
@@ -99,17 +103,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
+autowrap_mode = 2
 
 [node name="Move2" type="Button" parent="Battle_Menu/Moves"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_eq12t")
+autowrap_mode = 2
 
 [node name="Move3" type="Button" parent="Battle_Menu/Moves"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
+autowrap_mode = 2
 
 [node name="Back" type="Button" parent="Battle_Menu/Moves"]
 layout_mode = 2
@@ -117,6 +124,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_eq12t")
 text = "Back"
+autowrap_mode = 2
 
 [connection signal="pressed" from="Battle_Menu/Menu/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Battle_Menu/Moves/Back" to="." method="_on_back_pressed"]
