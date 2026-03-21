@@ -190,5 +190,40 @@ offset_bottom = -10.0
 value = 100.0
 show_percentage = false
 
+[node name="BattleLog" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 251.0
+offset_top = -98.0
+offset_right = 851.0
+offset_bottom = -25.0
+grow_vertical = 0
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 1
+language = "en_CA"
+
+[node name="ContinueMessage" type="RichTextLabel" parent="BattleLog"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+text_direction = 1
+
 [connection signal="pressed" from="Battle_Menu/Menu/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Battle_Menu/Moves/Back" to="." method="_on_back_pressed"]

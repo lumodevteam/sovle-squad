@@ -16,6 +16,7 @@ func change_scene(scene) -> void:
 		
 func _on_start_battle(_player, _enemy):
 	await change_scene(battle_scene)
+	Battle.setup_battle.emit()
 	Battle.instantiate_battle_gui.emit()
 	var battle_camera = get_tree().get_root().get_node("BattleScene/Camera2D")
 	battle_camera.make_current()
@@ -27,3 +28,4 @@ func _on_end_battle(player_won) -> void:
 		var world = get_tree().get_root().get_node("Tutorial")
 		Battle.battle_player.reparent(world)
 		Battle.battle_enemy.reparent(world)
+		Battle.battle_enemy.defeated = true

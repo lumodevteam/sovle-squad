@@ -28,17 +28,11 @@ var moves: Dictionary = {
 }
 
 func _ready() -> void:
-	if not defeated and not Battle.battling:
-		raycast.enabled = true
-	else:
-		raycast.enabled = false
+	Battle.setup_battle.connect(_on_setup_battle)
 
 func _physics_process(_delta: float) -> void:
-	if raycast.is_colliding():
+	if raycast.is_colliding() and not Battle.battling:
 		collision(raycast.get_collider())
-	if Battle.battling:
-		$Sprite2D.flip_h = true
-		raycast.enabled = false
 		
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -63,3 +57,7 @@ func collision(body: Node2D) -> void:
 func attack() -> Dictionary:
 	atk = 1
 	return moves[atk]
+	
+func _on_setup_battle() -> void:
+	$Sprite2D.flip_h = true
+	raycast.enabled = false

@@ -50,6 +50,14 @@ var atk: int # what attack will the player use
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
 @onready var camera: Camera2D = $Camera2D
 
+func _ready() -> void:
+	Battle.setup_battle.connect(_on_setup_battle)
+	
+func _on_setup_battle() -> void:
+	animation_tree.active = false
+	$Sprite2D.frame = 0
+	$Sprite2D.flip_h = false
+
 func _physics_process(_delta: float) -> void: # called every physics frame
 	if not Battle.battling:
 		movement_loop() # handle player movement

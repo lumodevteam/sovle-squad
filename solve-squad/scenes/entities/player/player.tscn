@@ -221,7 +221,6 @@ vframes = 6
 libraries = {
 &"": SubResource("AnimationLibrary_58kc7")
 }
-autoplay = "idle_away"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_bj7e2")

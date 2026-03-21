@@ -29,7 +29,6 @@ vframes = 6
 
 [node name="PlayerRayCast" type="RayCast2D" parent="."]
 position = Vector2(0, -2)
-enabled = false
 target_position = Vector2(55, 0)
 
 [node name="Area2D" type="Area2D" parent="." groups=["npc"]]
