@@ -38,7 +38,7 @@ func _on_equal_btn_pressed():
 			result = first_number * second_number
 		"/":
 			result = first_number / second_number
-	prev_work_area.text = str(first_number) + " " + operator + " " + str(second_number)
+			prev_work_area.text = str(first_number) + " " + operator + " " + str(second_number)
 	work_area.text = str(snappedf(result,0.000000001))
 
 
@@ -46,7 +46,7 @@ func _on_addition_btn_pressed():
 	has_been_used = false
 	first_number = work_area.text.to_float()
 	operator = "+"
-	prev_work_area.text = str(first_number) + " " + operator
+	prev_work_area.text = str(second_number) + " " + operator
 
 
 func _on_subtraction_btn_pressed() -> void:

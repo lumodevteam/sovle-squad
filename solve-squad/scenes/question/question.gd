@@ -26,8 +26,8 @@ func generate_questions():
 func generate_number_questions(count: int) -> Array:
 	var result = []
 	for i in count:
-		var a = randi_range(1, 20)
-		var b = randi_range(1, 20)
+		var a = randi_range(15, 100)
+		var b = randi_range(15, 100)
 		result.append({"question": "%d + %d" % [a, b], "answer": a + b})
 	return result
 
@@ -38,15 +38,15 @@ func generate_algebra_questions() -> Array:
 
 	# Solve for x addition
 	for i in 4:
-		var x = randi_range(1, 20)
-		var b = randi_range(1, 20)
+		var x = randi_range(20, 100)
+		var b = randi_range(20, 100)
 		result.append({
 			"question": "Solve for x.\nx + %d = %d" % [b, x + b],
 			"answer": x
 		})
 	#Solve for x subtraction
 	for i in 4:
-		var x = randi_range(5, 25)
+		var x = randi_range(20, 100)
 		var b = randi_range(1, x)
 		result.append({
 			"question": "Solve for x.\nx - %d = %d" % [b, x - b],
@@ -75,8 +75,8 @@ func generate_algebra_questions() -> Array:
 	# Solve for x 2 - step
 	for i in 4:
 		var a = randi_range(2, 6)
-		var x = randi_range(1, 10)
-		var b = randi_range(1, 15)
+		var x = randi_range(15, 100)
+		var b = randi_range(15, 100)
 		result.append({
 			"question": "Solve for x.\n%dx + %d = %d" % [a, b, a * x + b],
 			"answer": x
@@ -96,8 +96,8 @@ func generate_algebra_questions() -> Array:
 
 	# x + y = z find z
 	for i in 3:
-		var x = randi_range(1, 20)
-		var y = randi_range(1, 20)
+		var x = randi_range(1, 100)
+		var y = randi_range(1, 50)
 		result.append({
 			"question": "Using this formula x + y = z\nGiven x = %d and y = %d. What is z?" % [x, y],
 			"answer": x + y
@@ -105,8 +105,8 @@ func generate_algebra_questions() -> Array:
 
 	# x + y = z find x
 	for i in 3:
-		var x = randi_range(1, 20)
-		var y = randi_range(1, 20)
+		var x = randi_range(1, 50)
+		var y = randi_range(1, 100)
 		result.append({
 			"question": "Using this formula x + y = z\nGiven y = %d and z = %d. What is x?" % [y, x + y],
 			"answer": x
@@ -114,7 +114,7 @@ func generate_algebra_questions() -> Array:
 
 	# m - n = p find p
 	for i in 3:
-		var m = randi_range(10, 30)
+		var m = randi_range(10, 100)
 		var n = randi_range(1, m)
 		result.append({
 			"question": "Using this formula m - n = p\nGiven m = %d and n = %d. What is p?" % [m, n],
@@ -123,8 +123,8 @@ func generate_algebra_questions() -> Array:
 
 	# m - n = p find m
 	for i in 3:
-		var n = randi_range(1, 20)
-		var p = randi_range(1, 20)
+		var n = randi_range(1, 100)
+		var p = randi_range(1, 100)
 		result.append({
 			"question": "Using this formula m - n = p\nGiven n = %d and p = %d. What is m?" % [n, p],
 			"answer": n + p
@@ -171,9 +171,9 @@ func generate_algebra_questions() -> Array:
 
 	# x + y + z = w find w
 	for i in 3:
-		var x = randi_range(1, 10)
-		var y = randi_range(1, 10)
-		var z = randi_range(1, 10)
+		var x = randi_range(1, 50)
+		var y = randi_range(1, 50)
+		var z = randi_range(1, 50)
 		result.append({
 			"question": "Using this formula x + y + z = w\nGiven x = %d, y = %d and z = %d. What is w?" % [x, y, z],
 			"answer": x + y + z
@@ -183,7 +183,7 @@ func generate_algebra_questions() -> Array:
 	for i in 3:
 		var m = randi_range(10, 30)
 		var n = randi_range(1, m)
-		var p = randi_range(1, 10)
+		var p = randi_range(1, 50)
 		result.append({
 			"question": "Using this formula m - n + p = q\nGiven m = %d, n = %d and p = %d. What is q?" % [m, n, p],
 			"answer": m - n + p
@@ -204,9 +204,9 @@ func generate_algebra_questions() -> Array:
 
 	# x + y - z = w find w
 	for i in 3:
-		var x = randi_range(5, 20)
-		var y = randi_range(1, 15)
-		var z = randi_range(1, x + y)
+		var x = randi_range(5, 50)
+		var y = randi_range(1, 50)
+		var z = randi_range(5, x + y)
 		result.append({
 			"question": "Using this formula x + y - z = w\nGiven x = %d, y = %d and z = %d. What is w?" % [x, y, z],
 			"answer": x + y - z
@@ -216,7 +216,7 @@ func generate_algebra_questions() -> Array:
 	for i in 3:
 		var p = randi_range(2, 8)
 		var q = randi_range(2, 8)
-		var r = randi_range(1, 15)
+		var r = randi_range(1, 50)
 		result.append({
 			"question": "Using this formula p × q + r = s\nGiven p = %d, q = %d and r = %d. What is s?" % [p, q, r],
 			"answer": p * q + r

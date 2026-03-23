@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://6dcbdnuudcvc"]
+[gd_scene load_steps=6 format=3 uid="uid://6dcbdnuudcvc"]
 
 [ext_resource type="PackedScene" uid="uid://2mglw58c6tav" path="res://scenes/tools/calculator/calculator.tscn" id="1_jrjjw"]
 [ext_resource type="Script" uid="uid://d3fchw38qmwul" path="res://scenes/question/question.gd" id="1_v7jrx"]
+[ext_resource type="FontFile" uid="uid://014uaj0ni2r5" path="res://scenes/question/Josefin_Sans/static/JosefinSans-ExtraLightItalic.ttf" id="2_33idg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrjjw"]
 
@@ -35,6 +36,7 @@ offset_top = 22.0
 offset_right = 1123.6555
 offset_bottom = 167.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_33idg")
 theme_override_font_sizes/font_size = 32
 text = "Questions"
 vertical_alignment = 3
@@ -53,6 +55,7 @@ theme_override_colors/font_hovered_selected_color = Color(0.25490198, 1, 1, 1)
 theme_override_colors/font_selected_color = Color(1, 1, 0.29803923, 1)
 theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 72
+theme_override_fonts/font = ExtResource("2_33idg")
 theme_override_font_sizes/font_size = 24
 select_mode = 1
 item_count = 4
