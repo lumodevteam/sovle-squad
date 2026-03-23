@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://n4xus1c6xss8"]
+
+[ext_resource type="Texture2D" uid="uid://ddxpll8f6ale1" path="res://assets/NumberLine.png" id="1_q3g78"]
+[ext_resource type="Script" uid="uid://b3inqvl1g3ic" path="res://scenes/entities/numberLine/numberLine.gd" id="2_181vc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odo72"]
+atlas = ExtResource("1_q3g78")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3g78"]
+size = Vector2(4.375, 6.375)
+
+[node name="line" type="Sprite2D"]
+scale = Vector2(8, 8)
+texture = SubResource("AtlasTexture_odo72")
+script = ExtResource("2_181vc")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-11.125, 2.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.5, -0.375)
+shape = SubResource("RectangleShape2D_q3g78")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

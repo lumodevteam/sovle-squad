@@ -15,6 +15,10 @@ run/main_scene="uid://cvnis7n08fsfd"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+NumberLine="*res://scenes/entities/numberLine/number_line.gd"
+
 [dotnet]
 
 project/assembly_name="Solve Squad"

@@ -1,12 +1,24 @@
-extends Sprite2D
+extends Node2D
+
 var isDragging = false # state management
 var mouseOffset #center's the mouse on click
 var delay = 15
 
-func change_state(state) -> void:
-	self.set_frame(state)
+@export var animated_sprite: AnimatedSprite2D
+@export var sprite: Sprite2D
 
-@onready var originSprite = self
+var id: int
+
+func _ready() -> void:
+	NumberLine.body_entered.connect(_on_body_entered)
+	
+func _on_body_entered(body_position: Vector2, id: int) -> void:
+	if self.id == id and isDragging == false:
+		animated_sprite.selected = false
+		sprite.position = body_position
+
+func change_state(state: int) -> void:
+	animated_sprite.frame = state
 
 func _physics_process(delta):
 	if isDragging == true:
@@ -16,8 +28,11 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			if get_rect().has_point(to_local(event.position)):
+			if sprite.get_rect().has_point(to_local(event.position)):
 				print('clicked')
 				isDragging = true
+				animated_sprite.selected = true
+			else:
+				animated_sprite.selected = false
 		else:
 			isDragging = false
