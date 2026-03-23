@@ -14,12 +14,7 @@ func show_question():
 	var algebra = questions["Algebra"]
 	var entry = algebra[randi() % algebra.size()]
 	question_area.text = entry["question"]
-	current_answer = entry["answer"]
-	show_answers(current_answer)
-	
-func show_answers(correct_answer: int):
-	option_area.clear()
-	var wrong_answers = []
+
 	
 
 func generate_questions():
