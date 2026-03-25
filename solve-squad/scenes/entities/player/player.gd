@@ -62,7 +62,6 @@ func _on_setup_battle() -> void:
 	$Sprite2D.flip_h = false
 	
 func _on_end_battle(_player_won) -> void:
-	print("battle ended")
 	animation_tree.active = true
 
 func _physics_process(_delta: float) -> void: # called every physics frame
@@ -130,7 +129,6 @@ func update_animation() -> void: # updates the animation based on the current st
 			
 func attack() -> int: # player is attacking enemy
 	atk = 1
-	print(moves[atk]["name"])
 	return moves[atk]["dmg"]
 	
 	

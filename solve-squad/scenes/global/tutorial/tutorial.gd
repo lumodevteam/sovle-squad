@@ -1,8 +1,8 @@
 extends Node2D
 
 const player_scene = preload("res://scenes/entities/player/player.tscn")
-const enemy_scene = preload("res://scenes/entities/enemy/enemy.tscn")
-const npc_scene = preload("res://scenes/entities/npc/npc.tscn")
+const enemy_scene = preload("res://scenes/entities/npcs/enemy/enemy.tscn")
+const npc_scene = preload("res://scenes/entities/npcs/npc/npc.tscn")
 
 const player_starting_pos: Vector2 = Vector2(0, 0)
 const enemy1_starting_pos: Vector2 = Vector2(-200, -320)
@@ -34,7 +34,6 @@ func _ready() -> void:
 		npc.position = npc_starting_pos
 	
 func spawn_sprite(pos: Vector2, sprite: PackedScene) -> Node2D:
-	print("Spawning %s at: %s" % [sprite, pos])
 	var new_sprite = sprite.instantiate()
 	new_sprite.position = pos
 	add_child(new_sprite)

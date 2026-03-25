@@ -20,7 +20,6 @@ func _ready():
 	setup_battle.connect(_on_setup_battle)
 
 func _on_start_battle(player, enemy) -> void: # battle function
-	print("hello")
 	battling = true
 	battle_player = player
 	battle_enemy = enemy

@@ -14,7 +14,6 @@ func change_scene(scene: PackedScene) -> void:
 		Transition.transition()
 		await Transition.on_transition_finished
 		GlobalSprites.reparent_sprites(GlobalSprites)
-		print(GlobalSprites.sprites)
 		get_tree().change_scene_to_packed(scene)
 		await get_tree().process_frame
 		

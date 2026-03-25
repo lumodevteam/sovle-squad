@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Solve Squad"
-run/main_scene="uid://2mglw58c6tav"
+run/main_scene="uid://d2nh1tce5gdx"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 

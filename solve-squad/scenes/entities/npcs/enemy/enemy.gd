@@ -7,7 +7,6 @@ var identifier: String
 var player_in_range: Node2D = null # whether the player is in range or not
 var defeated: bool = false:
 	set(value):
-		print("Defeated setter called with: ", value)
 		defeated = value
 		if defeated:
 			_on_defeated()
