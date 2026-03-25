@@ -17,7 +17,10 @@ func _ready():
 			if btn.name.is_valid_int():
 				btn.pressed.connect(Callable(self,"_number_buttons").bind(btn)) 
 
+
 func _number_buttons(btn):
+	if work_area.text.length() >= 10:
+		return
 	if not has_been_used:
 		work_area.text = btn.name
 		has_been_used = true
@@ -27,26 +30,32 @@ func _number_buttons(btn):
 
 func _on_equal_btn_pressed():
 	has_been_used = false
+	decimal_allowed = true
 	var result : float
 	second_number = work_area.text.to_float()
 	match operator:
 		"+":
 			result = first_number + second_number
 		"-":
-			result = second_number - first_number
+			result = first_number - second_number
 		"*":
 			result = first_number * second_number
 		"/":
 			result = first_number / second_number
-			prev_work_area.text = str(first_number) + " " + operator + " " + str(second_number)
-	work_area.text = str(snappedf(result,0.000000001))
-
+	prev_work_area.text = str(first_number) + " " + operator + " " + str(second_number)
+	var result_text = str(snappedf(result, 0.000000001))
+	
+	if result_text.length() > 10:
+		result_text = result_text.left(10)
+	work_area.text = result_text
+	first_number = result
+	operator = ""
 
 func _on_addition_btn_pressed():
 	has_been_used = false
 	first_number = work_area.text.to_float()
 	operator = "+"
-	prev_work_area.text = str(second_number) + " " + operator
+	prev_work_area.text = str(first_number) + " " + operator
 
 
 func _on_subtraction_btn_pressed() -> void:

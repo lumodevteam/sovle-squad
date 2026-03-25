@@ -3,37 +3,53 @@ extends Control
 @onready var option_area: ItemList = $"Option Area"
 
 var questions = {}
+var current_strand = ""
 var current_answer: int = 0
 
 func _ready():
+	option_area.select_mode = ItemList.SELECT_SINGLE
 	generate_questions()
+	set_strand("Algebra")
 	show_question()
 	print(questions)
 
+func set_strand(strand: String):
+	current_strand = strand
+
 func show_question():
-	var algebra = questions["Algebra"]
-	var entry = algebra[randi() % algebra.size()]
+	var strand = questions[current_strand]
+	var entry = strand[randi() % strand.size()]
+	#var algebra = questions["Algebra"]
+	#var entry = algebra[randi() % algebra.size()]
 	question_area.text = entry["question"]
+	current_answer = entry["answer"]
+	answers(current_answer)
 
-func answered_question():
-	var _wrong_answers = []
-	current_answer = questions["answer"]
+func answers(correct_answer: int):
+	option_area.clear()
 	
+	var wrong_answers = []
+	while wrong_answers.size() < 3:
+		var wrong = correct_answer + randi_range(-15,15)
+		if wrong != correct_answer and wrong not in wrong_answers:
+			wrong_answers.append(wrong)
+			
+	var all_answers = wrong_answers
+	all_answers.append(correct_answer)
 	
-
+	all_answers.shuffle()
+	
+	for answer in all_answers:
+		option_area.add_item(str(answer))
+		
+func _on_option_area_item_selected(index: int) -> void:
+	var selected_text = option_area.get_item_text(index)
+	if int(selected_text) == current_answer:
+		print("g")
+	else:
+		print("n")
 func generate_questions():
-	questions["Numbers"] = generate_number_questions(10)
 	questions["Algebra"] = generate_algebra_questions()
-
-# Numbers
-
-func generate_number_questions(count: int) -> Array:
-	var result = []
-	for i in count:
-		var a = randi_range(15, 100)
-		var b = randi_range(15, 100)
-		result.append({"question": "%d + %d" % [a, b], "answer": a + b})
-	return result
 
 #Algebra
 
@@ -250,7 +266,3 @@ func generate_algebra_questions() -> Array:
 		})
 
 	return result
-
-
-func _on_option_area_item_selected(index: int) -> void:
-	pass # Replace with function body.
