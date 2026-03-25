@@ -50,12 +50,12 @@ func _on_option_area_item_selected(index: int) -> void:
 		print("n")
 func generate_questions():
 	questions["Algebra"] = generate_algebra_questions()
-
+	questions["Data"] = generate_data_questions()
 #Algebra
 
 func generate_algebra_questions() -> Array:
 	var result = []
-
+	'''
 	# Solve for x addition
 	for i in 4:
 		var x = randi_range(20, 100)
@@ -264,5 +264,133 @@ func generate_algebra_questions() -> Array:
 			"question": "Using this formula x × y - z ÷ w = v\nGiven x = %d, y = %d, z = %d and w = %d. What is v?" % [x, y, z, w],
 			"answer": x * y - zdivw
 		})
+	for i in 4:
+		var multiplier = randi_range(2,5)
+		
+		var x = randi_range (2,5)
+		var y = x * multiplier
+		var z = y * multiplier
+		var w = z * multiplier
+		var v = w * multiplier
+		
+		result.append({
+			"question": "What is the multiplier on the pattern given\n %d, %d, %d, %d, %d" % [x,y,z,w,v],
+			"answer": multiplier
+		})
+	
+	for i in 4:
+		
+		var addition = randi_range(-20,20)
+		
+		var x = randi_range(2,15)
+		var y = x + addition
+		var z = y + addition
+		var w = z + addition
+		var v = w + addition
+		
+		result.append({
+			"question": "What is the pattern of the set of numbers given\n %d, %d, %d, %d, %d" %[x,y,z,w,v],
+			"answer": addition
+		})
+
+	for i in 4:
+		
+		var subtraction = randi_range(-15,-2)
+		
+		var x = randi_range(2,80)
+		var y = x + subtraction
+		var z = y + subtraction
+		var w = z + subtraction
+		var v = w + subtraction
+		
+		result.append({
+			"question": "What is the pattern of the set of numbers given\n %d, %d, %d, %d, %d" %[x,y,z,w,v],
+			"answer": subtraction
+		})
+	for  i in 4:
+		
+		var division = randi_range(2,4)
+		var x = randi_range(2,20)
+		var y = x * division
+		var z = y * division
+		var w = z * division
+		var v = w * division
+		result.append({
+			"question": "What is the divisor this set of numbers given\n %d, %d, %d, %d, %d" %[v,w,z,y,x],
+			"answer": division
+		})
+		
+	for i in 4:
+		var multiplier = randi_range(2,5)
+		
+		var x = randi_range (2,5)
+		var y = x * multiplier
+		var z = y * multiplier
+		var w = z * multiplier
+		var v = w * multiplier
+		
+		result.append({
+			"question": "What is the next term given\n %d, %d, %d, %d, %d" % [x,y,z,w,v],
+			"answer": v * multiplier
+		})
+	
+	for i in 4:
+		
+		var addition = randi_range(-20,20)
+		
+		var x = randi_range(2,15)
+		var y = x + addition
+		var z = y + addition
+		var w = z + addition
+		var v = w + addition
+		
+		result.append({
+			"question": "What is the next term given\n %d, %d, %d, %d, %d" %[x,y,z,w,v],
+			"answer": v + addition
+		})
+
+	for i in 4:
+		
+		var subtraction = randi_range(-15,-2)
+		
+		var x = randi_range(2,80)
+		var y = x + subtraction
+		var z = y + subtraction
+		var w = z + subtraction
+		var v = w + subtraction
+		
+		result.append({
+			"question": "What is the next term given\n %d, %d, %d, %d, %d" %[x,y,z,w,v],
+			"answer": v + subtraction
+		})
+	for  i in 4:
+		
+		var division = randi_range(2,4)
+		var u = randi_range(2,20)
+		var x = u * division
+		var y = x * division
+		var z = y * division
+		var w = z * division
+		var v = w * division
+		result.append({
+			"question": "What is the next term given\n %d, %d, %d, %d, %d" %[v,w,z,y,x],
+			"answer": u
+		})
+	
+	
+		'''
+	for i in 4:
+		var y = randi_range(20,30)
+		var z = randi_range(20,30)
+		var v = randi_range(20,30)
+		var x = z + v + y
+		result.append({
+			"question": "Evan went to the mall. He spend %d, on holister, %d, on food and %d, for a gift for Maria\n How much did evan spend?" %[y,z,v,],
+			"answer": x
+		
+		})
+	return result
+func generate_data_questions() -> Array:
+	var result = []
 
 	return result
