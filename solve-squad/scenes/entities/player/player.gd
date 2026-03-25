@@ -46,17 +46,24 @@ var move_direction: Vector2 = Vector2.ZERO # direction the player is moving
 var facing: String = "right" # what direction the player is facing
 var atk: int # what attack will the player use
 
+var identifier: String
+
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
 @onready var camera: Camera2D = $Camera2D
 
 func _ready() -> void:
 	Battle.setup_battle.connect(_on_setup_battle)
+	Battle.end_battle.connect(_on_end_battle)
 	
 func _on_setup_battle() -> void:
 	animation_tree.active = false
 	$Sprite2D.frame = 0
 	$Sprite2D.flip_h = false
+	
+func _on_end_battle(_player_won) -> void:
+	print("battle ended")
+	animation_tree.active = true
 
 func _physics_process(_delta: float) -> void: # called every physics frame
 	if not Battle.battling:

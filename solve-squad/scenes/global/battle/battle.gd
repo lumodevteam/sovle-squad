@@ -24,8 +24,7 @@ func _on_start_battle(player, enemy) -> void: # battle function
 	battling = true
 	battle_player = player
 	battle_enemy = enemy
-	battle_player.reparent(self)
-	battle_enemy.reparent(self)
+	GlobalSprites.hide_sprites([battle_player.identifier, battle_enemy.identifier])
 	
 func _on_setup_battle() -> void:
 	var battle_scene = get_tree().get_root().get_node("BattleScene")
@@ -70,8 +69,6 @@ func battle_over(player_won: bool) -> void:
 	battling = false
 	if player_won:
 		battle_enemy.defeated = true
-	battle_player.reparent(self)
-	battle_enemy.reparent(self)
 	end_battle.emit(player_won)
 	
 func update_gui() -> void:

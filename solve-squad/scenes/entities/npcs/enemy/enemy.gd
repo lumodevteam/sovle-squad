@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var raycast: RayCast2D = $PlayerRayCast
 
+var identifier: String
+
 var player_in_range: Node2D = null # whether the player is in range or not
 var defeated: bool = false:
 	set(value):
@@ -29,6 +31,7 @@ var moves: Dictionary = {
 
 func _ready() -> void:
 	Battle.setup_battle.connect(_on_setup_battle)
+	Battle.end_battle.connect(_on_end_battle)
 
 func _physics_process(_delta: float) -> void:
 	if raycast.is_colliding() and not Battle.battling:
@@ -61,3 +64,6 @@ func attack() -> Dictionary:
 func _on_setup_battle() -> void:
 	$Sprite2D.flip_h = true
 	raycast.enabled = false
+	
+func _on_end_battle(_player_won) -> void:
+	$Sprite2D.flip_h = false
