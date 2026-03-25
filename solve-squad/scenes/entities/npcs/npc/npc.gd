@@ -3,6 +3,8 @@ extends Node
 var player_in_range: Node2D = null
 var identifier: String
 
+var dialogue = ["Hello", "My name is Joe", "What can I do for you today?"]
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		print("player is in range")
@@ -17,4 +19,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		interact()
 		
 func interact() -> void:
-	print("hello")
+	Tutorial.npc_dialogue_added.emit(dialogue)

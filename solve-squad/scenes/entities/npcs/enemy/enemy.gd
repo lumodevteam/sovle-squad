@@ -4,6 +4,8 @@ extends Node2D
 
 var identifier: String
 
+var dialogue: Array = ["You already beat me!", "Go find other enemies to beat!"]
+
 var player_in_range: Node2D = null # whether the player is in range or not
 var defeated: bool = false:
 	set(value):
@@ -49,7 +51,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		interact()
 		
 func interact() -> void:
-	print("you already beat me!")
+	Tutorial.npc_dialogue_added.emit(dialogue)
 
 func collision(body: Node2D) -> void:
 	if body.is_in_group("player"):

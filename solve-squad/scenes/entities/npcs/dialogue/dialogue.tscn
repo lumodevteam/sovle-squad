@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://hmmd3dnle0qa"]
+
+[ext_resource type="Script" uid="uid://c01kahl7qdy1h" path="res://scenes/entities/npcs/dialogue/dialogue.gd" id="1_ibrbx"]
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ibrbx")
+
+[node name="DialogueText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 251.0
+offset_top = -98.0
+offset_right = 851.0
+offset_bottom = -25.0
+grow_vertical = 0
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 1
+language = "en_CA"
+
+[node name="ContinueMessage" type="RichTextLabel" parent="DialogueText"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+text_direction = 1
