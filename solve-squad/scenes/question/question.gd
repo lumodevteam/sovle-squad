@@ -15,6 +15,10 @@ func show_question():
 	var entry = algebra[randi() % algebra.size()]
 	question_area.text = entry["question"]
 
+func answered_question():
+	var _wrong_answers = []
+	current_answer = questions["answer"]
+	
 	
 
 func generate_questions():
@@ -246,3 +250,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	return result
+
+
+func _on_option_area_item_selected(index: int) -> void:
+	pass # Replace with function body.
