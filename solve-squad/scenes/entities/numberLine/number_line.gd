@@ -19,8 +19,8 @@ func create_number_line() -> void:
 	line3.position = Vector2(8*32*3, 100)
 	add_child(line3)
 	for i in range(10):
-		var num_1 = number_scene.instantiate()
-		num_1.change_state(i)
-		num_1.position = Vector2(32*8*i + 32*8, 150)
-		num_1.id = i
-		add_child(num_1)
+		var num = number_scene.instantiate()
+		num.change_state(i)
+		num.position = Vector2(32*4*i + 32*8, 125)
+		num.id = i
+		add_child(num)

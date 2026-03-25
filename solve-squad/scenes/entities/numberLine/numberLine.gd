@@ -1,10 +1,15 @@
 extends Sprite2D
 
+@onready var area: Area2D = $Area2D
+
 enum State { #different parts of line and numbers
 	middle,
 	right,
 	left,
 }
+
+func _ready() -> void:
+	print(area.global_position)
 
 func change_state(state) -> void:
 	self.set_frame(state)
@@ -23,8 +28,5 @@ func change_state(state) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("tets")
-	print(body.get_parent().name)
 	if body.get_parent().name == "number":
-		print("buttercup")
-		NumberLine.body_entered.emit(self.position, body.get_parent().get_parent().id)
+		NumberLine.body_entered.emit(area.global_position, body.get_parent().get_parent().id)

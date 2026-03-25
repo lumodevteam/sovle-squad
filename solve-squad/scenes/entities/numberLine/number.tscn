@@ -7,6 +7,10 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_r3762"]
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mik0x"]
+atlas = ExtResource("2_h76h0")
+region = Rect2(0, 96, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_n88n4"]
 atlas = ExtResource("2_h76h0")
 region = Rect2(0, 0, 32, 32)
@@ -43,13 +47,12 @@ region = Rect2(32, 64, 32, 32)
 atlas = ExtResource("2_h76h0")
 region = Rect2(64, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mik0x"]
-atlas = ExtResource("2_h76h0")
-region = Rect2(0, 96, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_simlw"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mik0x")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n88n4")
 }, {
@@ -76,9 +79,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ht8bq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mik0x")
 }],
 "loop": true,
 "name": &"default",
@@ -94,17 +94,24 @@ animated_sprite = NodePath("number/AnimatedSprite2D")
 sprite = NodePath("number")
 
 [node name="number" type="Sprite2D" parent="."]
+position = Vector2(0, 24)
 scale = Vector2(8, 8)
 texture = SubResource("AtlasTexture_r3762")
 region_rect = Rect2(0, 0, 32, 32)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="number"]
-position = Vector2(0, -0.125)
 sprite_frames = SubResource("SpriteFrames_simlw")
+frame = 2
+frame_progress = 0.12787193
+offset = Vector2(0.5, 0.5)
 script = ExtResource("3_vgl6b")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="number"]
+input_pickable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="number/CharacterBody2D"]
-position = Vector2(-0.375, -0.6875)
 shape = SubResource("RectangleShape2D_nyarm")
+
+[connection signal="mouse_entered" from="number/CharacterBody2D" to="." method="_on_character_body_2d_mouse_entered"]
+[connection signal="mouse_exited" from="number/CharacterBody2D" to="." method="_on_character_body_2d_mouse_exited"]
+[connection signal="mouse_shape_entered" from="number/CharacterBody2D" to="." method="_on_character_body_2d_mouse_shape_entered"]
