@@ -32,7 +32,7 @@ func answers(correct_answer: int):
 	var wrong_answers = []
 	while wrong_answers.size() < 3:
 		var wrong = correct_answer + randi_range(-15,15)
-		if wrong != correct_answer:
+		if wrong != correct_answer and wrong not in wrong_answers:
 			wrong_answers.append(wrong)
 			
 	var all_answers = wrong_answers
