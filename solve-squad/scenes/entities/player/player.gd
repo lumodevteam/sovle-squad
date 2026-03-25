@@ -15,16 +15,60 @@ enum State { # player states
 @export var speed: int = 150 # base movement speed of the player
 @export var sprint_speed: int = 200 # sprint speed of the player
 @export var current_speed: int # speed of the player
+@export var health: int = 100 # health of the player
+@export var lvl: int = 1 # lvl of the player
+@export var dmg: int = 100 # dmg of the player
+@export var def: int = 0 # how much defense the player has
+
+var moves: Dictionary = {
+	1: {
+		"name" : "basic attack",
+		"spd" : randi() % 10 + 1,
+		"dmg" : dmg / 2
+	},
+	2: {
+		"name" : "less basic attack",
+		"spd" : randi() % 10 + 1,
+		"dmg" : dmg / 2
+	},
+	3: {
+		"name" : "even less basic attack",
+		"spd" : randi() % 10 + 1,
+		"dmg" : dmg / 2
+	},
+	4: {
+		"name" : "back",
+	}
+}
 
 var state: State = State.IDLE # current state of the player
 var move_direction: Vector2 = Vector2.ZERO # direction the player is moving
 var facing: String = "right" # what direction the player is facing
+var atk: int # what attack will the player use
+
+var identifier: String
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
+@onready var camera: Camera2D = $Camera2D
+
+func _ready() -> void:
+	Battle.setup_battle.connect(_on_setup_battle)
+	Battle.end_battle.connect(_on_end_battle)
+	
+func _on_setup_battle() -> void:
+	animation_tree.active = false
+	$Sprite2D.frame = 0
+	$Sprite2D.flip_h = false
+	
+func _on_end_battle(_player_won) -> void:
+	print("battle ended")
+	animation_tree.active = true
 
 func _physics_process(_delta: float) -> void: # called every physics frame
-	movement_loop() # handle player movement
+	if not Battle.battling:
+		movement_loop() # handle player movement
+		
 
 func movement_loop() -> void: # handles player movement input and movement
 	move_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) # get horizontal input
@@ -83,3 +127,11 @@ func update_animation() -> void: # updates the animation based on the current st
 			animation_playback.travel("attack")
 		State.DEAD:
 			animation_playback.travel("dead")
+			
+func attack() -> int: # player is attacking enemy
+	atk = 1
+	print(moves[atk]["name"])
+	return moves[atk]["dmg"]
+	
+	
+	

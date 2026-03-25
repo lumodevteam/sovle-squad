@@ -15,6 +15,13 @@ run/main_scene="uid://2mglw58c6tav"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Battle="*res://scenes/global/battle/battle.gd"
+Transition="*res://scenes/global/transition/transition.tscn"
+Navigation="*res://scenes/global/navigation/navigation.gd"
+GlobalSprites="*res://scenes/global/global_sprites/global_sprites.gd"
+
 [dotnet]
 
 project/assembly_name="Solve Squad"
@@ -51,6 +58,11 @@ interact={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_render/layer_1="player"
+2d_render/layer_2="NPC"
 
 [rendering]
 

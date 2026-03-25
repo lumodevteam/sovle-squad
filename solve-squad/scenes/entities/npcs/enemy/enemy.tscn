@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4ptsnun1j3k2"]
+
+[ext_resource type="Texture2D" uid="uid://dhbfm8cangmv6" path="res://assets/soldierDolphinSpriteSheet.png" id="1_1y44r"]
+[ext_resource type="Script" uid="uid://d1l86m6b635uv" path="res://scenes/entities/npcs/enemy/enemy.gd" id="2_1y44r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p5uw1"]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1y44r"]
+radius = 45.0
+height = 102.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("2_1y44r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_p5uw1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 2
+position = Vector2(0, -16)
+texture = ExtResource("1_1y44r")
+hframes = 8
+vframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="PlayerRayCast" type="RayCast2D" parent="."]
+position = Vector2(0, -2)
+target_position = Vector2(55, 0)
+
+[node name="Area2D" type="Area2D" parent="." groups=["npc"]]
+visibility_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["npc"]]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_1y44r")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
