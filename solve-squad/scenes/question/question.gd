@@ -8,7 +8,6 @@ var current_answer: int = 0
 
 func _ready():
 	option_area.select_mode = ItemList.SELECT_SINGLE
-	option_area.item_selected.connect(_on_option_area_item_selected)
 	generate_questions()
 	set_strand("Algebra")
 	show_question()
