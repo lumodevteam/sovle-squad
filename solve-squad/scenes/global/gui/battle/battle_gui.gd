@@ -2,17 +2,17 @@ extends Control
 
 signal player_acknowledged
 
-@onready var battle_menu: Panel = $Battle_Menu
-@onready var menu: GridContainer = $Battle_Menu/Menu
-@onready var moves: GridContainer = $Battle_Menu/Moves
+@onready var battle_menu: Panel = $CanvasLayer/Battle_Menu
+@onready var menu: GridContainer = $CanvasLayer/Battle_Menu/Menu
+@onready var moves: GridContainer = $CanvasLayer/Battle_Menu/Moves
 
-@onready var enemy_health_bar: ProgressBar = $Enemy_Info/Enemy_Health
-@onready var enemy_name_label: Label = $Enemy_Info/Enemy_Name
-@onready var player_health_bar: ProgressBar = $Player_Info/Player_Health
-@onready var player_name_label: Label = $Player_Info/Player_Name
+@onready var enemy_health_bar: ProgressBar = $CanvasLayer/Enemy_Info/Enemy_Health
+@onready var enemy_name_label: Label = $CanvasLayer/Enemy_Info/Enemy_Name
+@onready var player_health_bar: ProgressBar = $CanvasLayer/Player_Info/Player_Health
+@onready var player_name_label: Label = $CanvasLayer/Player_Info/Player_Name
 
-@onready var battle_log: RichTextLabel = $BattleLog
-@onready var continue_message: RichTextLabel = $BattleLog/ContinueMessage
+@onready var battle_log: RichTextLabel = $CanvasLayer/BattleInfo/BattleLog
+@onready var continue_message: RichTextLabel = $CanvasLayer/BattleInfo/BattleLog/ContinueMessage
 
 var continue_message_text: String = "Press any key to continue."
 

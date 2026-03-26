@@ -57,8 +57,8 @@ var in_conversation = false
 func _ready() -> void:
 	Battle.setup_battle.connect(_on_setup_battle)
 	Battle.end_battle.connect(_on_end_battle)
-	Tutorial.npc_dialogue_added.connect(_on_npc_dialogue_added)
-	Tutorial.conversation_over.connect(_on_conversation_over)
+	Gui.dialogue_started.connect(_on_dialogue_started)
+	Gui.conversation_over.connect(_on_conversation_over)
 	
 func _on_setup_battle() -> void:
 	animation_tree.active = false
@@ -135,8 +135,19 @@ func attack() -> int: # player is attacking enemy
 	atk = 1
 	return moves[atk]["dmg"]
 	
-func _on_npc_dialogue_added(_text):
+func _on_dialogue_started(_dialogue_tree):
 	in_conversation = true
+	if facing == "left":
+		$Sprite2D.flip_h = true
+		state = State.IDLE
+	elif facing == "right":
+		$Sprite2D.flip_h = false
+		state = State.IDLE
+	elif facing == "away":
+		state = State.IDLE_AWAY
+	elif facing == "toward":
+		state = State.IDLE_TOWARD
+	update_animation()
 	
 func _on_conversation_over() -> void:
 	in_conversation = false

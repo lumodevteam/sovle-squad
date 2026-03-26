@@ -1,8 +1,5 @@
 extends Node2D
 
-signal npc_dialogue_added(text: String)
-signal conversation_over
-
 const player_scene = preload("res://scenes/entities/player/player.tscn")
 const enemy_scene = preload("res://scenes/entities/npcs/enemy/enemy.tscn")
 const npc_scene = preload("res://scenes/entities/npcs/npc/npc.tscn")
