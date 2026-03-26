@@ -378,18 +378,42 @@ func generate_algebra_questions() -> Array:
 		})
 	
 	
-		'''
+	
 	for i in 4:
 		var y = randi_range(20,30)
 		var z = randi_range(20,30)
 		var v = randi_range(20,30)
 		var x = z + v + y
 		result.append({
-			"question": "Evan went to the mall. He spend %d, on holister, %d, on food and %d, for a gift for Maria\n How much did evan spend?" %[y,z,v,],
+			"question": "Evan went to the mall. He spent $%d on Hollister, $%d on food and $%d for a gift for Maria\n How much did Evan spend at the mall?" %[y,z,v,],
 			"answer": x
+	
+		})
+		'''
+	for i in 4:
+		var y = randi_range(20,30)
+		var z = randi_range(20,30)
+		var v = randi_range(20,30)
+		var x = randi_range(100,150)
 		
+		var a = x - y - z - v
+		result.append({
+			"question": "Nih brought $%d to spend on groceries. He spends $%d on meats, \n$%d on vegetables and fruits and finally $%d on candy.\nHow much does he have left?" %[x,y,z,v],
+			"answer": a
+		})
+		
+	for i in 4:
+		var y = randi_range(20,30)
+		var v = randi_range(20,30)
+		var x = randi_range(100,150)
+		var z = x - y - v
+		result.append({
+			"question": "Dih went on a shopping haul she spent $%d. She had bought 3 things.\n She spent $%d on Jewlery, $%d on clothes the rest she spent on shoes.\n How much did she spend on shoes?" %[x,y,v],
+			"answer": z
 		})
 	return result
+	
+	
 func generate_data_questions() -> Array:
 	var result = []
 
