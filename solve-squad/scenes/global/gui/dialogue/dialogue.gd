@@ -51,11 +51,11 @@ func type_text(text: String, label: RichTextLabel) -> void:
 func display_continue_message() -> void:
 	type_text(continue_message_text, continue_message)
 
-func _unhandled_input(_event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not showing_options:
 		if is_typing:
 			current_label.visible_characters = current_label.get_total_character_count()
-		else:
+		elif event.is_pressed():
 			player_acknowledged.emit()
 		
 func _on_dialogue_started(dialogue_tree) -> void:
