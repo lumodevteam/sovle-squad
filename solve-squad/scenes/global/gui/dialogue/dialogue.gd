@@ -3,8 +3,7 @@ extends Control
 signal player_acknowledged
 
 @onready var dialogue_panel: Panel = $CanvasLayer/DialoguePanel
-@onready var options_panel: Panel = $CanvasLayer/DialoguePanel/OptionsPanel
-@onready var options_container: VBoxContainer = $CanvasLayer/DialoguePanel/OptionsPanel/OptionsContainer
+@onready var options_container: VBoxContainer = $CanvasLayer/DialoguePanel/OptionsContainer
 @onready var dialogue: RichTextLabel = $CanvasLayer/DialoguePanel/DialogueText
 @onready var continue_message: RichTextLabel =  $CanvasLayer/DialoguePanel/DialogueText/ContinueMessage
 
@@ -86,7 +85,8 @@ func show_text(text: Array) -> void:
 		await add_log(line, true)
 		
 func show_options(options: Array) -> int:
-	options_panel.visible = true
+	for child in options_container.get_children():
+		child.queue_free()
 	showing_options = true
 	selected_option = -1
 	
@@ -99,10 +99,9 @@ func show_options(options: Array) -> int:
 			selected_option = captured_i
 			player_acknowledged.emit()
 		)
-	
+
 	await player_acknowledged
 	showing_options = false
-	options_panel.visible = false
 	for child in options_container.get_children():
 		child.queue_free()
 	return selected_option

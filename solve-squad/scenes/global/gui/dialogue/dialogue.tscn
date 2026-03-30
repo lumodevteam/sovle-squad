@@ -24,25 +24,6 @@ offset_top = -120.0
 offset_right = -300.0
 offset_bottom = -20.0
 
-[node name="OptionsPanel" type="Panel" parent="CanvasLayer/DialoguePanel"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -200.0
-offset_top = -150.0
-offset_bottom = -150.0
-
-[node name="OptionsContainer" type="VBoxContainer" parent="CanvasLayer/DialoguePanel/OptionsPanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
-
 [node name="DialogueText" type="RichTextLabel" parent="CanvasLayer/DialoguePanel"]
 layout_mode = 1
 anchors_preset = -1
@@ -79,3 +60,14 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 text_direction = 1
+
+[node name="OptionsContainer" type="VBoxContainer" parent="CanvasLayer/DialoguePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
