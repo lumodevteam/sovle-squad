@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://1mbw53ennn1x"]
+[gd_scene load_steps=16 format=3 uid="uid://1mbw53ennn1x"]
 
 [ext_resource type="Script" uid="uid://dk7qd4k81ftfo" path="res://scenes/entities/numberLine/numbers.gd" id="1_nyarm"]
 [ext_resource type="Texture2D" uid="uid://c0a32qykre15h" path="res://assets/Numbers.png" id="2_h76h0"]
-[ext_resource type="Script" uid="uid://um3e8ass73s7" path="res://scenes/entities/numberLine/changeSprite.gd" id="3_vgl6b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r3762"]
 region = Rect2(0, 0, 32, 32)
@@ -86,7 +85,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nyarm"]
-size = Vector2(4.5, 8.875)
+size = Vector2(4.5, 6)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("animated_sprite", "sprite")]
 script = ExtResource("1_nyarm")
@@ -104,7 +103,6 @@ sprite_frames = SubResource("SpriteFrames_simlw")
 frame = 2
 frame_progress = 0.12787193
 offset = Vector2(0.5, 0.5)
-script = ExtResource("3_vgl6b")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="number"]
 input_pickable = true

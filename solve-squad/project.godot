@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-NumberLine="*res://scenes/entities/numberLine/number_line.gd"
+SnapManager="*res://scenes/entities/numberLine/snap_manager.gd"
 
 [dotnet]
 

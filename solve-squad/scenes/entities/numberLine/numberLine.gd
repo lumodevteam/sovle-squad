@@ -1,6 +1,6 @@
 extends Sprite2D
 
-@onready var area: Area2D = $Area2D
+signal number_snapped(body: Node2D)
 
 enum State { #different parts of line and numbers
 	middle,
@@ -9,7 +9,8 @@ enum State { #different parts of line and numbers
 }
 
 func _ready() -> void:
-	print(area.global_position)
+	number_snapped.connect(_on_number_snapped)
+	
 
 func change_state(state) -> void:
 	self.set_frame(state)
@@ -27,6 +28,14 @@ func change_state(state) -> void:
 		#clone.scale = Vector2(1, 1)
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_number_snapped(body: Node2D, area: Area2D) -> void:
 	if body.get_parent().name == "number":
-		NumberLine.body_entered.emit(area.global_position, body.get_parent().get_parent().id)
+		SnapManager.body_entered.emit(area.global_position, body.get_parent().get_parent().id)
+		
+func map_slots(starting_index: int) -> int:
+	SnapManager.slot_mapping[$Area2D1.global_position] = starting_index
+	SnapManager.slot_mapping[$Area2D2.global_position] = starting_index + 1
+	SnapManager.slot_mapping[$Area2D3.global_position] = starting_index + 2
+	SnapManager.slot_mapping[$Area2D4.global_position] = starting_index + 3
+	
+	return starting_index + 4
