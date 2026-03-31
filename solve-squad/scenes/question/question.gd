@@ -9,7 +9,7 @@ var current_answer: int = 0
 func _ready():
 	option_area.select_mode = ItemList.SELECT_SINGLE
 	generate_questions()
-	set_strand("Algebra")
+	set_strand("Data")
 	show_question()
 	print(questions)
 
@@ -38,7 +38,6 @@ func answers(correct_answer: int):
 	all_answers.append(correct_answer)
 	
 	all_answers.shuffle()
-	
 	for answer in all_answers:
 		option_area.add_item(str(answer))
 		
@@ -49,13 +48,13 @@ func _on_option_area_item_selected(index: int) -> void:
 	else:
 		print("n")
 func generate_questions():
-	questions["Algebra"] = generate_algebra_questions()
+	#questions["Algebra"] = generate_algebra_questions()
 	questions["Data"] = generate_data_questions()
 #Algebra
-
+	'''
 func generate_algebra_questions() -> Array:
 	var result = []
-	'''
+
 	# Solve for x addition
 	for i in 4:
 		var x = randi_range(20, 100)
@@ -389,7 +388,7 @@ func generate_algebra_questions() -> Array:
 			"answer": x
 	
 		})
-		'''
+
 	for i in 4:
 		var y = randi_range(20,30)
 		var z = randi_range(20,30)
@@ -412,9 +411,22 @@ func generate_algebra_questions() -> Array:
 			"answer": z
 		})
 	return result
-	
-	
+
+	'''
 func generate_data_questions() -> Array:
 	var result = []
-
+	
+	for i in 4:
+		var w = randi_range(20,30)
+		var v = randi_range(20,30)
+		var x = randi_range(20,30)
+		var y = randi_range(20,30)
+		var z = randi_range(20,30)
+		
+		result.append({
+			"question":"Find the mean of the given set of numbers.\n(%d, %d, %d, %d, %d)" %[w,v,x,y,z],
+			"answer": float(w+v+x+y+z)/(5)
+		})
+	
+	
 	return result
