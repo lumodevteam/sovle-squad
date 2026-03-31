@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4ptsnun1j3k2"]
 
-[ext_resource type="Texture2D" uid="uid://dhbfm8cangmv6" path="res://assets/soldierDolphinSpriteSheet.png" id="1_1y44r"]
+[ext_resource type="Texture2D" uid="uid://cp5vysmr5f8ju" path="res://assets/soldierDolphinSpriteSheet.png" id="1_1y44r"]
 [ext_resource type="Script" uid="uid://d1l86m6b635uv" path="res://scenes/entities/npcs/enemy/enemy.gd" id="2_1y44r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p5uw1"]

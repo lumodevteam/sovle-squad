@@ -4,6 +4,13 @@ extends Node2D
 
 var identifier: String
 
+var dialogue: Dictionary = {
+	"start" : {
+		"text" : ["You already beat me!", "Go find other enemies to beat!"],
+		"options" : []
+	}
+}
+
 var player_in_range: Node2D = null # whether the player is in range or not
 var defeated: bool = false:
 	set(value):
@@ -45,11 +52,11 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		player_in_range = null
 		
 func _unhandled_input(event: InputEvent) -> void:
-	if player_in_range and event.is_action_pressed("interact"):
+	if player_in_range and event.is_action_pressed("interact") and defeated:
 		interact()
 		
 func interact() -> void:
-	print("you already beat me!")
+	Gui.dialogue_started.emit(dialogue)
 
 func collision(body: Node2D) -> void:
 	if body.is_in_group("player"):

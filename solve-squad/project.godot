@@ -21,6 +21,8 @@ Battle="*res://scenes/global/battle/battle.gd"
 Transition="*res://scenes/global/transition/transition.tscn"
 Navigation="*res://scenes/global/navigation/navigation.gd"
 GlobalSprites="*res://scenes/global/global_sprites/global_sprites.gd"
+Tutorial="*res://scenes/global/tutorial/tutorial.gd"
+Gui="*res://scenes/global/gui/gui.gd"
 
 [dotnet]
 
