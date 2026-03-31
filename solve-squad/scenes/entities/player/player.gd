@@ -67,7 +67,6 @@ func exp_gained() -> void:
 	if exp >= 100:
 		lvl += floor(float(exp) / 100)
 		exp %= 100
-		Gui.info.emit(level_up_text + str(lvl))
 	
 func _on_setup_battle() -> void:
 	animation_tree.active = false
