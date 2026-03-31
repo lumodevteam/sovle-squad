@@ -18,6 +18,8 @@ var selected_option: int = -1
 func _ready() -> void:
 	Gui.dialogue_started.connect(_on_dialogue_started)
 	Gui.conversation_over.connect(_on_conversation_over)
+	Gui.info.connect(_on_info)
+	print("info connected: ", Gui.info.is_connected(_on_info))
 
 func add_log(text: String, continue_text: bool) -> void:
 	await type_text(text, dialogue)
@@ -65,6 +67,12 @@ func _on_dialogue_started(dialogue_tree) -> void:
 func _on_conversation_over() -> void:
 	dialogue_panel.visible = false
 	dialogue_tree = {}
+	
+func _on_info(text) -> void:
+	print("info signal received: ", text)
+	dialogue_panel.visible = true
+	await add_log(text, true)
+	dialogue_panel.visible = false
 
 func run_dialogue(node_key: String) -> void:
 	var node = dialogue_tree[node_key]

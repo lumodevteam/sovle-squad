@@ -5,6 +5,7 @@ signal end_battle(player_won: bool)
 signal instantiate_battle_gui
 signal move_selected(move_index: int)
 signal setup_battle
+signal gain_exp
 
 var battling: bool = false # is there a battle happening
 var rng = RandomNumberGenerator.new()
@@ -67,6 +68,7 @@ func enemy_turn() -> void:
 func battle_over(player_won: bool) -> void:
 	battling = false
 	if player_won:
+		gain_exp.emit(battle_enemy.lvl)
 		battle_enemy.defeated = true
 	end_battle.emit(player_won)
 	

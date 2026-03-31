@@ -17,6 +17,7 @@ enum State { # player states
 @export var current_speed: int # speed of the player
 @export var health: int = 100 # health of the player
 @export var lvl: int = 1 # lvl of the player
+@export var exp: int = 0
 @export var dmg: int = 100 # dmg of the player
 @export var def: int = 0 # how much defense the player has
 
@@ -24,17 +25,17 @@ var moves: Dictionary = {
 	1: {
 		"name" : "basic attack",
 		"spd" : randi() % 10 + 1,
-		"dmg" : dmg / 2
+		"dmg" : (dmg / 2) * lvl
 	},
 	2: {
 		"name" : "less basic attack",
 		"spd" : randi() % 10 + 1,
-		"dmg" : dmg / 2
+		"dmg" : (dmg / 2) * lvl
 	},
 	3: {
 		"name" : "even less basic attack",
 		"spd" : randi() % 10 + 1,
-		"dmg" : dmg / 2
+		"dmg" : (dmg / 2) * lvl
 	},
 	4: {
 		"name" : "back",
@@ -48,7 +49,8 @@ var atk: int # what attack will the player use
 
 var identifier: String
 
-var in_conversation = false
+var in_conversation: bool = false
+var level_up_text: String = "Level up! Player leveled up to lvl "
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
@@ -57,8 +59,15 @@ var in_conversation = false
 func _ready() -> void:
 	Battle.setup_battle.connect(_on_setup_battle)
 	Battle.end_battle.connect(_on_end_battle)
+	Battle.gain_exp.connect(_on_gain_exp)
 	Gui.dialogue_started.connect(_on_dialogue_started)
 	Gui.conversation_over.connect(_on_conversation_over)
+
+func exp_gained() -> void:
+	if exp >= 100:
+		lvl += floor(float(exp) / 100)
+		exp %= 100
+		Gui.info.emit(level_up_text + str(lvl))
 	
 func _on_setup_battle() -> void:
 	animation_tree.active = false
@@ -67,6 +76,15 @@ func _on_setup_battle() -> void:
 	
 func _on_end_battle(_player_won) -> void:
 	animation_tree.active = true
+	
+func _on_gain_exp(enemy_lvl) -> void:
+	if enemy_lvl == lvl:
+		exp += 40 + randi() % 20
+	elif enemy_lvl > lvl:
+		exp += (50 + randi() % 30) * (enemy_lvl - lvl)
+	else:
+		exp += (35 + randi() % 10) / (lvl - enemy_lvl)
+	exp_gained()
 
 func _physics_process(_delta: float) -> void: # called every physics frame
 	if not Battle.battling and not in_conversation:
