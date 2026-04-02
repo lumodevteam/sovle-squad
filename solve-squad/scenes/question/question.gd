@@ -9,7 +9,7 @@ var current_answer: int = 0
 func _ready():
 	option_area.select_mode = ItemList.SELECT_SINGLE
 	generate_questions()
-	set_strand("Data")
+	set_strand("Algebra")
 	show_question()
 	print(questions)
 
@@ -48,13 +48,13 @@ func _on_option_area_item_selected(index: int) -> void:
 	else:
 		print("n")
 func generate_questions():
-	#questions["Algebra"] = generate_algebra_questions()
-	questions["Data"] = generate_data_questions()
+	questions["Algebra"] = generate_algebra_questions()
+	#questions["Data"] = generate_data_questions()
 #Algebra
-	'''
+	
 func generate_algebra_questions() -> Array:
 	var result = []
-
+	'''
 	# Solve for x addition
 	for i in 4:
 		var x = randi_range(20, 100)
@@ -410,23 +410,144 @@ func generate_algebra_questions() -> Array:
 			"question": "Dih went on a shopping haul she spent $%d. She had bought 3 things.\n She spent $%d on Jewlery, $%d on clothes the rest she spent on shoes.\n How much did she spend on shoes?" %[x,y,v],
 			"answer": z
 		})
+	'''
+	for i in 4:
+		var total = randi_range(400,500)
+		var x = randi_range(50,100)
+		var y = randi_range(100,110)
+		var z = randi_range(90,100)
+		var a = total - (x + y + z)
+		
+		result.append({
+			"question": "John Pork is driving all the way to British Colombia. It will take %d Km. The trip took 4 days, The first day he drove %d Km. The second he drove %d Km and the third day he drove %d Km.\nHow many kilometers did John Pork on the last day?" %[total,x,y,z],
+			"answer": a
+		})
 	return result
 
-	'''
+'''
 func generate_data_questions() -> Array:
 	var result = []
 	
+	
 	for i in 4:
-		var w = randi_range(20,30)
+		var w = randi_range(20, 30)
 		var v = randi_range(20,30)
 		var x = randi_range(20,30)
 		var y = randi_range(20,30)
 		var z = randi_range(20,30)
 		
+		var total = w + v + x + y + z
+		z -= total % 5 
+	
+		@warning_ignore("integer_division")
 		result.append({
 			"question":"Find the mean of the given set of numbers.\n(%d, %d, %d, %d, %d)" %[w,v,x,y,z],
-			"answer": float(w+v+x+y+z)/(5)
+			"answer": total / 5
 		})
 	
+	for i in 4:
+		
+		var list = []
+		
+		var t = randi_range(20,30)
+		list.append(t)
+		
+		var u = randi_range(20,30)
+		list.append(u)
+		
+		var w = randi_range(20,30)
+		list.append(w)
+		
+		var v = randi_range(20,30)
+		list.append(v)
+		
+		var x = randi_range(20,30)
+		list.append(x)
+		
+		var y = randi_range(20,30)
+		list.append(y)
+		
+		var z = randi_range(20,30)
+		list.append(z)
+		
+		list.sort()
+		result.append({
+			"question":"Find the median of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
+			"answer": list[3]})
+		
+	for i in 4:
+		
+		var list = []
+		
+		var t = randi_range(20,30)
+		list.append(t)
+		
+		var u = randi_range(20,30)
+		list.append(u)
+		
+		var w = randi_range(20,30)
+		list.append(w)
+		
+		var v = randi_range(20,30)
+		list.append(v)
+		
+		var x = randi_range(20,30)
+		list.append(x)
+		
+		var y = randi_range(20,30)
+		list.append(y)
+		
+		var z = randi_range(20,30)
+		list.append(z)
+		
+		var j = randi_range(1,7)-1
+		
+		var a = list[j]
+		
+		list.sort()
+		result.append({
+			"question":"Find the mode of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
+			"answer": a })
+		
+	for i in 4:
+		
+		var list = []
+		
+		var t = randi_range(20,30)
+		list.append(t)
+		
+		var u = randi_range(20,30)
+		list.append(u)
+		
+		var w = randi_range(20,30)
+		list.append(w)
+		
+		var v = randi_range(20,30)
+		list.append(v)
+		
+		var x = randi_range(20,30)
+		list.append(x)
+		
+		var y = randi_range(20,30)
+		list.append(y)
+		
+		var z = randi_range(20,30)
+		list.append(z)
+		
+		list.sort()
+		var d = list[6] - list[0]
+		result.append({
+			"question":"Find the range of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
+			"answer": d })
 	
 	return result
+func generate_Spatial_questions() -> Array:
+	var result = []
+	
+	return result
+
+func generate_Financial_questions() -> Array:
+	var result = []
+	
+	return result
+	'''
