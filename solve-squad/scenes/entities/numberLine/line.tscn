@@ -15,7 +15,7 @@ region = Rect2(0, 0, 32, 32)
 size = Vector2(4.375, 6.375)
 
 [node name="line" type="Sprite2D"]
-position = Vector2(128, 0)
+position = Vector2(196, 32)
 scale = Vector2(8, 8)
 texture = SubResource("AtlasTexture_odo72")
 script = ExtResource("2_181vc")
