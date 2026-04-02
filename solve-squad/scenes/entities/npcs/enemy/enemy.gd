@@ -30,6 +30,7 @@ var atk: int # which attack the npc will use
 @export var dmg: int = 40 # enemy damage
 @export var def: float = 0.0 # how much defense the player has
 
+@warning_ignore("integer_division")
 var moves: Dictionary = {
 	1: {
 		"name" : "basic attack",
@@ -54,7 +55,7 @@ func _ready() -> void:
 func update_stats() -> void:
 	dmg = (randi() % 20) * lvl + 20
 	health = (randi() % 20) * lvl + 100
-	def = randf() * lvl + 0.05
+	def = randf_range(0.01, 0.10) + 0.05 * lvl
 
 func _physics_process(_delta: float) -> void:
 	if raycast.is_colliding() and not Battle.battling:

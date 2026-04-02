@@ -18,14 +18,16 @@ enum State { # player states
 @export var max_health: int = 100 # max health of the player
 @export var health: int = 100 # health of the player
 @export var lvl: int = 1 # lvl of the player
+@warning_ignore("shadowed_global_identifier")
 @export var exp: int = 0
 @export var dmg: int = 60 # dmg of the player
 @export var def: float = 0.0 # how much defense the player has
 
+@warning_ignore("integer_division")
 var moves: Dictionary = {
 	1: {
 		"name" : "basic attack",
-		"dmg" : (dmg / 2) * lvl
+		"dmg" : (dmg / 3) * lvl
 	},
 	2: {
 		"name" : "less basic attack",
@@ -33,7 +35,7 @@ var moves: Dictionary = {
 	},
 	3: {
 		"name" : "even less basic attack",
-		"dmg" : (dmg / 2) * lvl
+		"dmg" : dmg * lvl
 	},
 	4: {
 		"name" : "back",

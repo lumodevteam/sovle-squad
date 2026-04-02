@@ -46,6 +46,8 @@ func player_turn(move_index: int) -> void:
 	var move = battle_player.moves[move_index]
 	var damage = move["dmg"]
 	var actual_damage = roundi(damage * (1.0 - battle_enemy.def))
+	if actual_damage < 0:
+		actual_damage = 0
 	battle_enemy.health -= actual_damage
 	await get_battle_gui().add_log("Player used %s for %d damage!" % [move["name"], actual_damage])
 	update_gui()
@@ -60,6 +62,8 @@ func enemy_turn() -> void:
 	var move = battle_enemy.attack()
 	var damage = move["dmg"]
 	var actual_damage = roundi(damage * (1.0 - battle_player.def))
+	if actual_damage < 0:
+		actual_damage = 0
 	battle_player.health -= actual_damage
 	await get_battle_gui().add_log("Enemy used %s for %d damage!" % [move["name"], actual_damage])
 	update_gui()
