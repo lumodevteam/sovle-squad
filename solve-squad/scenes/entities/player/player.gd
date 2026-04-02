@@ -15,6 +15,7 @@ enum State { # player states
 @export var speed: int = 150 # base movement speed of the player
 @export var sprint_speed: int = 200 # sprint speed of the player
 @export var current_speed: int # speed of the player
+@export var max_health: int = 100 # max health of the player
 @export var health: int = 100 # health of the player
 @export var lvl: int = 1 # lvl of the player
 @export var exp: int = 0
@@ -67,7 +68,7 @@ func exp_gained() -> void:
 		update_stats()
 		
 func update_stats() -> void:
-	health += 10
+	max_health += 10
 	dmg += 10
 	def += 0.05
 	
@@ -76,8 +77,10 @@ func _on_setup_battle() -> void:
 	$Sprite2D.frame = 0
 	$Sprite2D.flip_h = false
 	
-func _on_end_battle(_player_won) -> void:
+func _on_end_battle(player_won) -> void:
 	animation_tree.active = true
+	if player_won:
+		health = max_health
 	
 func _on_gain_exp(enemy_lvl) -> void:
 	if enemy_lvl == lvl:
