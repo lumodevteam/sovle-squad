@@ -26,32 +26,35 @@ var atk: int # which attack the npc will use
 
 @export_category("Stats")
 @export var health: int = 100 # enemy health
-@export var lvl: int = 5 # enemy lvl
-@export var dmg: int = randi() % 10 + 3 # enemy damage
-@export var def: int = 0 # how much defense the player has
+@export var lvl: int = 1 # enemy lvl
+@export var dmg: int = 40 # enemy damage
+@export var def: float = 0.0 # how much defense the player has
 
 var moves: Dictionary = {
 	1: {
 		"name" : "basic attack",
-		"spd" : randi() % 10 + 3,
 		"dmg" : (dmg / 3) * lvl
 	},
 	2: {
 		"name" : "less basic attack",
-		"spd" : randi() % 10 + 2,
 		"dmg" : (dmg / 2) * lvl
 	},
 	3: {
 		"name" : "even less basic attack",
-		"spd" : randi() % 10 + 1,
 		"dmg" : dmg * lvl
 	}
 }
 
 func _ready() -> void:
+	lvl = GlobalSprites.sprites["player"].lvl + randi_range(-2, 2)
 	Battle.setup_battle.connect(_on_setup_battle)
 	Battle.end_battle.connect(_on_end_battle)
 	Gui.conversation_over.connect(_on_conversation_over)
+	
+func update_stats() -> void:
+	dmg = (randi() % 20) * lvl + 20
+	health = (randi() % 20) * lvl + 100
+	def = randf() * lvl + 0.05
 
 func _physics_process(_delta: float) -> void:
 	if raycast.is_colliding() and not Battle.battling:
@@ -82,12 +85,15 @@ func collision(body: Node2D) -> void:
 		Battle.start_battle.emit(player_in_range, self)
 	
 func attack() -> Dictionary:
-	atk = 1
+	atk = randi() % (moves.size() - 1) + 1
 	return moves[atk]
 	
 func _on_setup_battle() -> void:
+	update_stats()
 	$Sprite2D.flip_h = true
 	raycast.enabled = false
 	
 func _on_end_battle(_player_won) -> void:
 	$Sprite2D.flip_h = false
+	if not defeated:
+		raycast.enabled = true

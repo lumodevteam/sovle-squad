@@ -18,23 +18,20 @@ enum State { # player states
 @export var health: int = 100 # health of the player
 @export var lvl: int = 1 # lvl of the player
 @export var exp: int = 0
-@export var dmg: int = 100 # dmg of the player
-@export var def: int = 0 # how much defense the player has
+@export var dmg: int = 60 # dmg of the player
+@export var def: float = 0.0 # how much defense the player has
 
 var moves: Dictionary = {
 	1: {
 		"name" : "basic attack",
-		"spd" : randi() % 10 + 1,
 		"dmg" : (dmg / 2) * lvl
 	},
 	2: {
 		"name" : "less basic attack",
-		"spd" : randi() % 10 + 1,
 		"dmg" : (dmg / 2) * lvl
 	},
 	3: {
 		"name" : "even less basic attack",
-		"spd" : randi() % 10 + 1,
 		"dmg" : (dmg / 2) * lvl
 	},
 	4: {
@@ -67,6 +64,12 @@ func exp_gained() -> void:
 	if exp >= 100:
 		lvl += floor(float(exp) / 100)
 		exp %= 100
+		update_stats()
+		
+func update_stats() -> void:
+	health += 10
+	dmg += 10
+	def += 0.05
 	
 func _on_setup_battle() -> void:
 	animation_tree.active = false
@@ -147,10 +150,6 @@ func update_animation() -> void: # updates the animation based on the current st
 			animation_playback.travel("attack")
 		State.DEAD:
 			animation_playback.travel("dead")
-			
-func attack() -> int: # player is attacking enemy
-	atk = 1
-	return moves[atk]["dmg"]
 	
 func _on_dialogue_started(_dialogue_tree):
 	in_conversation = true

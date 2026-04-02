@@ -45,8 +45,9 @@ func _on_move_selected(move_index: int) -> void:
 func player_turn(move_index: int) -> void:
 	var move = battle_player.moves[move_index]
 	var damage = move["dmg"]
-	battle_enemy.health -= roundi(damage * (1.0 - battle_enemy.def))
-	await get_battle_gui().add_log("Player used %s for %d damage!" % [move["name"], damage])
+	var actual_damage = roundi(damage * (1.0 - battle_enemy.def))
+	battle_enemy.health -= actual_damage
+	await get_battle_gui().add_log("Player used %s for %d damage!" % [move["name"], actual_damage])
 	update_gui()
 	if battle_enemy.health <= 0:
 		await get_battle_gui().add_log("Enemy was defeated!")
@@ -58,8 +59,9 @@ func player_turn(move_index: int) -> void:
 func enemy_turn() -> void:
 	var move = battle_enemy.attack()
 	var damage = move["dmg"]
-	battle_player.health -= roundi(damage * (1.0 - battle_player.def))
-	await get_battle_gui().add_log("Enemy used %s for %d damage!" % [move["name"], damage])
+	var actual_damage = roundi(damage * (1.0 - battle_player.def))
+	battle_player.health -= actual_damage
+	await get_battle_gui().add_log("Enemy used %s for %d damage!" % [move["name"], actual_damage])
 	update_gui()
 	if battle_player.health <= 0:
 		await get_battle_gui().add_log("You were defeated!")
@@ -68,8 +70,11 @@ func enemy_turn() -> void:
 func battle_over(player_won: bool) -> void:
 	battling = false
 	if player_won:
+		await get_battle_gui().add_log("You gained exp!")
+		var old_player_lvl = battle_player.lvl
 		gain_exp.emit(battle_enemy.lvl)
-		await get_battle_gui().add_log("You gained exp! You are now level " + str(battle_player.lvl))
+		if battle_player.lvl > old_player_lvl:
+			await get_battle_gui().add_log("You leveled up! " + str(old_player_lvl) + " -> " + str(battle_player.lvl))
 		battle_enemy.defeated = true
 	end_battle.emit(player_won)
 	
