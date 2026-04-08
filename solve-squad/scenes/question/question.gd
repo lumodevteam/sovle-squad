@@ -54,7 +54,7 @@ func generate_questions():
 	
 func generate_algebra_questions() -> Array:
 	var result = []
-	'''
+	
 	# Solve for x addition
 	for i in 4:
 		var x = randi_range(20, 100)
@@ -63,6 +63,15 @@ func generate_algebra_questions() -> Array:
 			"question": "Solve for x.\nx + %d = %d" % [b, x + b],
 			"answer": x
 		})
+	
+	for i in 4:
+		var x = randi_range(20, 100)
+		var b = randi_range(20, 100)
+		result.append({
+			"question": "Solve for x.\nx + %d = %d" % [x + b, b],
+			"answer": b - (x+b)
+		})
+	
 	#Solve for x subtraction
 	for i in 4:
 		var x = randi_range(20, 100)
@@ -410,7 +419,7 @@ func generate_algebra_questions() -> Array:
 			"question": "Dih went on a shopping haul she spent $%d. She had bought 3 things.\n She spent $%d on Jewlery, $%d on clothes the rest she spent on shoes.\n How much did she spend on shoes?" %[x,y,v],
 			"answer": z
 		})
-	'''
+	
 	for i in 4:
 		var total = randi_range(400,500)
 		var x = randi_range(50,100)
@@ -422,9 +431,9 @@ func generate_algebra_questions() -> Array:
 			"question": "John Pork is driving all the way to British Colombia. It will take %d Km. The trip took 4 days, The first day he drove %d Km. The second he drove %d Km and the third day he drove %d Km.\nHow many kilometers did John Pork on the last day?" %[total,x,y,z],
 			"answer": a
 		})
+	
 	return result
 
-'''
 func generate_data_questions() -> Array:
 	var result = []
 	
@@ -550,4 +559,3 @@ func generate_Financial_questions() -> Array:
 	var result = []
 	
 	return result
-	'''
