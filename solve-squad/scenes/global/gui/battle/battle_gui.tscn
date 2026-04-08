@@ -1,0 +1,238 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0jnhnrqsshx0"]
+
+[ext_resource type="Script" uid="uid://ms0bbk3nf778" path="res://scenes/global/gui/battle/battle_gui.gd" id="1_eghyr"]
+
+[sub_resource type="Theme" id="Theme_0rgck"]
+
+[sub_resource type="Theme" id="Theme_eghyr"]
+
+[sub_resource type="Theme" id="Theme_eq12t"]
+
+[node name="BattleGui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+script = ExtResource("1_eghyr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Battle_Menu" type="Panel" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -230.0
+offset_right = 230.0
+grow_vertical = 0
+localize_numeral_system = false
+theme = SubResource("Theme_0rgck")
+
+[node name="Menu" type="GridContainer" parent="CanvasLayer/Battle_Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_eghyr")
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Attack" type="Button" parent="CanvasLayer/Battle_Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Attack"
+autowrap_mode = 2
+
+[node name="Run" type="Button" parent="CanvasLayer/Battle_Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_eq12t")
+text = "Run"
+autowrap_mode = 2
+
+[node name="tbd" type="Button" parent="CanvasLayer/Battle_Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Nothing"
+autowrap_mode = 2
+
+[node name="tbd2" type="Button" parent="CanvasLayer/Battle_Menu/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Nothing"
+autowrap_mode = 2
+
+[node name="Moves" type="GridContainer" parent="CanvasLayer/Battle_Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_eghyr")
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Move1" type="Button" parent="CanvasLayer/Battle_Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+autowrap_mode = 2
+
+[node name="Move2" type="Button" parent="CanvasLayer/Battle_Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_eq12t")
+autowrap_mode = 2
+
+[node name="Move3" type="Button" parent="CanvasLayer/Battle_Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+autowrap_mode = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/Battle_Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_eq12t")
+text = "Back"
+autowrap_mode = 2
+
+[node name="Player_Info" type="Panel" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -80.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="Player_Name" type="Label" parent="CanvasLayer/Player_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = 30.0
+
+[node name="Player_Health" type="ProgressBar" parent="CanvasLayer/Player_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -25.0
+offset_right = -10.0
+offset_bottom = -10.0
+value = 100.0
+show_percentage = false
+
+[node name="Enemy_Info" type="Panel" parent="CanvasLayer"]
+anchors_preset = -1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 250.0
+offset_bottom = 80.0
+
+[node name="Enemy_Name" type="Label" parent="CanvasLayer/Enemy_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = 30.0
+
+[node name="Enemy_Health" type="ProgressBar" parent="CanvasLayer/Enemy_Info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -25.0
+offset_right = -10.0
+offset_bottom = -10.0
+value = 100.0
+show_percentage = false
+
+[node name="BattleInfo" type="Panel" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_top = -120.0
+offset_right = -300.0
+offset_bottom = -20.0
+
+[node name="BattleLog" type="RichTextLabel" parent="CanvasLayer/BattleInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_vertical = 0
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 1
+language = "en_CA"
+
+[node name="ContinueMessage" type="RichTextLabel" parent="CanvasLayer/BattleInfo/BattleLog"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+text_direction = 1
+
+[connection signal="pressed" from="CanvasLayer/Battle_Menu/Menu/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/Battle_Menu/Moves/Back" to="." method="_on_back_pressed"]

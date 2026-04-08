@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqu1bdl7daoaa"]
+
+[ext_resource type="PackedScene" uid="uid://b0jnhnrqsshx0" path="res://scenes/global/gui/battle/battle_gui.tscn" id="3_v2tsk"]
+
+[node name="BattleScene" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BattleGui" parent="CanvasLayer" instance=ExtResource("3_v2tsk")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(576, 0)
