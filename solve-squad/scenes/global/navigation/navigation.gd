@@ -27,10 +27,9 @@ func _on_start_battle(_player, _enemy):
 	battle_camera.make_current()
 	await Transition.on_transition_completed
 
-func _on_end_battle(player_won) -> void:
-	if player_won:
-		await change_scene(tutorial_scene)
-		var world = get_tree().get_root().get_node("Tutorial")
-		Battle.battle_player.reparent(world)
-		Battle.battle_enemy.reparent(world)
-		GlobalSprites.show_sprites(GlobalSprites.sprites.keys())
+func _on_end_battle(_player_won) -> void:
+	await change_scene(tutorial_scene)
+	var world = get_tree().get_root().get_node("Tutorial")
+	Battle.battle_player.reparent(world)
+	Battle.battle_enemy.reparent(world)
+	GlobalSprites.show_sprites(GlobalSprites.sprites.keys())
