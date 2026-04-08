@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlq2t32p4o38w"]
+
+[ext_resource type="Script" uid="uid://c03sgq3wbguuq" path="res://scenes/entities/objects/object.gd" id="1_hi2ve"]
+[ext_resource type="Texture2D" uid="uid://c4ildtmgvorvy" path="res://assets/Percent_btn.png" id="1_kedef"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8aat"]
+radius = 10.049875
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hi2ve"]
+radius = 19.026299
+
+[node name="Object" type="Node2D"]
+script = ExtResource("1_hi2ve")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_q8aat")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kedef")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hi2ve")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
