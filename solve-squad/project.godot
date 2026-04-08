@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SnapManager="*res://scenes/entities/numberLine/snap_manager.gd"
 Battle="*res://scenes/global/battle/battle.gd"
 Transition="*res://scenes/global/transition/transition.tscn"
 Navigation="*res://scenes/global/navigation/navigation.gd"
