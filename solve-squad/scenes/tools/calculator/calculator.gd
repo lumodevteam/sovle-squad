@@ -10,13 +10,17 @@ var second_number: float
 var operator := ""
 var decimal_allowed = true
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	for buttons in all_buttons.get_children():
 		for btn in buttons.get_children():
 			if btn.name.is_valid_int():
-				btn.pressed.connect(Callable(self,"_number_buttons").bind(btn))
+				btn.pressed.connect(Callable(self,"_number_buttons").bind(btn)) 
+
 
 func _number_buttons(btn):
+	if work_area.text.length() >= 10:
+		return
 	if not has_been_used:
 		work_area.text = btn.name
 		has_been_used = true
@@ -26,6 +30,7 @@ func _number_buttons(btn):
 
 func _on_equal_btn_pressed():
 	has_been_used = false
+	decimal_allowed = true
 	var result : float
 	second_number = work_area.text.to_float()
 	match operator:
@@ -38,8 +43,13 @@ func _on_equal_btn_pressed():
 		"/":
 			result = first_number / second_number
 	prev_work_area.text = str(first_number) + " " + operator + " " + str(second_number)
-	work_area.text = str(snappedf(result,0.000000001))
-
+	var result_text = str(snappedf(result, 0.000000001))
+	
+	if result_text.length() > 10:
+		result_text = result_text.left(10)
+	work_area.text = result_text
+	first_number = result
+	operator = ""
 
 func _on_addition_btn_pressed():
 	has_been_used = false
