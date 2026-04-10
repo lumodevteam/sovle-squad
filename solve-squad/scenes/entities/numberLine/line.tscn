@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://n4xus1c6xss8"]
+
+[ext_resource type="Texture2D" uid="uid://ddxpll8f6ale1" path="res://assets/NumberLine.png" id="1_q3g78"]
+[ext_resource type="Script" uid="uid://b3inqvl1g3ic" path="res://scenes/entities/numberLine/numberLine.gd" id="2_181vc"]
+[ext_resource type="Script" uid="uid://dyxjvtgdo3r16" path="res://scenes/entities/numberLine/area_2d_1.gd" id="3_181vc"]
+[ext_resource type="Script" uid="uid://coktv3oorvlkk" path="res://scenes/entities/numberLine/area_2d_2.gd" id="4_ibf3p"]
+[ext_resource type="Script" uid="uid://75u4jex3l5eu" path="res://scenes/entities/numberLine/area_2d_3.gd" id="5_12iab"]
+[ext_resource type="Script" uid="uid://2xm5b5fh8xps" path="res://scenes/entities/numberLine/area_2d_4.gd" id="6_dlqt5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odo72"]
+atlas = ExtResource("1_q3g78")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3g78"]
+size = Vector2(4.375, 6.375)
+
+[node name="line" type="Sprite2D"]
+position = Vector2(196, 32)
+scale = Vector2(8, 8)
+texture = SubResource("AtlasTexture_odo72")
+script = ExtResource("2_181vc")
+
+[node name="Area2D1" type="Area2D" parent="."]
+position = Vector2(-8.5, 3)
+script = ExtResource("3_181vc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D1"]
+shape = SubResource("RectangleShape2D_q3g78")
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(-0.5, 3)
+script = ExtResource("4_ibf3p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("RectangleShape2D_q3g78")
+
+[node name="Area2D3" type="Area2D" parent="."]
+position = Vector2(7.5, 3)
+script = ExtResource("5_12iab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+shape = SubResource("RectangleShape2D_q3g78")
+
+[node name="Area2D4" type="Area2D" parent="."]
+position = Vector2(15.5, 3)
+script = ExtResource("6_dlqt5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
+shape = SubResource("RectangleShape2D_q3g78")
+
+[connection signal="body_entered" from="Area2D1" to="." method="_on_area_2d_1_body_entered"]
+[connection signal="body_entered" from="Area2D1" to="Area2D1" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D3" to="Area2D3" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D4" to="Area2D4" method="_on_body_entered"]
