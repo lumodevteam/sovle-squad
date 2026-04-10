@@ -16,8 +16,9 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_v7jrx")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,8 +30,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0.9882353, 1, 0.7529412, 1)
 
-[node name="Question Area" type="Label" parent="."]
-layout_mode = 0
+[node name="Question Area" type="Label" parent="CanvasLayer"]
 offset_left = 27.0
 offset_top = 22.0
 offset_right = 1123.6555
@@ -42,8 +42,7 @@ text = "Questions"
 vertical_alignment = 3
 autowrap_mode = 1
 
-[node name="Option Area" type="ItemList" parent="."]
-layout_mode = 0
+[node name="Option Area" type="ItemList" parent="CanvasLayer"]
 offset_left = 18.0
 offset_top = 195.0
 offset_right = 870.0
@@ -64,27 +63,24 @@ item_1/text = "Option 2"
 item_2/text = "Option 3"
 item_3/text = "Option 4"
 
-[node name="Calculator" parent="." instance=ExtResource("1_jrjjw")]
-layout_mode = 1
+[node name="Calculator" parent="CanvasLayer" instance=ExtResource("1_jrjjw")]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
-offset_left = 1019.2
-offset_top = 415.0
-offset_right = 1019.2
-offset_bottom = 415.0
+offset_left = -132.79999
+offset_top = -233.0
+offset_right = -132.79999
+offset_bottom = -233.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="GraphEdit" type="GraphEdit" parent="."]
+[node name="GraphEdit" type="GraphEdit" parent="CanvasLayer"]
 visible = false
-layout_mode = 0
 offset_right = 889.0
 offset_bottom = 651.0
-scroll_offset = Vector2(-13, -21)
 minimap_enabled = false
 show_menu = false
 show_zoom_buttons = false
@@ -92,12 +88,11 @@ show_grid_buttons = false
 show_minimap_button = false
 show_arrange_button = false
 
-[node name="GraphNode" type="GraphNode" parent="GraphEdit"]
+[node name="GraphNode" type="GraphNode" parent="CanvasLayer/GraphEdit"]
 layout_mode = 0
-offset_left = 33.0
-offset_top = 21.0
-offset_right = 167.0
-offset_bottom = 621.0
+offset_left = 20.0
+offset_right = 154.0
+offset_bottom = 600.0
 mouse_filter = 1
 position_offset = Vector2(20, 0)
 slot/0/left_enabled = false
@@ -128,25 +123,24 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 
-[node name="Label3" type="Label" parent="GraphEdit/GraphNode"]
+[node name="Label3" type="Label" parent="CanvasLayer/GraphEdit/GraphNode"]
 layout_mode = 2
 text = "BLAH"
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="GraphEdit/GraphNode"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GraphEdit/GraphNode"]
 layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.43137255, 0.72156864, 0.65882355, 1)
 
-[node name="ProgressBar" type="ProgressBar" parent="GraphEdit/GraphNode"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/GraphEdit/GraphNode"]
 layout_mode = 2
 
-[node name="GraphNode2" type="GraphNode" parent="GraphEdit"]
+[node name="GraphNode2" type="GraphNode" parent="CanvasLayer/GraphEdit"]
 layout_mode = 0
-offset_left = 233.0
-offset_top = 21.0
-offset_right = 367.0
-offset_bottom = 621.0
+offset_left = 220.0
+offset_right = 354.0
+offset_bottom = 600.0
 mouse_filter = 1
 position_offset = Vector2(220, 0)
 slot/0/left_enabled = false
@@ -177,25 +171,24 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 
-[node name="Label" type="Label" parent="GraphEdit/GraphNode2"]
+[node name="Label" type="Label" parent="CanvasLayer/GraphEdit/GraphNode2"]
 layout_mode = 2
 text = "BLAH"
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="GraphEdit/GraphNode2"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GraphEdit/GraphNode2"]
 layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.7764706, 0.3137255, 0.3529412, 1)
 
-[node name="ProgressBar" type="ProgressBar" parent="GraphEdit/GraphNode2"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/GraphEdit/GraphNode2"]
 layout_mode = 2
 
-[node name="GraphNode3" type="GraphNode" parent="GraphEdit"]
+[node name="GraphNode3" type="GraphNode" parent="CanvasLayer/GraphEdit"]
 layout_mode = 0
-offset_left = 433.0
-offset_top = 21.0
-offset_right = 567.0
-offset_bottom = 621.0
+offset_left = 420.0
+offset_right = 554.0
+offset_bottom = 600.0
 mouse_filter = 1
 position_offset = Vector2(420, 0)
 slot/0/left_enabled = false
@@ -226,25 +219,24 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 
-[node name="Label2" type="Label" parent="GraphEdit/GraphNode3"]
+[node name="Label2" type="Label" parent="CanvasLayer/GraphEdit/GraphNode3"]
 layout_mode = 2
 text = "BLAH"
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="GraphEdit/GraphNode3"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GraphEdit/GraphNode3"]
 layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.45490196, 0.6392157, 0.24705882, 1)
 
-[node name="ProgressBar" type="ProgressBar" parent="GraphEdit/GraphNode3"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/GraphEdit/GraphNode3"]
 layout_mode = 2
 
-[node name="GraphNode4" type="GraphNode" parent="GraphEdit"]
+[node name="GraphNode4" type="GraphNode" parent="CanvasLayer/GraphEdit"]
 layout_mode = 0
-offset_left = 633.0
-offset_top = 21.0
-offset_right = 767.0
-offset_bottom = 621.0
+offset_left = 620.0
+offset_right = 754.0
+offset_bottom = 600.0
 mouse_filter = 1
 position_offset = Vector2(620, 0)
 slot/0/left_enabled = false
@@ -275,17 +267,17 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 
-[node name="Label4" type="Label" parent="GraphEdit/GraphNode4"]
+[node name="Label4" type="Label" parent="CanvasLayer/GraphEdit/GraphNode4"]
 layout_mode = 2
 text = "BLAH"
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="GraphEdit/GraphNode4"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GraphEdit/GraphNode4"]
 layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.93333334, 0.6117647, 0.3647059, 1)
 
-[node name="ProgressBar" type="ProgressBar" parent="GraphEdit/GraphNode4"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/GraphEdit/GraphNode4"]
 layout_mode = 2
 
-[connection signal="item_selected" from="Option Area" to="." method="_on_option_area_item_selected"]
+[connection signal="item_selected" from="CanvasLayer/Option Area" to="." method="_on_option_area_item_selected"]

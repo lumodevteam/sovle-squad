@@ -6,6 +6,9 @@ signal instantiate_battle_gui
 signal move_selected(move_index: int)
 signal setup_battle
 signal gain_exp
+signal ask_question
+signal question_answered(question_correct: bool)
+signal instantiate_question
 
 var battling: bool = false # is there a battle happening
 var rng = RandomNumberGenerator.new()
@@ -19,6 +22,9 @@ func _ready():
 	instantiate_battle_gui.connect(_on_instantiate_battle_gui)	
 	move_selected.connect(_on_move_selected)
 	setup_battle.connect(_on_setup_battle)
+	instantiate_question.connect(_on_instantiate_question)
+	ask_question.connect(_on_ask_question)
+	question_answered.connect(_question_answered)
 
 func _on_start_battle(player, enemy) -> void: # battle function
 	battling = true
@@ -33,23 +39,62 @@ func _on_setup_battle() -> void:
 	battle_player.position = Vector2(476, 0)
 	battle_enemy.position = Vector2(676, 0)
 	
+func show_sprites(visible: bool) -> void:
+	battle_player.visible = visible
+	battle_enemy.visible = visible
+	
 func _on_instantiate_battle_gui() -> void:
-	var battle_gui = get_tree().get_root().get_node("BattleScene/CanvasLayer/BattleGui")
-	battle_gui.visible = true
+	var battle_gui = get_battle_gui()
+	show_battle_gui(true)
 	battle_gui.populate_moves(battle_player.moves)
 	battle_gui.setup_health_bars(battle_player, battle_enemy)
+	
+func show_battle_gui(visible: bool) -> void:
+	get_battle_gui().canvas_layer.visible = visible
+		
+func get_battle_gui():
+	return get_tree().get_root().get_node("BattleScene/CanvasLayer/BattleGui")
+	
+func _on_instantiate_question() -> void:
+	show_question(false)
+	
+func _on_ask_question() -> void:
+	Transition.transition()
+	await Transition.on_transition_finished
+	show_battle_gui(false)
+	show_question(true)
+	show_sprites(false)
+	
+func _question_answered(_correct) -> void:
+	Transition.transition()
+	await Transition.on_transition_finished
+	show_sprites(true)
+	show_question(false)
+	show_battle_gui(true)
+
+func get_question() -> Control:
+	return get_tree().get_root().get_node("BattleScene/CanvasLayer/Question")
+	
+func show_question(visible: bool) -> void:
+	get_question().canvas_layer.visible = visible
 	
 func _on_move_selected(move_index: int) -> void:
 	player_turn(move_index)
 	
 func player_turn(move_index: int) -> void:
+	ask_question.emit()
 	var move = battle_player.moves[move_index]
-	var damage = move["dmg"]
-	var actual_damage = roundi(damage * (1.0 - battle_enemy.def))
-	if actual_damage < 0:
-		actual_damage = 0
-	battle_enemy.health -= actual_damage
-	await get_battle_gui().add_log("Player used %s for %d damage!" % [move["name"], actual_damage])
+	var correct = await question_answered
+	await get_tree().create_timer(1.0).timeout
+	if correct:
+		var damage = move["dmg"]
+		var actual_damage = roundi(damage * (1.0 - battle_enemy.def))
+		battle_enemy.health -= actual_damage
+		if actual_damage < 0:
+			actual_damage = 0
+		await get_battle_gui().add_log("Player used %s for %d damage!" % [move["name"], actual_damage])
+	else:
+		await get_battle_gui().add_log("Player tried to use %s but missed!" % [move["name"]])
 	update_gui()
 	if battle_enemy.health <= 0:
 		await get_battle_gui().add_log("Enemy was defeated!")
@@ -87,6 +132,3 @@ func update_gui() -> void:
 	
 func disable_menu(disabled: bool) -> void:
 	get_battle_gui().disable_menu(disabled)
-	
-func get_battle_gui():
-	return get_tree().get_root().get_node("BattleScene/CanvasLayer/BattleGui")

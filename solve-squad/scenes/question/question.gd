@@ -1,17 +1,21 @@
 extends Control
-@onready var question_area: Label = $"Question Area"
-@onready var option_area: ItemList = $"Option Area"
+@onready var question_area: Label = $"CanvasLayer/Question Area"
+@onready var option_area: ItemList = $"CanvasLayer/Option Area"
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
 
 var questions = {}
 var current_strand = ""
 var current_answer: int = 0
 
 func _ready():
+	Battle.ask_question.connect(_on_ask_question)
 	option_area.select_mode = ItemList.SELECT_SINGLE
 	generate_questions()
+	
+func _on_ask_question():
+	GlobalSprites.hide_sprites([])
 	set_strand("Algebra")
 	show_question()
-	print(questions)
 
 func set_strand(strand: String):
 	current_strand = strand
@@ -43,10 +47,12 @@ func answers(correct_answer: int):
 		
 func _on_option_area_item_selected(index: int) -> void:
 	var selected_text = option_area.get_item_text(index)
-	if int(selected_text) == current_answer:
-		print("g")
-	else:
-		print("n")
+	var correct = answer_correct(int(selected_text))
+	Battle.question_answered.emit(correct)
+	
+func answer_correct(selected_text: int) -> bool:
+	return selected_text == current_answer
+		
 func generate_questions():
 	questions["Algebra"] = generate_algebra_questions()
 	#questions["Data"] = generate_data_questions()

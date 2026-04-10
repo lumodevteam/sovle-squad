@@ -2,6 +2,7 @@ extends Node
 
 const battle_scene = preload("res://scenes/global/battle/battle.tscn")
 const tutorial_scene = preload("res://scenes/global/tutorial/tutorial.tscn")
+const question_scene = preload("res://scenes/question/question.tscn")
 
 var visited_before: Array = []
 
@@ -23,6 +24,7 @@ func _on_start_battle(_player, _enemy):
 	await change_scene(battle_scene)
 	Battle.setup_battle.emit()
 	Battle.instantiate_battle_gui.emit()
+	Battle.instantiate_question.emit()
 	var battle_camera = get_tree().get_root().get_node("BattleScene/Camera2D")
 	battle_camera.make_current()
 	await Transition.on_transition_completed
@@ -33,3 +35,4 @@ func _on_end_battle(_player_won) -> void:
 	Battle.battle_player.reparent(world)
 	Battle.battle_enemy.reparent(world)
 	GlobalSprites.show_sprites(GlobalSprites.sprites.keys())
+	

@@ -5,6 +5,7 @@ signal player_acknowledged
 @onready var battle_menu: Panel = $CanvasLayer/Battle_Menu
 @onready var menu: GridContainer = $CanvasLayer/Battle_Menu/Menu
 @onready var moves: GridContainer = $CanvasLayer/Battle_Menu/Moves
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
 
 @onready var enemy_health_bar: ProgressBar = $CanvasLayer/Enemy_Info/Enemy_Health
 @onready var enemy_name_label: Label = $CanvasLayer/Enemy_Info/Enemy_Name
