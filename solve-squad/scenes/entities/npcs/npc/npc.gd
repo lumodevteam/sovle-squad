@@ -4,6 +4,7 @@ var player_in_range: Node2D = null
 var identifier: String
 
 var is_interacting: bool = false
+var interacted: bool = false
 
 var quest_completed: bool = false
 var quest_exp: int = 300
@@ -123,6 +124,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 func interact() -> void:
 	is_interacting = true
+	if interacted:
+		dialogue_tree["start"]["text"] = ["Welcome back traveller!"]
+	else:
+		interacted = true
 	Gui.dialogue_started.emit(dialogue_tree)
 	
 func _on_conversation_over(node_key) -> void:

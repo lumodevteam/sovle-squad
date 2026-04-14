@@ -59,9 +59,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_pressed():
 			player_acknowledged.emit()
 		
-func _on_dialogue_started(dialogue_tree) -> void:
+func _on_dialogue_started(new_dialogue_tree) -> void:
 	dialogue_panel.visible = true
-	self.dialogue_tree = dialogue_tree
+	dialogue_tree = new_dialogue_tree
 	await run_dialogue("start")
 	
 func _on_conversation_over(_node_key) -> void:

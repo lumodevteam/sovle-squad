@@ -53,8 +53,8 @@ var identifier: String
 var in_conversation: bool = false
 var level_up_text: String = "You leveled up! %s -> %s"
 var exp_text: String = "You gained exp!"
-
 var item_text: String = "You got a %s!"
+var number_line_complete_text: Array = ["Something majestic happened...", "I should go talk to that villager again..."]
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
@@ -68,6 +68,13 @@ func _ready() -> void:
 	Tutorial.gain_item.connect(_on_gain_item)
 	Gui.dialogue_started.connect(_on_dialogue_started)
 	Gui.conversation_over.connect(_on_conversation_over)
+	SnapManager.all_correct.connect(_on_all_correct)
+	
+func _on_all_correct() -> void:
+	in_conversation = true
+	Gui.info.emit(number_line_complete_text)
+	await Gui.info_finished
+	in_conversation = false
 
 func _on_gain_item(item) -> void:
 	inventory.append(item)
