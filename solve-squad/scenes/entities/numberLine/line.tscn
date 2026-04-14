@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://n4xus1c6xss8"]
+[gd_scene load_steps=10 format=3 uid="uid://n4xus1c6xss8"]
 
 [ext_resource type="Texture2D" uid="uid://ddxpll8f6ale1" path="res://assets/NumberLine.png" id="1_q3g78"]
 [ext_resource type="Script" uid="uid://b3inqvl1g3ic" path="res://scenes/entities/numberLine/numberLine.gd" id="2_181vc"]
@@ -13,6 +13,9 @@ region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3g78"]
 size = Vector2(4.375, 6.375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dlqt5"]
+size = Vector2(32, 1)
 
 [node name="line" type="Sprite2D"]
 position = Vector2(196, 32)
@@ -47,6 +50,12 @@ script = ExtResource("6_dlqt5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
 shape = SubResource("RectangleShape2D_q3g78")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_dlqt5")
 
 [connection signal="body_entered" from="Area2D1" to="." method="_on_area_2d_1_body_entered"]
 [connection signal="body_entered" from="Area2D1" to="Area2D1" method="_on_body_entered"]

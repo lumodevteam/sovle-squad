@@ -5,7 +5,8 @@ var mouseOffset
 var delay = 10
 @export var animated_sprite: AnimatedSprite2D
 @export var sprite: Sprite2D
-@export var clickable_area: CollisionShape2D
+@export var clickable_area: CharacterBody2D
+@export var hitbox: CollisionShape2D
 var id: int
 var mouse_in_clickable_area: bool = false
 var body_position: Vector2
@@ -43,8 +44,10 @@ func change_state(state: int) -> void:
 func _physics_process(delta):
 	if isDragging:
 		position = position.lerp(get_global_mouse_position(), delta * delay)
+		hitbox.disabled = true
 	elif snapping:
 		position = body_position
+		hitbox.disabled = false
 		snapping = false
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -63,6 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 		else:
 			isDragging = false
+			hitbox.disabled = false
 
 func _on_character_body_2d_mouse_entered() -> void:
 	mouse_in_clickable_area = true
