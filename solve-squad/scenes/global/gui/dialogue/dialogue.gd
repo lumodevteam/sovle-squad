@@ -15,6 +15,7 @@ var is_typing: bool = false
 var showing_info: bool = false
 var showing_options: bool = false
 var selected_option: int = -1
+var showing_last_line: bool = false
 
 func _ready() -> void:
 	Gui.dialogue_started.connect(_on_dialogue_started)
@@ -73,15 +74,24 @@ func _on_info(text) -> void:
 	showing_info = true
 	dialogue_panel.visible = true
 	await show_text(text)
+	await display_last_line()
 	dialogue_panel.visible = false
 	showing_info = false
 	Gui.info_finished.emit()
-
+	
+func display_last_line() -> void:
+	display_continue_message()
+	await player_acknowledged
+	clear_log(dialogue)
+	clear_log(continue_message)
+	
 func run_dialogue(node_key: String) -> void:
+	clear_log(dialogue)
 	var node = dialogue_tree[node_key]
 	await show_text(node["text"])
 	
 	if node["options"].is_empty():
+		await display_last_line()
 		Gui.conversation_over.emit(node_key)
 	else:
 		var option_texts = []
@@ -93,7 +103,11 @@ func run_dialogue(node_key: String) -> void:
 	
 func show_text(text: Array) -> void:
 	for line in text:
-		await add_log(line, true)
+		if line == text[-1]:
+			showing_last_line = true
+		else:
+			showing_last_line = false
+		await add_log(line, not showing_last_line)
 		
 func show_options(options: Array) -> int:
 	for child in options_container.get_children():

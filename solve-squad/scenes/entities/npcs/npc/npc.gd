@@ -109,6 +109,7 @@ func _ready() -> void:
 	
 func _on_quest_completed() -> void:
 	dialogue_tree["start"]["options"][1]["next"] = "quest_completed"
+	dialogue_tree["start"]["options"][1]["text"] = "I have completed the quest!"
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
