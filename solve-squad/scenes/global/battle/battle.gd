@@ -5,7 +5,7 @@ signal end_battle(player_won: bool)
 signal instantiate_battle_gui
 signal move_selected(move_index: int)
 signal setup_battle
-signal gain_exp
+signal gain_exp(gained_exp: int)
 signal ask_question
 signal question_answered(question_correct: bool)
 signal instantiate_question
@@ -121,7 +121,14 @@ func battle_over(player_won: bool) -> void:
 	if player_won:
 		await get_battle_gui().add_log("You gained exp!")
 		var old_player_lvl = battle_player.lvl
-		gain_exp.emit(battle_enemy.lvl)
+		var gained_exp: int = 0
+		if battle_enemy.lvl == battle_player.lvl:
+			gained_exp += 40 + randi() % 20
+		elif battle_enemy.lvl > battle_player.lvl:
+			gained_exp += (50 + randi() % 30) * (battle_enemy.lvl - battle_player.lvl)
+		else:
+			gained_exp += (35 + randi() % 10) / (battle_player.lvl - battle_enemy.lvl)
+		gain_exp.emit(gained_exp)
 		if battle_player.lvl > old_player_lvl:
 			await get_battle_gui().add_log("You leveled up! " + str(old_player_lvl) + " -> " + str(battle_player.lvl))
 		battle_enemy.defeated = true

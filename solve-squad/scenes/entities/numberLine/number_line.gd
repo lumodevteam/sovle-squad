@@ -4,6 +4,7 @@ const line_scene = preload("res://scenes/entities/numberLine/line.tscn")
 const number_scene = preload("res://scenes/entities/numberLine/number.tscn")
 
 var starting_index: int = 0
+var identifier: String
 
 var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 

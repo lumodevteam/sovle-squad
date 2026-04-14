@@ -12,6 +12,7 @@ var current_label: RichTextLabel
 var dialogue_tree: Dictionary
 
 var is_typing: bool = false
+var showing_info: bool = false
 var showing_options: bool = false
 var selected_option: int = -1
 
@@ -63,21 +64,25 @@ func _on_dialogue_started(dialogue_tree) -> void:
 	self.dialogue_tree = dialogue_tree
 	await run_dialogue("start")
 	
-func _on_conversation_over() -> void:
-	dialogue_panel.visible = false
-	dialogue_tree = {}
+func _on_conversation_over(_node_key) -> void:
+	if not showing_info:
+		dialogue_panel.visible = false
+		dialogue_tree = {}
 	
 func _on_info(text) -> void:
+	showing_info = true
 	dialogue_panel.visible = true
-	await add_log(text, true)
+	await show_text(text)
 	dialogue_panel.visible = false
+	showing_info = false
+	Gui.info_finished.emit()
 
 func run_dialogue(node_key: String) -> void:
 	var node = dialogue_tree[node_key]
 	await show_text(node["text"])
 	
 	if node["options"].is_empty():
-		Gui.conversation_over.emit()
+		Gui.conversation_over.emit(node_key)
 	else:
 		var option_texts = []
 		for option in node["options"]:

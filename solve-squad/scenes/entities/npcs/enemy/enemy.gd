@@ -77,7 +77,7 @@ func interact() -> void:
 	is_interacting = true
 	Gui.dialogue_started.emit(dialogue)
 	
-func _on_conversation_over() -> void:
+func _on_conversation_over(_node_key) -> void:
 	is_interacting = false
 
 func collision(body: Node2D) -> void:

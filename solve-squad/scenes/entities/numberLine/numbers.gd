@@ -19,7 +19,7 @@ func _ready() -> void:
 	SnapManager.all_correct.connect(_on_all_correct)
 	
 func _on_all_correct() -> void:
-	print("congrats!!")
+	Tutorial.quest_completed.emit()
 
 func _on_body_entered(body_position: Vector2, id: int) -> void:
 	if self.id == id:

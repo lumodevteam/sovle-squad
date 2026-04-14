@@ -46,11 +46,15 @@ var state: State = State.IDLE # current state of the player
 var move_direction: Vector2 = Vector2.ZERO # direction the player is moving
 var facing: String = "right" # what direction the player is facing
 var atk: int # what attack will the player use
+var inventory: Array = []
 
 var identifier: String
 
 var in_conversation: bool = false
-var level_up_text: String = "Level up! Player leveled up to lvl "
+var level_up_text: String = "You leveled up! %s -> %s"
+var exp_text: String = "You gained exp!"
+
+var item_text: String = "You got a %s!"
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
@@ -60,14 +64,22 @@ func _ready() -> void:
 	Battle.setup_battle.connect(_on_setup_battle)
 	Battle.end_battle.connect(_on_end_battle)
 	Battle.gain_exp.connect(_on_gain_exp)
+	Tutorial.gain_exp.connect(_on_gain_exp)
+	Tutorial.gain_item.connect(_on_gain_item)
 	Gui.dialogue_started.connect(_on_dialogue_started)
 	Gui.conversation_over.connect(_on_conversation_over)
 
+func _on_gain_item(item) -> void:
+	inventory.append(item)
+	Gui.info.emit([item_text % item])
+
 func exp_gained() -> void:
 	if exp >= 100:
+		var old_lvl = lvl
 		lvl += floor(float(exp) / 100)
 		exp %= 100
 		update_stats()
+		Gui.info.emit([exp_text, level_up_text % [old_lvl, lvl]])
 		
 func update_stats() -> void:
 	max_health += 10
@@ -84,13 +96,8 @@ func _on_end_battle(player_won) -> void:
 	if player_won:
 		health = max_health
 	
-func _on_gain_exp(enemy_lvl) -> void:
-	if enemy_lvl == lvl:
-		exp += 40 + randi() % 20
-	elif enemy_lvl > lvl:
-		exp += (50 + randi() % 30) * (enemy_lvl - lvl)
-	else:
-		exp += (35 + randi() % 10) / (lvl - enemy_lvl)
+func _on_gain_exp(gained_exp) -> void:
+	exp += gained_exp
 	exp_gained()
 
 func _physics_process(_delta: float) -> void: # called every physics frame
@@ -170,6 +177,6 @@ func _on_dialogue_started(_dialogue_tree):
 		state = State.IDLE_TOWARD
 	update_animation()
 	
-func _on_conversation_over() -> void:
+func _on_conversation_over(_node_key) -> void:
 	in_conversation = false
 	
