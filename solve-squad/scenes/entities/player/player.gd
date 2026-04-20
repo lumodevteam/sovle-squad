@@ -15,16 +15,102 @@ enum State { # player states
 @export var speed: int = 150 # base movement speed of the player
 @export var sprint_speed: int = 200 # sprint speed of the player
 @export var current_speed: int # speed of the player
+@export var max_health: int = 100 # max health of the player
+@export var health: int = 100 # health of the player
+@export var lvl: int = 1 # lvl of the player
+@warning_ignore("shadowed_global_identifier")
+@export var exp: int = 0
+@export var dmg: int = 60 # dmg of the player
+@export var def: float = 0.0 # how much defense the player has
+
+@warning_ignore("integer_division")
+var moves: Dictionary = {
+	1: {
+		"name" : "basic attack",
+		"dmg" : (dmg / 3) * lvl
+	},
+	2: {
+		"name" : "less basic attack",
+		"dmg" : (dmg / 2) * lvl
+	},
+	3: {
+		"name" : "even less basic attack",
+		"dmg" : dmg * lvl
+	},
+	4: {
+		"name" : "back",
+	}
+}
 
 var state: State = State.IDLE # current state of the player
 var move_direction: Vector2 = Vector2.ZERO # direction the player is moving
 var facing: String = "right" # what direction the player is facing
+var atk: int # what attack will the player use
+var inventory: Array = []
+
+var identifier: String
+
+var in_conversation: bool = false
+var level_up_text: String = "You leveled up! %s -> %s"
+var exp_text: String = "You gained exp!"
+var item_text: String = "You got a %s!"
+var number_line_complete_text: Array = ["Something majestic happened...", "I should go talk to that villager again..."]
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
+@onready var camera: Camera2D = $Camera2D
+
+func _ready() -> void:
+	Battle.setup_battle.connect(_on_setup_battle)
+	Battle.end_battle.connect(_on_end_battle)
+	Battle.gain_exp.connect(_on_gain_exp)
+	Tutorial.gain_exp.connect(_on_gain_exp)
+	Tutorial.gain_item.connect(_on_gain_item)
+	Gui.dialogue_started.connect(_on_dialogue_started)
+	Gui.conversation_over.connect(_on_conversation_over)
+	SnapManager.all_correct.connect(_on_all_correct)
+	
+func _on_all_correct() -> void:
+	in_conversation = true
+	Gui.info.emit(number_line_complete_text)
+	await Gui.info_finished
+	in_conversation = false
+
+func _on_gain_item(item) -> void:
+	inventory.append(item)
+	Gui.info.emit([item_text % item])
+
+func exp_gained() -> void:
+	if exp >= 100:
+		var old_lvl = lvl
+		lvl += floor(float(exp) / 100)
+		exp %= 100
+		update_stats()
+		Gui.info.emit([exp_text, level_up_text % [old_lvl, lvl]])
+		
+func update_stats() -> void:
+	max_health += 10
+	dmg += 10
+	def += 0.05
+	
+func _on_setup_battle() -> void:
+	animation_tree.active = false
+	$Sprite2D.frame = 0
+	$Sprite2D.flip_h = false
+	
+func _on_end_battle(player_won) -> void:
+	animation_tree.active = true
+	if player_won:
+		health = max_health
+	
+func _on_gain_exp(gained_exp) -> void:
+	exp += gained_exp
+	exp_gained()
 
 func _physics_process(_delta: float) -> void: # called every physics frame
-	movement_loop() # handle player movement
+	if not Battle.battling and not in_conversation:
+		movement_loop() # handle player movement
+		
 
 func movement_loop() -> void: # handles player movement input and movement
 	move_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) # get horizontal input
@@ -83,3 +169,21 @@ func update_animation() -> void: # updates the animation based on the current st
 			animation_playback.travel("attack")
 		State.DEAD:
 			animation_playback.travel("dead")
+	
+func _on_dialogue_started(_dialogue_tree):
+	in_conversation = true
+	if facing == "left":
+		$Sprite2D.flip_h = true
+		state = State.IDLE
+	elif facing == "right":
+		$Sprite2D.flip_h = false
+		state = State.IDLE
+	elif facing == "away":
+		state = State.IDLE_AWAY
+	elif facing == "toward":
+		state = State.IDLE_TOWARD
+	update_animation()
+	
+func _on_conversation_over(_node_key) -> void:
+	in_conversation = false
+	
