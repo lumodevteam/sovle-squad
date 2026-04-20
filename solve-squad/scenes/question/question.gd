@@ -1,16 +1,23 @@
 extends Control
 @onready var question_area: Label = $"Question Area"
 @onready var option_area: ItemList = $"Option Area"
+@onready var bar_graph: Control = $"Panel/BarGraph"
+@onready var bar_container: HBoxContainer = $"Panel/BarGraph/HBoxContainer" 
+
+
 
 var questions = {}
 var current_strand = ""
 var current_answer: int = 0
+var max_height = 200
+var is_bar_question = false
 
 func _ready():
 	option_area.select_mode = ItemList.SELECT_SINGLE
 	generate_questions()
-	set_strand("Algebra")
+	set_strand("Data")
 	show_question()
+	
 	print(questions)
 
 func set_strand(strand: String):
@@ -23,8 +30,55 @@ func show_question():
 	#var entry = algebra[randi() % algebra.size()]
 	question_area.text = entry["question"]
 	current_answer = entry["answer"]
+	
+	if entry.has("bar_data"):
+		bar_graph.visible = true
+		draw_bars(entry["bar_data"])
+		
+	else:
+		bar_graph.visible = false
 	answers(current_answer)
-
+func draw_bars(data: Dictionary):
+	for child in bar_container.get_children():
+		child.queue_free()
+	var max_value = 0
+	
+	for i in data:
+		if data[i] != null and data[i] > max_value:
+			max_value = data[i]
+	
+	for j in data:
+		var value = data[j]
+		var column = VBoxContainer.new()
+		column.custom_minimum_size = Vector2(60, max_height + 40)
+		column.alignment = BoxContainer.ALIGNMENT_END
+		
+		if value == null:
+			var missing = ColorRect.new()
+			missing.custom_minimum_size = Vector2(60, max_height + 40)
+			missing.color = Color(1,1,1,0.1)
+			column.add_child(missing)
+			var question_mark = Label.new()
+			question_mark.text = "?"
+			question_mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			question_mark.add_theme_font_size_override("fontsize",32)
+			missing.add_child(question_mark)
+		else:
+			var bar_height = int((float(value)/float(max_value))* max_height)
+			var value_label = Label.new()
+			value_label.text = str(value)
+			value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			column.add_child(value_label)
+			
+			var bar = ColorRect.new()
+			bar.custom_minimum_size = Vector2(60,bar_height)
+			bar.color = Color(0.2,0,6,1.0)
+			column.add_child(bar)
+		var name_label = Label.new()
+		name_label.text = j
+		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		column.add_child(name_label)
+		bar_container.add_child(column)
 func answers(correct_answer: int):
 	option_area.clear()
 	
@@ -48,10 +102,9 @@ func _on_option_area_item_selected(index: int) -> void:
 	else:
 		print("n")
 func generate_questions():
-	questions["Algebra"] = generate_algebra_questions()
-	#questions["Data"] = generate_data_questions()
-#Algebra
-	
+	#questions["Algebra"] = generate_algebra_questions()
+	questions["Data"] = generate_data_questions()
+	'''
 func generate_algebra_questions() -> Array:
 	var result = []
 	
@@ -433,10 +486,23 @@ func generate_algebra_questions() -> Array:
 		})
 	
 	return result
-
+'''
 func generate_data_questions() -> Array:
 	var result = []
-	
+	for i in 4:
+		var labels = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+		var data = {}
+		for label in labels:
+			data[label] = randi_range(10, 100)
+		var missing_key = labels[randi() % labels.size()]
+		var missing_value = data[missing_key]
+		data[missing_key] = null
+		
+		result.append({"question": "What is the value of the missing bar?",
+"answer": missing_value,"bar_data": data})
+
+	return result
+'''
 	
 	for i in 4:
 		var w = randi_range(20, 30)
@@ -548,8 +614,9 @@ func generate_data_questions() -> Array:
 		result.append({
 			"question":"Find the range of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": d })
-	
-	return result
+
+return result
+
 func generate_Spatial_questions() -> Array:
 	var result = []
 	
@@ -559,3 +626,4 @@ func generate_Financial_questions() -> Array:
 	var result = []
 	
 	return result
+'''
