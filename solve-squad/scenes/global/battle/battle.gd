@@ -25,6 +25,10 @@ func _ready():
 	instantiate_question.connect(_on_instantiate_question)
 	ask_question.connect(_on_ask_question)
 	question_answered.connect(_question_answered)
+	end_battle.connect(_on_end_battle)
+	
+func _on_end_battle(_player_won) -> void:
+	battling = false
 
 func _on_start_battle(player, enemy) -> void: # battle function
 	battling = true

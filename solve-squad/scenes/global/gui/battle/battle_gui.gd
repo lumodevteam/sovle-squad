@@ -115,3 +115,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 		current_label.visible_characters = current_label.get_total_character_count()
 	else:
 		player_acknowledged.emit()
+
+
+func _on_run_pressed() -> void:
+	Battle.end_battle.emit(false)
