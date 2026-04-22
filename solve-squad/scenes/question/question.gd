@@ -3,6 +3,11 @@ extends Control
 @onready var option_area: ItemList = $"Option Area"
 @onready var bar_graph: Control = $"Panel/BarGraph"
 @onready var bar_container: HBoxContainer = $"Panel/BarGraph/HBoxContainer" 
+@onready var slider_label: Label = $Panel/BarGraph/SliderLabel
+@onready var submit_button: Button = $Panel/BarGraph/SubmitButton
+@onready var v_slider: VSlider = $Panel/BarGraph/VSlider
+@onready var grid_container: GridContainer = $Panel/GridContainer
+
 
 
 
@@ -11,13 +16,21 @@ var current_strand = ""
 var current_answer: int = 0
 var max_height = 200
 var is_bar_question = false
+var current_bar_data = {}
 
 func _ready():
 	option_area.select_mode = ItemList.SELECT_SINGLE
+	option_area.item_selected.connect(_on_option_area_item_selected)
+	v_slider.min_value = 0
+	v_slider.max_value = 100
+	v_slider.step = 1
+	v_slider.value = 50
+	v_slider.value_changed.connect(_on_slider_changed)
+	submit_button.pressed.connect(_on_submit_pressed)
 	generate_questions()
 	set_strand("Data")
 	show_question()
-	
+
 	print(questions)
 
 func set_strand(strand: String):
@@ -33,12 +46,25 @@ func show_question():
 	
 	if entry.has("bar_data"):
 		bar_graph.visible = true
-		draw_bars(entry["bar_data"])
+		draw_bars(entry["bar_data"], int(v_slider.value))
 		
+		option_area.visible = false
+		current_bar_data = entry["bar_data"]
+		v_slider.value = 50
+		slider_label.text = "50"
+		slider_label.add_theme_color_override("font_color", Color())
+		draw_bars(current_bar_data, int(v_slider.value))
+		if entry.has("table_headers"):
+			grid_container.visible = true
+			draw_table(entry["table_headers"],entry["table_rows"])
 	else:
+		is_bar_question = false
 		bar_graph.visible = false
+		option_area.visible = true
+		grid_container.visible = false
 	answers(current_answer)
-func draw_bars(data: Dictionary):
+	
+func draw_bars(data: Dictionary, slider_val:int):
 	for child in bar_container.get_children():
 		child.queue_free()
 	var max_value = 0
@@ -47,38 +73,86 @@ func draw_bars(data: Dictionary):
 		if data[i] != null and data[i] > max_value:
 			max_value = data[i]
 	
+	if current_answer > max_value:
+		max_value = current_answer
 	for j in data:
 		var value = data[j]
 		var column = VBoxContainer.new()
-		column.custom_minimum_size = Vector2(60, max_height + 40)
+		column.custom_minimum_size = Vector2(60, 20)
 		column.alignment = BoxContainer.ALIGNMENT_END
 		
 		if value == null:
-			var missing = ColorRect.new()
-			missing.custom_minimum_size = Vector2(60, max_height + 40)
-			missing.color = Color(1,1,1,0.1)
-			column.add_child(missing)
-			var question_mark = Label.new()
-			question_mark.text = "?"
-			question_mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			question_mark.add_theme_font_size_override("fontsize",32)
-			missing.add_child(question_mark)
+			var bar_height = int((float(slider_val)/ float(max_value)) * max_height)
+			var top_space = Control.new()
+			var val_label = Label.new()
+			var slider_bar = ColorRect.new()
+			
+			val_label.text = str(slider_val)
+			val_label.add_theme_color_override("font_color", Color())
+			val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			column.add_child(val_label)
+			
+			top_space.custom_minimum_size = Vector2(0, bar_height)
+			column.add_child(top_space)
+			
+			slider_bar.custom_minimum_size = Vector2(60, bar_height)
+			slider_bar.color = Color(0.743, 0.002, 0.942, 0.8)
+			column.add_child(slider_bar)
+			
 		else:
 			var bar_height = int((float(value)/float(max_value))* max_height)
+			
 			var value_label = Label.new()
 			value_label.text = str(value)
+			value_label.add_theme_color_override("font_color", Color())
 			value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			column.add_child(value_label)
+			
+			var spacer = Control.new()
+			spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			column.add_child(spacer)
 			
 			var bar = ColorRect.new()
 			bar.custom_minimum_size = Vector2(60,bar_height)
 			bar.color = Color(0.2,0,6,1.0)
 			column.add_child(bar)
+			
 		var name_label = Label.new()
 		name_label.text = j
+		name_label.add_theme_color_override("font_color", Color())
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		column.add_child(name_label)
 		bar_container.add_child(column)
+func _on_slider_changed(value:float):
+	slider_label.text = str(int(value))
+	slider_label.add_theme_color_override("font_color", Color())
+	draw_bars(current_bar_data, int(value))
+	
+func _on_submit_pressed():
+	var player_guess = int(v_slider.value)
+	if abs(player_guess - current_answer) == 0:
+		question_area.text = "g"
+	else:
+		question_area.text = "n"
+		
+func draw_table(headers: Array, rows: Array):
+	
+	for child in grid_container.get_children():
+		child.queue_free()
+		
+	grid_container.columns = headers.size()
+	
+	for header in headers:
+		var header_label = Label.new()
+		header_label.add_theme_color_override("font_color", Color.YELLOW)
+		grid_container.add_child(header_label)
+		
+	for row in rows:
+		for cell in row:
+			var cell_label = Label.new()
+			cell_label.text = str(cell)
+			cell_label.add_theme_color_override("font_color", Color())
+			grid_container.add_child(cell_label)
 func answers(correct_answer: int):
 	option_area.clear()
 	
@@ -494,13 +568,24 @@ func generate_data_questions() -> Array:
 		var data = {}
 		for label in labels:
 			data[label] = randi_range(10, 100)
+	
 		var missing_key = labels[randi() % labels.size()]
 		var missing_value = data[missing_key]
 		data[missing_key] = null
-		
-		result.append({"question": "What is the value of the missing bar?",
-"answer": missing_value,"bar_data": data})
-
+	
+		var table_rows = []
+		for label in labels:
+			if data[label] != null:
+				table_rows.append([label, data[label]])
+			else:
+				table_rows.append([label, missing_value])
+	
+		result.append({
+			"question": "Slide the bar to the correct height!",
+			"answer": missing_value,
+			"bar_data": data,
+			"table_headers": ["Day", "Value"],
+			"table_rows": table_rows })
 	return result
 '''
 	

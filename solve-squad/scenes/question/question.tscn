@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://6dcbdnuudcvc"]
+[gd_scene load_steps=7 format=3 uid="uid://6dcbdnuudcvc"]
 
 [ext_resource type="PackedScene" uid="uid://2mglw58c6tav" path="res://scenes/tools/calculator/calculator.tscn" id="1_jrjjw"]
 [ext_resource type="Script" uid="uid://d3fchw38qmwul" path="res://scenes/question/question.gd" id="1_v7jrx"]
@@ -10,6 +10,8 @@
 ItemList/colors/font_color = Color(0.65, 0.65, 0.65, 1)
 ItemList/styles/hovered_selected_focus = null
 ItemList/styles/panel = SubResource("StyleBoxEmpty_jrjjw")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_33idg"]
 
 [node name="Question" type="Control"]
 layout_mode = 3
@@ -83,6 +85,7 @@ size_flags_vertical = 8
 layout_mode = 0
 offset_right = 1153.0
 offset_bottom = 647.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_33idg")
 
 [node name="BarGraph" type="Control" parent="Panel"]
 layout_mode = 1
@@ -100,12 +103,43 @@ grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/BarGraph"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = -1
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VSlider" type="VSlider" parent="Panel/BarGraph"]
+layout_mode = 0
+offset_left = -541.5
+offset_top = 37.5
+offset_right = -311.5
+offset_bottom = 207.0
+
+[node name="SliderLabel" type="Label" parent="Panel/BarGraph"]
+layout_mode = 0
+offset_left = -501.5
+offset_top = 14.5
+offset_right = -347.0
+offset_bottom = 215.0
+text = "Test
+"
+horizontal_alignment = 1
+
+[node name="SubmitButton" type="Button" parent="Panel/BarGraph"]
+layout_mode = 0
+offset_left = -511.5
+offset_top = 207.5
+offset_right = -338.5
+offset_bottom = 275.5
+text = "Submit
+"
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 739.0
+offset_top = 77.0
+offset_right = 1153.0
+offset_bottom = 301.0
 
 [connection signal="item_selected" from="Option Area" to="." method="_on_option_area_item_selected"]
