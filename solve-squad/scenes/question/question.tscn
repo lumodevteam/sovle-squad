@@ -83,8 +83,8 @@ size_flags_vertical = 8
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 1153.0
-offset_bottom = 647.0
+offset_right = 889.0
+offset_bottom = 645.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_33idg")
 
 [node name="BarGraph" type="Control" parent="Panel"]
@@ -111,27 +111,27 @@ grow_vertical = 2
 
 [node name="VSlider" type="VSlider" parent="Panel/BarGraph"]
 layout_mode = 0
-offset_left = -541.5
-offset_top = 37.5
-offset_right = -311.5
-offset_bottom = 207.0
+offset_left = -443.5
+offset_top = 78.5
+offset_right = -213.5
+offset_bottom = 248.0
 
 [node name="SliderLabel" type="Label" parent="Panel/BarGraph"]
 layout_mode = 0
-offset_left = -501.5
-offset_top = 14.5
-offset_right = -347.0
-offset_bottom = 215.0
+offset_left = -402.5
+offset_top = 45.5
+offset_right = -248.0
+offset_bottom = 94.5
 text = "Test
 "
 horizontal_alignment = 1
 
 [node name="SubmitButton" type="Button" parent="Panel/BarGraph"]
 layout_mode = 0
-offset_left = -511.5
-offset_top = 207.5
-offset_right = -338.5
-offset_bottom = 275.5
+offset_left = -415.5
+offset_top = 246.5
+offset_right = -242.5
+offset_bottom = 314.5
 text = "Submit
 "
 

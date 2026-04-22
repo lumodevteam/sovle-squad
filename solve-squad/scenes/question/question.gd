@@ -28,7 +28,7 @@ func _ready():
 	v_slider.value_changed.connect(_on_slider_changed)
 	submit_button.pressed.connect(_on_submit_pressed)
 	generate_questions()
-	set_strand("Data")
+	set_strand("Financial")
 	show_question()
 
 	print(questions)
@@ -177,7 +177,9 @@ func _on_option_area_item_selected(index: int) -> void:
 		print("n")
 func generate_questions():
 	#questions["Algebra"] = generate_algebra_questions()
-	questions["Data"] = generate_data_questions()
+	#questions["Data"] = generate_data_questions()
+	#questions["Spacial"] = generate_Spacialds_questions()
+	questions["Financial"] = generate_Financial_questions()
 	'''
 func generate_algebra_questions() -> Array:
 	var result = []
@@ -560,7 +562,7 @@ func generate_algebra_questions() -> Array:
 		})
 	
 	return result
-'''
+
 func generate_data_questions() -> Array:
 	var result = []
 	for i in 4:
@@ -587,7 +589,10 @@ func generate_data_questions() -> Array:
 			"table_headers": ["Day", "Value"],
 			"table_rows": table_rows })
 	return result
-'''
+
+#	for i in 4:
+#		var
+
 	
 	for i in 4:
 		var w = randi_range(20, 30)
@@ -706,9 +711,40 @@ func generate_Spatial_questions() -> Array:
 	var result = []
 	
 	return result
-
+'''
 func generate_Financial_questions() -> Array:
 	var result = []
+	for i in 4:
+		var x = randi_range(2,50)
+		var y = randi_range(7,21)
+		var z = (x*y)
+		result.append({
+			"question":"Layla is saving money everyday to save up for food she saves $%d every day.\nHow much money for food will she have in %d days?" %[x,y],
+			"answer": z })
+			
+	for i in 4:
+		var x = randi_range(100,500)
+		var y = randi_range(10, 30)
+		var z = x % y
+		
+		x -= z
+		@warning_ignore("integer_division")
+		var v = (x / y)
+		
+		result.append({
+			"question":"Layla is saving $%d for food. She saves $%d everyday.\nHow many days does it take to reach her goal?" %[x,y],
+			"answer": v })
 	
+	for i in 100:
+		var list = [1,5,10,25,100,200]
+		var money = ["pennies","nickles","dimes","quarters","loonies","toonies"]
+		var x = randi_range(0,len(list)-1)
+		var y = randi_range(50,400)
+		var z = list[x]
+		var v = y / z
+		var w = money[x]
+		
+		result.append({
+			"question":"How many %d are in %d?" %[w,y],
+			"answer": v })
 	return result
-'''
