@@ -63,7 +63,7 @@ func _on_back_pressed() -> void:
 	toggle_visibility(menu)
 	
 func setup_health_bars(player, enemy) -> void:
-	player_health_bar.max_value = player.health
+	player_health_bar.max_value = player.max_health
 	player_health_bar.value = player.health
 	player_name_label.text = "Player"
 	enemy_health_bar.max_value = enemy.health

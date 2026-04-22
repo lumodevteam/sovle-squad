@@ -32,5 +32,7 @@ func is_occupied(snap_pos: Vector2) -> bool:
 	return occupied_slots.has(snap_pos)
 	
 func num_in_right_place(snap_pos: Vector2) -> bool:
+	print(occupied_slots)
+	print(slot_mapping)
 	return occupied_slots[snap_pos].id == slot_mapping[snap_pos]
 	

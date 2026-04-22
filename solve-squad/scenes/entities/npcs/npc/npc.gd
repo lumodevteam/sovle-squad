@@ -104,7 +104,7 @@ var dialogue_tree: Dictionary = {
 }
 
 func _ready() -> void:
-	Tutorial.quest_completed.connect(_on_quest_completed)
+	TutorialQuests.quest_completed.connect(_on_quest_completed)
 	Gui.conversation_over.connect(_on_conversation_over)
 	
 func _on_quest_completed() -> void:
@@ -134,12 +134,12 @@ func interact() -> void:
 func _on_conversation_over(node_key) -> void:
 	is_interacting = false
 	if node_key == "quest":
-		Tutorial.quest_started.emit()
+		TutorialQuests.quest_started.emit()
 	elif node_key == "express_gratitude":
 		give_rewards()
 func give_rewards() -> void:
-	Tutorial.gain_exp.emit(quest_exp)
+	GlobalSprites.gain_exp.emit(quest_exp)
 	await Gui.info_finished
-	Tutorial.gain_item.emit(quest_item)
+	GlobalSprites.gain_item.emit(quest_item)
 	await Gui.info_finished
 	dialogue_tree["start"]["options"].remove_at(1)

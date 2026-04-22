@@ -23,6 +23,8 @@ enum State { # player states
 @export var dmg: int = 60 # dmg of the player
 @export var def: float = 0.0 # how much defense the player has
 
+var stats = [max_health, health, lvl, exp, dmg, def]
+
 @warning_ignore("integer_division")
 var moves: Dictionary = {
 	1: {
@@ -62,13 +64,17 @@ var number_line_complete_text: Array = ["Something majestic happened...", "I sho
 
 func _ready() -> void:
 	Battle.setup_battle.connect(_on_setup_battle)
+	Battle.start_battle.connect(_on_start_battle)
 	Battle.end_battle.connect(_on_end_battle)
 	Battle.gain_exp.connect(_on_gain_exp)
-	Tutorial.gain_exp.connect(_on_gain_exp)
-	Tutorial.gain_item.connect(_on_gain_item)
+	GlobalSprites.gain_exp.connect(_on_gain_exp)
+	GlobalSprites.gain_item.connect(_on_gain_item)
 	Gui.dialogue_started.connect(_on_dialogue_started)
 	Gui.conversation_over.connect(_on_conversation_over)
 	SnapManager.all_correct.connect(_on_all_correct)
+	
+func _on_start_battle(_player, _enemy) -> void:
+	update_position()
 	
 func _on_all_correct() -> void:
 	in_conversation = true
@@ -79,6 +85,9 @@ func _on_all_correct() -> void:
 func _on_gain_item(item) -> void:
 	inventory.append(item)
 	Gui.info.emit([item_text % item])
+
+func update_inventory() -> void:
+	GlobalSprites.sprites[identifier]["inventory"] = inventory
 
 func exp_gained() -> void:
 	if exp >= 100:
@@ -100,8 +109,13 @@ func _on_setup_battle() -> void:
 	
 func _on_end_battle(player_won) -> void:
 	animation_tree.active = true
+	update_inventory()
 	if player_won:
 		health = max_health
+	update_health()
+	
+func update_health() -> void:
+	GlobalSprites.sprites[identifier]["health"] = health
 	
 func _on_gain_exp(gained_exp) -> void:
 	exp += gained_exp
@@ -110,7 +124,9 @@ func _on_gain_exp(gained_exp) -> void:
 func _physics_process(_delta: float) -> void: # called every physics frame
 	if not Battle.battling and not in_conversation:
 		movement_loop() # handle player movement
-		
+
+func update_position() -> void:
+	GlobalSprites.sprites[identifier]["position"] = global_position
 
 func movement_loop() -> void: # handles player movement input and movement
 	move_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) # get horizontal input

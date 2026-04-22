@@ -1,17 +1,20 @@
 extends Node2D
 
+signal gain_exp(gained_exp: int)
+signal gain_item(item: String)
+
 var sprites: Dictionary = {}
 
 func reparent_sprites(scene: Node2D) -> void:
-	for sprite in sprites:
-		sprites[sprite].reparent(scene)
+	for id in sprites:
+		sprites[id]["sprite"].reparent(scene)
 		
 func hide_sprites(exclude: Array) -> void:
-	for sprite in sprites:
-		if sprite not in exclude:
-			sprites[sprite].visible = false
+	for id in sprites:
+		if id not in exclude:
+			sprites[id]["sprite"].visible = false
 			
 func show_sprites(sprite_names: Array) -> void:
-	for sprite in sprites:
-		if sprite in sprite_names:
-			sprites[sprite].visible = true
+	for id in sprites:
+		if id in sprite_names:
+			sprites[id]["sprite"].visible = true
