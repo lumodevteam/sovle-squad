@@ -41,7 +41,7 @@ jobs:
         run: |
           mkdir -p build/web
           # The "Web" below must perfectly match the name of your preset in Godot
-          godot --headless --export-release "Web" docs/web/index.html
+          godot --headless --export-release "Web" build/web/index.html
           
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Point the uploader to the directory where Godot just saved the export
-          path: './docs'
+          path: 'build/web'
           
       - name: Deploy to GitHub Pages
         id: deployment
