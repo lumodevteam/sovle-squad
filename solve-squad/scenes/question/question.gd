@@ -20,7 +20,6 @@ var current_bar_data = {}
 
 func _ready():
 	option_area.select_mode = ItemList.SELECT_SINGLE
-	option_area.item_selected.connect(_on_option_area_item_selected)
 	v_slider.min_value = 0
 	v_slider.max_value = 100
 	v_slider.step = 1
@@ -28,14 +27,17 @@ func _ready():
 	v_slider.value_changed.connect(_on_slider_changed)
 	submit_button.pressed.connect(_on_submit_pressed)
 	generate_questions()
-	set_strand("Financial")
+	set_strand(current_strand)
 	show_question()
 
 	print(questions)
-
+	print(current_strand)
 func set_strand(strand: String):
+	var list = ["Algebra","Data","Spacial","Financial"]
+	var i = randi_range(0,len(list)-1)
+	strand = list[i]
 	current_strand = strand
-
+	
 func show_question():
 	var strand = questions[current_strand]
 	var entry = strand[randi() % strand.size()]
@@ -176,11 +178,11 @@ func _on_option_area_item_selected(index: int) -> void:
 	else:
 		print("n")
 func generate_questions():
-	#questions["Algebra"] = generate_algebra_questions()
-	#questions["Data"] = generate_data_questions()
+	questions["Algebra"] = generate_algebra_questions()
+	questions["Data"] = generate_data_questions()
 	#questions["Spacial"] = generate_Spacialds_questions()
 	questions["Financial"] = generate_Financial_questions()
-	'''
+
 func generate_algebra_questions() -> Array:
 	var result = []
 	
@@ -588,7 +590,6 @@ func generate_data_questions() -> Array:
 			"bar_data": data,
 			"table_headers": ["Day", "Value"],
 			"table_rows": table_rows })
-	return result
 
 #	for i in 4:
 #		var
@@ -609,7 +610,7 @@ func generate_data_questions() -> Array:
 			"question":"Find the mean of the given set of numbers.\n(%d, %d, %d, %d, %d)" %[w,v,x,y,z],
 			"answer": total / 5
 		})
-	
+
 	for i in 4:
 		
 		var list = []
@@ -639,7 +640,7 @@ func generate_data_questions() -> Array:
 		result.append({
 			"question":"Find the median of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": list[3]})
-		
+
 	for i in 4:
 		
 		var list = []
@@ -704,14 +705,13 @@ func generate_data_questions() -> Array:
 		result.append({
 			"question":"Find the range of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": d })
-
-return result
+	return result
 
 func generate_Spatial_questions() -> Array:
 	var result = []
 	
 	return result
-'''
+
 func generate_Financial_questions() -> Array:
 	var result = []
 	for i in 4:
@@ -735,16 +735,37 @@ func generate_Financial_questions() -> Array:
 			"question":"Layla is saving $%d for food. She saves $%d everyday.\nHow many days does it take to reach her goal?" %[x,y],
 			"answer": v })
 	
-	for i in 100:
+	for i in 4:
 		var list = [1,5,10,25,100,200]
 		var money = ["pennies","nickles","dimes","quarters","loonies","toonies"]
-		var x = randi_range(0,len(list)-1)
+		var x = randi() % list.size()
 		var y = randi_range(50,400)
 		var z = list[x]
 		var v = y / z
 		var w = money[x]
 		
 		result.append({
-			"question":"How many %d are in %d?" %[w,y],
+			"question":"How many %s are in %d¢?" %[w,y],
 			"answer": v })
+			
+	for i in 4:
+		var x = randi_range(1000,10000)
+		var y = randi_range(1000,5000)
+		var z = x - y
+		
+		result.append({
+			"question":"Nathan would like to know if his business made or lost money.\nHis income was $%d and his expenses was $%d.\nWhat is Nathan's total?" %[x,y],
+			"answer": z})
+			
+	for i in 4:
+		var x = randi_range(1,10)
+		var y = randi_range(3,12)
+		var z = randi_range(100,600)*5
+		
+		var v = (x) * (0.01)
+		var w = z + y * (z * v)
+		result.append({
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months what is the total amount you will have?" %[z,x,y],
+			"answer": w})
+
 	return result
