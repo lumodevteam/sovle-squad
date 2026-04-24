@@ -25,18 +25,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Godot Engine
-        # Change '4.3' in the URLs below to match your exact Godot version
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip
-          unzip Godot_v4.3-stable_linux.x86_64.zip
-          sudo mv Godot_v4.3-stable_linux.x86_64 /usr/local/bin/godot
+          wget https://downloads.tuxfamily.org/godotengine/4.5/Godot_v4.5-stable_linux.x86_64.zip
+          unzip Godot_v4.5-stable_linux.x86_64.zip
+          sudo mv Godot_v4.5-stable_linux.x86_64 /usr/local/bin/godot
           
       - name: Install Godot Export Templates
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz
-          unzip Godot_v4.3-stable_export_templates.tpz
-          mkdir -p ~/.local/share/godot/export_templates/4.3.stable
-          mv templates/* ~/.local/share/godot/export_templates/4.3.stable/
+          wget https://downloads.tuxfamily.org/godotengine/4.5/Godot_v4.5-stable_export_templates.tpz
+          unzip Godot_v4.5-stable_export_templates.tpz
+          mkdir -p ~/.local/share/godot/export_templates/4.5.stable
+          mv templates/* ~/.local/share/godot/export_templates/4.5.stable/
 
       - name: Build Web Export
         run: |
@@ -51,7 +50,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Point the uploader to the directory where Godot just saved the export
-          path: './build/web'
+          path: './docs'
           
       - name: Deploy to GitHub Pages
         id: deployment
