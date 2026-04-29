@@ -47,10 +47,10 @@ func change_state(state: int) -> void:
 func _physics_process(delta):
 	if not disabled:
 		if isDragging:
-			position = position.lerp(get_global_mouse_position(), delta * delay)
+			global_position = global_position.lerp(get_global_mouse_position(), delta * delay)
 			hitbox.disabled = true
 		elif snapping:
-			position = body_position
+			global_position = body_position
 			hitbox.disabled = false
 			snapping = false
 
