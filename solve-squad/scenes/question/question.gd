@@ -12,7 +12,7 @@ extends Control
 
 
 var questions = {}
-var current_strand = "data"
+var current_strand = ""
 var current_answer: int = 0
 var max_height = 200
 var is_bar_question = false
@@ -54,7 +54,7 @@ func show_question():
 		current_bar_data = entry["bar_data"]
 		v_slider.value = 50
 		slider_label.text = "50"
-		slider_label.add_theme_color_override("font_color", Color())
+		slider_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 		draw_bars(current_bar_data, int(v_slider.value))
 		if entry.has("table_headers"):
 			grid_container.visible = true
@@ -90,7 +90,7 @@ func draw_bars(data: Dictionary, slider_val:int):
 			var slider_bar = ColorRect.new()
 			
 			val_label.text = str(slider_val)
-			val_label.add_theme_color_override("font_color", Color())
+			val_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 			val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			column.add_child(val_label)
 			
@@ -98,7 +98,7 @@ func draw_bars(data: Dictionary, slider_val:int):
 			column.add_child(top_space)
 			
 			slider_bar.custom_minimum_size = Vector2(60, bar_height)
-			slider_bar.color = Color(0.743, 0.002, 0.942, 0.8)
+			slider_bar.color = Color(0.431, 0.722, 0.659, 1.0)
 			column.add_child(slider_bar)
 			
 		else:
@@ -106,7 +106,7 @@ func draw_bars(data: Dictionary, slider_val:int):
 			
 			var value_label = Label.new()
 			value_label.text = str(value)
-			value_label.add_theme_color_override("font_color", Color())
+			value_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 			value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			column.add_child(value_label)
 			
@@ -116,18 +116,18 @@ func draw_bars(data: Dictionary, slider_val:int):
 			
 			var bar = ColorRect.new()
 			bar.custom_minimum_size = Vector2(60,bar_height)
-			bar.color = Color(0.2,0,6,1.0)
+			bar.color = Color(0.776, 0.314, 0.353, 1.0)
 			column.add_child(bar)
 			
 		var name_label = Label.new()
 		name_label.text = j
-		name_label.add_theme_color_override("font_color", Color())
+		name_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		column.add_child(name_label)
 		bar_container.add_child(column)
 func _on_slider_changed(value:float):
 	slider_label.text = str(int(value))
-	slider_label.add_theme_color_override("font_color", Color())
+	slider_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 	draw_bars(current_bar_data, int(value))
 	
 func _on_submit_pressed():
@@ -146,14 +146,14 @@ func draw_table(headers: Array, rows: Array):
 	
 	for header in headers:
 		var header_label = Label.new()
-		header_label.add_theme_color_override("font_color", Color.YELLOW)
+		header_label.add_theme_color_override("font_color", Color(0.0, 0.0, 0.0, 1.0))
 		grid_container.add_child(header_label)
 		
 	for row in rows:
 		for cell in row:
 			var cell_label = Label.new()
 			cell_label.text = str(cell)
-			cell_label.add_theme_color_override("font_color", Color())
+			cell_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 			grid_container.add_child(cell_label)
 func answers(correct_answer: int):
 	option_area.clear()
@@ -180,7 +180,7 @@ func _on_option_area_item_selected(index: int) -> void:
 func generate_questions():
 	questions["Algebra"] = generate_algebra_questions()
 	questions["Data"] = generate_data_questions()
-	#questions["Spacial"] = generate_Spacialds_questions()
+	questions["Spacial"] = generate_Spatial_questions()
 	questions["Financial"] = generate_Financial_questions()
 
 func generate_algebra_questions() -> Array:
@@ -580,9 +580,9 @@ func generate_data_questions() -> Array:
 		var table_rows = []
 		for label in labels:
 			if data[label] != null:
-				table_rows.append([label, str(data[label]) + " km/h"])
+				table_rows.append([label, "|" + str(data[label]) + " km/h"])
 			else:
-				table_rows.append([label, str(missing_value) + " km/h"])
+				table_rows.append([label, "|" + str(missing_value) + " km/h"])
 	
 		result.append({
 			"question": "Lightning McQueen drove these speeds each lap.\nWhat was the missing lap speed in km/h?  ",
@@ -725,7 +725,136 @@ func generate_Spatial_questions() -> Array:
 				"obtuse_angles": 0,
 			}
 		},
-		
+		{
+			"image":"res://assets/shapes/square.png",
+			"properties":{
+				"vertices": 4,
+				"sides": 4,
+				"parallel_lines": 2,
+				"perpendicular_lines": 4,
+				"lines_of_symmetry": 2,
+				"right_angles": 4,
+				"acute_angles": 0,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/scalene_traignle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 0,
+				"right_angles": 0,
+				"acute_angles": 2,
+				"obtuse_angles": 1,
+			}
+		},
+		{
+			"image":"res://assets/shapes/right_trangle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 1,
+				"lines_of_symmetry": 0-1,
+				"right_angles": 1,
+				"acute_angles": 2,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/pentagon.png",
+			"properties":{
+				"vertices": 5,
+				"sides": 5,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 5,
+				"right_angles": 0,
+				"acute_angles": 3,
+				"obtuse_angles": 2,
+			}
+		},
+		{
+			"image":"res://assets/shapes/octagon.png",
+			"properties":{
+				"vertices": 8,
+				"sides": 8,
+				"parallel_lines": 8,
+				"perpendicular_lines":0,
+				"lines_of_symmetry": 4,
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": 8,
+			}
+		},
+		{
+			"image":"res://assets/shapes/isoscles_trangle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 1,
+				"right_angles": 0,
+				"acute_angles": 3,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/hexagon.png",
+			"properties":{
+				"vertices": 6,
+				"sides": 6,
+				"parallel_lines": 2,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 3,
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": 6,
+			}
+		},
+		{
+			"image":"res://assets/shapes/heptagon.png",
+			"properties":{
+				"vertices": 7,
+				"sides": 7,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 7,
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": 7,
+			}
+		},
+		{
+			"image":"res://assets/shapes/equalateral_triangle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 1,
+				"right_angles": 0,
+				"acute_angles": 3,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/circle.png",
+			"properties":{
+				"vertices": 0,
+				"sides": 1,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": "infinite",
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": "infinite",
+			}
+		},
 	]
 	var question_templates = {
 		"vertices": "How many vertices does this shape have?",

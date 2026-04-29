@@ -58,9 +58,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -18.0
+offset_top = -20.0
 offset_right = -20.0
-offset_bottom = -18.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -69,26 +69,22 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 38.0
-offset_top = 159.0
-offset_right = 38.0
-offset_bottom = 159.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VSlider" type="VSlider" parent="Panel/BarGraph"]
 layout_mode = 0
 offset_left = -443.5
-offset_top = -100.5
+offset_top = -128.5
 offset_right = -213.5
 offset_bottom = 248.0
 
 [node name="SliderLabel" type="Label" parent="Panel/BarGraph"]
 layout_mode = 0
 offset_left = -402.5
-offset_top = -137.0
+offset_top = -150.0
 offset_right = -248.0
-offset_bottom = -88.0
+offset_bottom = -101.0
 text = "Test
 "
 horizontal_alignment = 1
@@ -104,10 +100,10 @@ text = "Submit
 
 [node name="GridContainer" type="GridContainer" parent="Panel"]
 layout_mode = 0
-offset_left = 682.0
-offset_top = 170.0
-offset_right = 1096.0
-offset_bottom = 394.0
+offset_left = 739.0
+offset_top = 77.0
+offset_right = 1153.0
+offset_bottom = 301.0
 
 [node name="Option Area" type="ItemList" parent="."]
 layout_mode = 0
