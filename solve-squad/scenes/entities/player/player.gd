@@ -85,6 +85,7 @@ func _on_all_correct() -> void:
 func _on_gain_item(item) -> void:
 	inventory.append(item)
 	Gui.info.emit([item_text % item])
+	update_inventory()
 
 func update_inventory() -> void:
 	GlobalSprites.sprites[identifier]["inventory"] = inventory
