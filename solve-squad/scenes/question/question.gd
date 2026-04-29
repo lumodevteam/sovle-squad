@@ -12,7 +12,7 @@ extends Control
 
 
 var questions = {}
-var current_strand = ""
+var current_strand = "data"
 var current_answer: int = 0
 var max_height = 200
 var is_bar_question = false
@@ -36,7 +36,7 @@ func set_strand(strand: String):
 	var list = ["Algebra","Data","Spacial","Financial"]
 	var i = randi_range(0,len(list)-1)
 	strand = list[i]
-	current_strand = strand
+	current_strand = "Data"
 	
 func show_question():
 	var strand = questions[current_strand]
@@ -49,7 +49,7 @@ func show_question():
 	if entry.has("bar_data"):
 		bar_graph.visible = true
 		draw_bars(entry["bar_data"], int(v_slider.value))
-		
+		v_slider.max_value = entry["slider_max"]
 		option_area.visible = false
 		current_bar_data = entry["bar_data"]
 		v_slider.value = 50
@@ -94,7 +94,7 @@ func draw_bars(data: Dictionary, slider_val:int):
 			val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			column.add_child(val_label)
 			
-			top_space.custom_minimum_size = Vector2(0, bar_height)
+			top_space.custom_minimum_size = Vector2(60, max_height - bar_height)
 			column.add_child(top_space)
 			
 			slider_bar.custom_minimum_size = Vector2(60, bar_height)
@@ -567,11 +567,11 @@ func generate_algebra_questions() -> Array:
 
 func generate_data_questions() -> Array:
 	var result = []
-	for i in 4:
-		var labels = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+	for i in 40:
+		var labels = ["Lap 1", "Lap 2", "Lap 3", "Lap 4", "Lap 5"]
 		var data = {}
 		for label in labels:
-			data[label] = randi_range(10, 100)
+			data[label] = randi_range(80, 200)
 	
 		var missing_key = labels[randi() % labels.size()]
 		var missing_value = data[missing_key]
@@ -580,15 +580,16 @@ func generate_data_questions() -> Array:
 		var table_rows = []
 		for label in labels:
 			if data[label] != null:
-				table_rows.append([label, data[label]])
+				table_rows.append([label, str(data[label]) + " km/h"])
 			else:
-				table_rows.append([label, missing_value])
+				table_rows.append([label, str(missing_value) + " km/h"])
 	
 		result.append({
-			"question": "Slide the bar to the correct height!",
+			"question": "Lightning McQueen drove these speeds each lap.\nWhat was the missing lap speed in km/h?  ",
 			"answer": missing_value,
 			"bar_data": data,
-			"table_headers": ["Day", "Value"],
+			"slider_max": 200,
+			"table_headers": ["Lap", "Speed"],
 			"table_rows": table_rows })
 
 #	for i in 4:
@@ -710,6 +711,39 @@ func generate_data_questions() -> Array:
 func generate_Spatial_questions() -> Array:
 	var result = []
 	
+	var shapes = [
+		{
+			"image":"res://assets/shapes/rectangle.png",
+			"properties":{
+				"vertices": 4,
+				"sides": 4,
+				"parallel_lines": 2,
+				"perpendicular_lines": 4,
+				"lines_of_symmetry": 2,
+				"right_angles": 4,
+				"acute_angles": 0,
+				"obtuse_angles": 0,
+			}
+		},
+		
+	]
+	var question_templates = {
+		"vertices": "How many vertices does this shape have?",
+		"sides": "How many sides does this shape have?",
+		"parallel_lines": "How many parallel lines does this shape have?",
+		"perpendicular_lines": "How many perpendicular lines does this shape have?",
+		"lines_of_symmetry": "How many lines of symmetry does this shape have?",
+		"right_angles": "How many right angles does this shape have?",
+		"acute_angles": "How many acute angles does this shape have?",
+		"obtuse_angles": "How many obtuse angles does this shape have?",
+	}
+	for shape in shapes:
+		for property in question_templates:
+			result.append({
+				"question":question_templates[property],
+				"answer": shape["properties"][property],
+				"shape": shape["image"]
+			})
 	return result
 
 func generate_Financial_questions() -> Array:
