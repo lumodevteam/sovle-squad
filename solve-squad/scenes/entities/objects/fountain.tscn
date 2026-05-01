@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://df7vvu30kjtpx" path="res://assets/Village tiles (1).png" id="1_swr4m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7pcg1"]
-radius = 25.5
+radius = 26.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7pcg1"]
 atlas = ExtResource("1_swr4m")
@@ -95,7 +95,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7pcg1"]
-size = Vector2(64, 36)
+size = Vector2(64, 44)
 
 [node name="Fountain" type="Node2D"]
 script = ExtResource("1_7pcg1")
@@ -117,7 +117,7 @@ animation = &"fountain_water"
 [node name="StaticBody2D" type="StaticBody2D" parent="FountainNode"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FountainNode/StaticBody2D"]
-position = Vector2(16, -9)
+position = Vector2(16, -11)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_7pcg1")
 
