@@ -567,7 +567,7 @@ func generate_algebra_questions() -> Array:
 
 func generate_data_questions() -> Array:
 	var result = []
-	for i in 40:
+	for i in 4:
 		var labels = ["Lap 1", "Lap 2", "Lap 3", "Lap 4", "Lap 5"]
 		var data = {}
 		for label in labels:
@@ -928,7 +928,20 @@ func generate_Financial_questions() -> Array:
 		var v = (x) * (0.01)
 		var w = z + y * (z * v)
 		result.append({
-			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months what is the total amount you will have?" %[z,x,y],
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months what is the total amount you will have earned?" %[z,x,y],
 			"answer": w})
+	
+	for i in 4:
+		var x = randi_range(1,10)
+		var y = randi_range(3,12)
+		var z = randi_range(100,600)*5
+		
+		var v = (x) * (0.01)
+		var w = (v * z) * y
+		result.append({
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months how much extra money will you have earned?" %[z,x,y],
+			"answer": w })
+			
+			
 
 	return result
