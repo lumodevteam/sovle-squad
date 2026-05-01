@@ -81,3 +81,7 @@ func spawn_number_line() -> void:
 			"sprite" : number_line,
 			"position" : number_line_starting_pos
 		}
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug"):
+		print(get_global_mouse_position())
