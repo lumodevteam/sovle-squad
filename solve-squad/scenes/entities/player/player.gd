@@ -55,6 +55,7 @@ var level_up_text: String = "You leveled up! %s -> %s"
 var exp_text: String = "You gained exp!"
 var item_text: String = "You got a %s!"
 var number_line_complete_text: Array = ["Something majestic happened...", "I should go talk to that villager again..."]
+var heal_text: Array = ["You went up to the well...", "You healed fully!"]
 
 @onready var animation_tree: AnimationTree = $AnimationTree # reference to the AnimationTree node
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"] # reference to the state machine playback
@@ -66,6 +67,7 @@ func _ready() -> void:
 	Battle.gain_exp.connect(_on_gain_exp)
 	Tutorial.gain_exp.connect(_on_gain_exp)
 	Tutorial.gain_item.connect(_on_gain_item)
+	Tutorial.interWell.connect(_on_interWell)
 	Gui.dialogue_started.connect(_on_dialogue_started)
 	Gui.conversation_over.connect(_on_conversation_over)
 	SnapManager.all_correct.connect(_on_all_correct)
@@ -75,6 +77,13 @@ func _on_all_correct() -> void:
 	Gui.info.emit(number_line_complete_text)
 	await Gui.info_finished
 	in_conversation = false
+
+func _on_interWell() -> void:
+	in_conversation = true
+	Gui.info.emit(heal_text)
+	await Gui.info_finished
+	in_conversation = false
+	health = max_health
 
 func _on_gain_item(item) -> void:
 	inventory.append(item)

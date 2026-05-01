@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddo6rftuvfcr2"]
+[gd_scene load_steps=17 format=3 uid="uid://ddo6rftuvfcr2"]
 
-[ext_resource type="Script" uid="uid://brruxthjn53il" path="res://scenes/entities/objects/sprite_2d.gd" id="1_7pcg1"]
+[ext_resource type="Script" uid="uid://brruxthjn53il" path="res://scenes/entities/objects/fountain.gd" id="1_7pcg1"]
 [ext_resource type="Texture2D" uid="uid://df7vvu30kjtpx" path="res://assets/Village tiles (1).png" id="1_swr4m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7pcg1"]
+radius = 25.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7pcg1"]
 atlas = ExtResource("1_swr4m")
@@ -87,17 +90,36 @@ animations = [{
 "texture": SubResource("AtlasTexture_7pcg1")
 }],
 "loop": false,
-"name": &"default",
+"name": &"fountain_water",
 "speed": 3.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7pcg1"]
+size = Vector2(64, 36)
+
 [node name="Fountain" type="Node2D"]
+script = ExtResource("1_7pcg1")
 
 [node name="FountainNode" type="Sprite2D" parent="."]
-script = ExtResource("1_7pcg1")
+scale = Vector2(2, 2)
+
+[node name="Area2D" type="Area2D" parent="FountainNode"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FountainNode/Area2D"]
+position = Vector2(16, -15)
+shape = SubResource("CircleShape2D_7pcg1")
 
 [node name="animationFountain" type="AnimatedSprite2D" parent="FountainNode"]
 position = Vector2(16, -16)
 sprite_frames = SubResource("SpriteFrames_5ul4x")
-frame = 11
-frame_progress = 1.0
+animation = &"fountain_water"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="FountainNode"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FountainNode/StaticBody2D"]
+position = Vector2(16, -9)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_7pcg1")
+
+[connection signal="body_entered" from="FountainNode/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="FountainNode/Area2D" to="." method="_on_area_2d_body_exited"]
