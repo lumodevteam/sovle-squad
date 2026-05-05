@@ -254,7 +254,7 @@ func generate_algebra_questions() -> Array:
 	#Formula questions 
 
 	# x + y = z find z
-	for i in 3:
+	for i in 4:
 		var x = randi_range(1, 100)
 		var y = randi_range(1, 50)
 		result.append({
@@ -263,7 +263,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x + y = z find x
-	for i in 3:
+	for i in 4:
 		var x = randi_range(1, 50)
 		var y = randi_range(1, 100)
 		result.append({
@@ -272,7 +272,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m - n = p find p
-	for i in 3:
+	for i in 4:
 		var m = randi_range(10, 100)
 		var n = randi_range(1, m)
 		result.append({
@@ -281,7 +281,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m - n = p find m
-	for i in 3:
+	for i in 4:
 		var n = randi_range(1, 100)
 		var p = randi_range(1, 100)
 		result.append({
@@ -290,7 +290,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# a x b = c find c
-	for i in 3:
+	for i in 4:
 		var a = randi_range(2, 12)
 		var b = randi_range(2, 12)
 		result.append({
@@ -299,7 +299,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# a x b = c find b
-	for i in 3:
+	for i in 4:
 		var b = randi_range(2, 12)        # answer
 		var a = randi_range(2, 9)
 		var c = a * b                     # guaranteed whole
@@ -309,7 +309,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# q ÷ r = s find s
-	for i in 3:
+	for i in 4:
 		var s = randi_range(2, 12)        # answer
 		var r = randi_range(2, 9)
 		var q = s * r                     # guaranteed whole
@@ -319,7 +319,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# q ÷ r = s find q
-	for i in 3:
+	for i in 4:
 		var s = randi_range(2, 12)
 		var r = randi_range(2, 9)
 		var q = s * r
@@ -329,7 +329,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x + y + z = w find w
-	for i in 3:
+	for i in 4:
 		var x = randi_range(1, 50)
 		var y = randi_range(1, 50)
 		var z = randi_range(1, 50)
@@ -339,7 +339,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m - n + p = q find q
-	for i in 3:
+	for i in 4:
 		var m = randi_range(10, 30)
 		var n = randi_range(1, m)
 		var p = randi_range(1, 50)
@@ -351,7 +351,7 @@ func generate_algebra_questions() -> Array:
 	#BEDMAS
 
 	# a × b ÷ c = d find d
-	for i in 3:
+	for i in 4:
 		var divisor = randi_range(2, 6)
 		var quotient = randi_range(2, 10)
 		var factor = randi_range(2, 6)
@@ -362,7 +362,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x + y - z = w find w
-	for i in 3:
+	for i in 4:
 		var x = randi_range(5, 50)
 		var y = randi_range(1, 50)
 		var z = randi_range(5, x + y)
@@ -372,7 +372,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# p × q + r = s find s
-	for i in 3:
+	for i in 4:
 		var p = randi_range(2, 8)
 		var q = randi_range(2, 8)
 		var r = randi_range(1, 50)
@@ -382,7 +382,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m ÷ n + o = p find p
-	for i in 3:
+	for i in 4:
 		var quotient = randi_range(2, 12)  # m ÷ n
 		var n = randi_range(2, 9)
 		var m = quotient * n               # guaranteed whole
@@ -393,7 +393,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x × y - z ÷ w = v find v
-	for i in 3:
+	for i in 4:
 		var x = randi_range(2, 8)
 		var y = randi_range(2, 8)
 		var w = randi_range(2, 6)
