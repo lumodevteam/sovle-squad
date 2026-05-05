@@ -75,7 +75,7 @@ func _on_quest_started() -> void:
 	
 func spawn_number_line() -> void:
 	number_line = spawn_sprite(number_line_starting_pos, number_line_scene)
-	number_line.create_number_line(number_line_starting_pos)
+	number_line.create_number_line()
 	number_line.identifier = "number_line"
 	GlobalSprites.sprites[number_line.identifier] = {
 			"sprite" : number_line,

@@ -12,19 +12,19 @@ func _ready() -> void:
 	randomize()
 	numbers.shuffle()
 
-func create_number_line(starting_pos: Vector2) -> void:
+func create_number_line() -> void:
 	var line1 = line_scene.instantiate()
-	line1.position = Vector2(8*32, 0)
-	starting_index = line1.map_slots(starting_index, line1.position + starting_pos)
+	line1.position = Vector2.ZERO
 	add_child(line1)
+	starting_index = line1.map_slots(starting_index)
 	var line2 = line_scene.instantiate()
-	line2.position = Vector2(8*32*2, 0)
-	starting_index = line2.map_slots(starting_index, line2.position + starting_pos)
+	line2.position = line1.position + Vector2(8*32, 0)
 	add_child(line2)
+	starting_index = line2.map_slots(starting_index)
 	var line3 = line_scene.instantiate()
-	line3.position = Vector2(8*32*3, 0)
-	starting_index = line3.map_slots(starting_index, line3.position + starting_pos)
+	line3.position = line2.position + Vector2(8*32, 0)
 	add_child(line3)
+	starting_index = line3.map_slots(starting_index)
 	
 	
 	for i in range(10):
