@@ -32,4 +32,4 @@ show_behind_parent = true
 z_index = -1
 
 [node name="FountainPlaceholder" type="Node2D" parent="."]
-position = Vector2(1459.0286, -850.90015)
+position = Vector2(1838, -867)
