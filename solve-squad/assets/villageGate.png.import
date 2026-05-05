@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgpmcedve6fot"
-path="res://.godot/imported/Village tiles (1).png-d36222763e0191d9ade03ee8a5c81b4b.ctex"
+uid="uid://ccm3lpx0domg"
+path="res://.godot/imported/villageGate.png-6ea53fd11af28161a2ced788cd3f904f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Village tiles (1).png"
-dest_files=["res://.godot/imported/Village tiles (1).png-d36222763e0191d9ade03ee8a5c81b4b.ctex"]
+source_file="res://assets/villageGate.png"
+dest_files=["res://.godot/imported/villageGate.png-6ea53fd11af28161a2ced788cd3f904f.ctex"]
 
 [params]
 
