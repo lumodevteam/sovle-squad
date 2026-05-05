@@ -104,7 +104,7 @@ var dialogue_tree: Dictionary = {
 }
 
 func _ready() -> void:
-	TutorialQuests.quest_completed.connect(_on_quest_completed)
+	TutorialEvents.quest_completed.connect(_on_quest_completed)
 	Gui.conversation_over.connect(_on_conversation_over)
 	
 func _on_quest_completed() -> void:
@@ -134,7 +134,7 @@ func interact() -> void:
 func _on_conversation_over(node_key) -> void:
 	is_interacting = false
 	if node_key == "quest":
-		TutorialQuests.quest_started.emit()
+		TutorialEvents.quest_started.emit()
 	elif node_key == "express_gratitude":
 		give_rewards()
 func give_rewards() -> void:

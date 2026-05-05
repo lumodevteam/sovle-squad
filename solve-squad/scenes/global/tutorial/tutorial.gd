@@ -11,6 +11,7 @@ const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fount
 @onready var enemy2_starting_pos: Vector2 = $Enemy2Placeholder.position
 @onready var npc_starting_pos: Vector2 = $NPCPlaceholder.position
 @onready var number_line_starting_pos: Vector2 = $NumberLinePlaceholder.position
+@onready var fountain_starting_pos: Vector2 = $FountainPlaceholder.position
 
 var player: Node2D
 var enemy1: Node2D
@@ -22,7 +23,7 @@ var fountain: Node2D
 var number_line_exists: bool = false
 
 func _ready() -> void:
-	TutorialQuests.quest_started.connect(_on_quest_started)
+	TutorialEvents.quest_started.connect(_on_quest_started)
 	if Navigation.tutorial_scene not in Navigation.visited_before:
 		Navigation.visited_before.append(Navigation.tutorial_scene)
 		player = spawn_sprite(player_starting_pos, player_scene)
@@ -51,6 +52,12 @@ func _ready() -> void:
 			"sprite" : npc,
 			"position" : npc_starting_pos
 		}
+		fountain = spawn_sprite(fountain_starting_pos, fountain_scene)
+		fountain.identifier = "fountain"
+		GlobalSprites.sprites[fountain.identifier] = {
+			"sprite" : fountain,
+			"position" : fountain_starting_pos
+		}
 	else:
 		if number_line_exists:
 			number_line = GlobalSprites.sprites["number_line"]["sprite"]
@@ -63,6 +70,8 @@ func _ready() -> void:
 		enemy2.position = GlobalSprites.sprites["enemy2"]["position"]
 		npc = GlobalSprites.sprites["npc"]["sprite"]
 		npc.position = GlobalSprites.sprites["npc"]["position"]
+		fountain = GlobalSprites.sprite["fountain"]["sprite"]
+		fountain.position = GlobalSprites.sprite["fountain"]["position"]
 	
 func spawn_sprite(pos: Vector2, sprite: PackedScene) -> Node2D:
 	var new_sprite = sprite.instantiate()

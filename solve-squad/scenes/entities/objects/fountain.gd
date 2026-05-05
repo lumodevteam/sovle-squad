@@ -17,7 +17,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if player_in_range and event.is_action_pressed("interact") and not is_interacting:
 		is_interacting = true
-		Tutorial.interWell.emit()
+		TutorialEvents.interWell.emit()
 		animated_sprite.play("fountain_water")
 		await animated_sprite.animation_finished
 		is_interacting = false

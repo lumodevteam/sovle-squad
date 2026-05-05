@@ -23,7 +23,7 @@ Navigation="*res://scenes/global/navigation/navigation.gd"
 GlobalSprites="*res://scenes/global/global_sprites/global_sprites.gd"
 Gui="*res://scenes/global/gui/gui.gd"
 SnapManager="*res://scenes/entities/numberLine/snap_manager.gd"
-TutorialQuests="*res://scenes/global/tutorial/quests.gd"
+TutorialEvents="*res://scenes/global/tutorial/events.gd"
 
 [dotnet]
 
