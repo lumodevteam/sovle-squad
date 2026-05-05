@@ -10,6 +10,9 @@ signal ask_question
 signal question_answered(question_correct: bool)
 signal instantiate_question
 
+const player_position: Vector2 = Vector2(376, -324)
+const enemy_position: Vector2 = Vector2(776, -324)
+
 var battling: bool = false # is there a battle happening
 var rng = RandomNumberGenerator.new()
 var weights = PackedFloat32Array([0.5, 0.7, 1, 0.7, 0.5])
@@ -40,8 +43,8 @@ func _on_setup_battle() -> void:
 	var battle_scene = get_tree().get_root().get_node("BattleScene")
 	battle_player.reparent(battle_scene)
 	battle_enemy.reparent(battle_scene)
-	battle_player.position = Vector2(476, 0)
-	battle_enemy.position = Vector2(676, 0)
+	battle_player.position = player_position
+	battle_enemy.position = enemy_position
 	
 func show_sprites(visible: bool) -> void:
 	battle_player.visible = visible

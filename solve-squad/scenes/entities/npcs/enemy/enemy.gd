@@ -47,7 +47,7 @@ var moves: Dictionary = {
 }
 
 func _ready() -> void:
-	lvl = GlobalSprites.sprites["player"].lvl + randi_range(-2, 2)
+	lvl = GlobalSprites.sprites["player"]["sprite"].lvl + randi_range(-2, 2)
 	Battle.setup_battle.connect(_on_setup_battle)
 	Battle.end_battle.connect(_on_end_battle)
 	Gui.conversation_over.connect(_on_conversation_over)

@@ -18,9 +18,7 @@ func check_for_pause() -> void:
 		if get_tree().paused:
 			resume()
 		else:
-			pause()
-	
-
+			pause()	
 
 func _on_button_pressed() -> void:
 	resume()

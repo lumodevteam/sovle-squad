@@ -21,7 +21,7 @@ func _ready() -> void:
 	SnapManager.all_correct.connect(_on_all_correct)
 	
 func _on_all_correct() -> void:
-	Tutorial.quest_completed.emit()
+	TutorialQuests.quest_completed.emit()
 	disabled = true
 
 func _on_body_entered(body_position: Vector2, id: int) -> void:
@@ -47,10 +47,10 @@ func change_state(state: int) -> void:
 func _physics_process(delta):
 	if not disabled:
 		if isDragging:
-			position = position.lerp(get_global_mouse_position(), delta * delay)
+			global_position = global_position.lerp(get_global_mouse_position(), delta * delay)
 			hitbox.disabled = true
 		elif snapping:
-			position = body_position
+			global_position = body_position
 			hitbox.disabled = false
 			snapping = false
 
