@@ -36,13 +36,11 @@ func set_strand(strand: String):
 	var list = ["Algebra","Data","Spacial","Financial"]
 	var i = randi_range(0,len(list)-1)
 	strand = list[i]
-	current_strand = "Data"
+	current_strand = strand
 	
 func show_question():
 	var strand = questions[current_strand]
 	var entry = strand[randi() % strand.size()]
-	#var algebra = questions["Algebra"]
-	#var entry = algebra[randi() % algebra.size()]
 	question_area.text = entry["question"]
 	current_answer = entry["answer"]
 	
