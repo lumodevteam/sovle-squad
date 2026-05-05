@@ -4,6 +4,7 @@ const player_scene: PackedScene = preload("res://scenes/entities/player/player.t
 const enemy_scene: PackedScene = preload("res://scenes/entities/npcs/enemy/enemy.tscn")
 const npc_scene: PackedScene = preload("res://scenes/entities/npcs/npc/npc.tscn")
 const number_line_scene: PackedScene = preload("res://scenes/entities/numberLine/numberLine.tscn")
+const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fountain.tscn")
 
 @onready var player_starting_pos: Vector2 = $PlayerPlaceholder.position
 @onready var enemy1_starting_pos: Vector2 = $Enemy1Placeholder.position
@@ -16,6 +17,7 @@ var enemy1: Node2D
 var enemy2: Node2D
 var npc: Node2D
 var number_line: Node2D
+var fountain: Node2D
 
 var number_line_exists: bool = false
 
