@@ -24,3 +24,7 @@ func check_for_pause() -> void:
 
 func _on_button_pressed() -> void:
 	resume()
+
+
+func _on_button_options_pressed() -> void:
+	pass # Replace with function body.
