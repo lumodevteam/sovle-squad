@@ -10,3 +10,6 @@ script = ExtResource("1_4kmhl")
 [node name="Dialogue" parent="." instance=ExtResource("2_nj7lw")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_s1bwy")]
+
+[node name="FountainPlaceholder" type="Node2D" parent="."]
+position = Vector2(791, 316)
