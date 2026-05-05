@@ -4,23 +4,27 @@ const player_scene: PackedScene = preload("res://scenes/entities/player/player.t
 const enemy_scene: PackedScene = preload("res://scenes/entities/npcs/enemy/enemy.tscn")
 const npc_scene: PackedScene = preload("res://scenes/entities/npcs/npc/npc.tscn")
 const number_line_scene: PackedScene = preload("res://scenes/entities/numberLine/numberLine.tscn")
+const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fountain.tscn")
 
 const player_starting_pos: Vector2 = Vector2(0, 0)
 const enemy1_starting_pos: Vector2 = Vector2(-200, -320)
 const enemy2_starting_pos: Vector2 = Vector2(-400, -320)
 const npc_starting_pos: Vector2 = Vector2(200, -120)
 const number_line_starting_pos: Vector2 = Vector2(0, 0)
+const fountain_starting_pos: Vector2 = Vector2(100, 200)
 
 signal quest_started
 signal quest_completed
 signal gain_exp(gained_exp: int)
 signal gain_item(item: String)
+signal interWell
 
 var player: Node2D
 var enemy1: Node2D
 var enemy2: Node2D
 var npc: Node2D
 var number_line: Node2D
+var fountain: Node2D
 
 var number_line_exists: bool = false
 
@@ -40,6 +44,10 @@ func _ready() -> void:
 		npc = spawn_sprite(npc_starting_pos, npc_scene)
 		npc.identifier = "npc"
 		GlobalSprites.sprites[npc.identifier] = npc
+		fountain = spawn_sprite(fountain_starting_pos, fountain_scene)
+		fountain.identifier = "fountain"
+		GlobalSprites.sprites[fountain.identifier] = fountain
+		
 	else:
 		if number_line_exists:
 			number_line = GlobalSprites.sprites["number_line"]
@@ -52,6 +60,8 @@ func _ready() -> void:
 		enemy2.position = enemy2_starting_pos
 		npc = GlobalSprites.sprites["npc"]
 		npc.position = npc_starting_pos
+		fountain = GlobalSprites.sprites["fountain"]
+		fountain.position = fountain_starting_pos
 	
 func spawn_sprite(pos: Vector2, sprite: PackedScene) -> Node2D:
 	var new_sprite = sprite.instantiate()
