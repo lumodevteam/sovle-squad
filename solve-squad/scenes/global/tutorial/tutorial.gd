@@ -11,7 +11,7 @@ const enemy1_starting_pos: Vector2 = Vector2(-200, -320)
 const enemy2_starting_pos: Vector2 = Vector2(-400, -320)
 const npc_starting_pos: Vector2 = Vector2(200, -120)
 const number_line_starting_pos: Vector2 = Vector2(0, 0)
-const fountain_starting_pos: Vector2 = Vector2(100, 200)
+const fountain_starting_pos: Vector2 = Vector2(200, -350)
 
 signal quest_started
 signal quest_completed
