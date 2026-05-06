@@ -40,7 +40,7 @@ func set_strand(strand: String):
 	var list = ["algebra","data","spacial","financial"]
 	var i = randi_range(0,len(list)-1)
 	strand = list[i]
-	current_strand = strand
+	current_strand = "data"
 	
 func show_question():
 	GlobalSprites.hide_sprites([])
@@ -584,7 +584,7 @@ func generate_algebra_questions() -> Array:
 
 func generate_data_questions() -> Array:
 	var result = []
-	for i in 4:
+	for i in 400:
 		var labels = ["Lap 1", "Lap 2", "Lap 3", "Lap 4", "Lap 5"]
 		var data = {}
 		for label in labels:
@@ -608,10 +608,6 @@ func generate_data_questions() -> Array:
 			"slider_max": 200,
 			"table_headers": ["Lap", "Speed"],
 			"table_rows": table_rows })
-
-#	for i in 4:
-#		var
-
 	
 	for i in 4:
 		var w = randi_range(20, 30)
