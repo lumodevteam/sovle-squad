@@ -720,6 +720,19 @@ func generate_data_questions() -> Array:
 		result.append({
 			"question":"Find the range of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": d })
+			
+		result.append({
+			"question": "Is the number of students in a class quantitative or qualitative?",
+			"answer": 0,
+			"question_type": "two_choice",
+			"choices":["Quantitative","Qualitative"]
+		})
+		result.append({
+			"question": "Is the colour of a car quantitative or qualitative?",
+			"answer": 1,
+			"question_type": "two_choice",
+			"choices":["Quantitative","Qualitative"]
+		})
 	return result
 
 func generate_Spatial_questions() -> Array:
