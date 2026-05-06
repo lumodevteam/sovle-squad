@@ -46,11 +46,21 @@ func show_question():
 	current_answer = entry["answer"]
 	
 	if entry.has("shape"):
-		shape_image.visible = true
-		shape_image.texture = load(entry["shape"])
+		if ResourceLoader.exists(entry["shape"]):
+			shape_image.texture = load(entry["shape"])
+			shape_image.visible = true
+		else:
+			print("missing image: ", entry["shape"])
+			
+		answers(current_answer,3)
+	elif entry.has("bar_data"):
+		answers(current_answer,10)
 	else:
 		shape_image.visible = false
-	
+		grid_container.visible = false
+		option_area.visible = true
+		answers(current_answer, 15)
+		
 	if entry.has("bar_data"):
 		bar_graph.visible = true
 		draw_bars(entry["bar_data"], int(v_slider.value))
@@ -160,22 +170,21 @@ func draw_table(headers: Array, rows: Array):
 			cell_label.text = str(cell)
 			cell_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 			grid_container.add_child(cell_label)
-func answers(correct_answer: int):
+func answers(correct_answer: int, range_val: int = 15):
 	option_area.clear()
 	
 	var wrong_answers = []
 	while wrong_answers.size() < 3:
-		var wrong = correct_answer + randi_range(-15,15)
+		var wrong = correct_answer + randi_range(-range_val, range_val)
 		if wrong != correct_answer and wrong not in wrong_answers:
 			wrong_answers.append(wrong)
 			
 	var all_answers = wrong_answers
 	all_answers.append(correct_answer)
-	
 	all_answers.shuffle()
 	for answer in all_answers:
 		option_area.add_item(str(answer))
-		
+
 func _on_option_area_item_selected(index: int) -> void:
 	var selected_text = option_area.get_item_text(index)
 	if int(selected_text) == current_answer:
@@ -744,7 +753,7 @@ func generate_Spatial_questions() -> Array:
 			}
 		},
 		{
-			"image":"res://assets/shapes/scalene_traignle.png",
+			"image":"res://assets/shapes/scalene_triandddddddddddddddddddddssdsdadsdadasdwsadasadawdawgle.png",
 			"properties":{
 				"vertices": 3,
 				"sides": 3,
@@ -757,7 +766,7 @@ func generate_Spatial_questions() -> Array:
 			}
 		},
 		{
-			"image":"res://assets/shapes/right_trangle.png",
+			"image":"res://assets/shapes/right_triangle.png",
 			"properties":{
 				"vertices": 3,
 				"sides": 3,
@@ -796,7 +805,7 @@ func generate_Spatial_questions() -> Array:
 			}
 		},
 		{
-			"image":"res://assets/shapes/isoscles_trangle.png",
+			"image":"res://assets/shapes/isosceles_trangle.png",
 			"properties":{
 				"vertices": 3,
 				"sides": 3,
