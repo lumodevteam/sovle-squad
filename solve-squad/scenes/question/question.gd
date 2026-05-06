@@ -1,63 +1,202 @@
 extends Control
-@onready var question_area: Label = $"CanvasLayer/Question Area"
-@onready var option_area: ItemList = $"CanvasLayer/Option Area"
-@onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var question_area: Label = $"Question Area"
+@onready var option_area: ItemList = $"Option Area"
+@onready var bar_graph: Control = $"Panel/BarGraph"
+@onready var bar_container: HBoxContainer = $"Panel/BarGraph/HBoxContainer" 
+@onready var slider_label: Label = $Panel/BarGraph/SliderLabel
+@onready var submit_button: Button = $Panel/BarGraph/SubmitButton
+@onready var v_slider: VSlider = $Panel/BarGraph/VSlider
+@onready var grid_container: GridContainer = $Panel/GridContainer
+@onready var shape_image: TextureRect = $"ShapeImage"
+
+
 
 var questions = {}
 var current_strand = ""
 var current_answer: int = 0
+var max_height = 200
+var is_bar_question = false
+var current_bar_data = {}
 
 func _ready():
-	Battle.ask_question.connect(_on_ask_question)
 	option_area.select_mode = ItemList.SELECT_SINGLE
+	v_slider.min_value = 0
+	v_slider.max_value = 100
+	v_slider.step = 1
+	v_slider.value = 50
+	v_slider.value_changed.connect(_on_slider_changed)
+	submit_button.pressed.connect(_on_submit_pressed)
+	shape_image.visible = false
 	generate_questions()
-	
-func _on_ask_question():
-	GlobalSprites.hide_sprites([])
-	set_strand("Algebra")
+	set_strand(current_strand)
 	show_question()
 
+	print(questions)
+	print(current_strand)
 func set_strand(strand: String):
-	current_strand = strand
-
+	var list = ["algebra","data","spacial","financial"]
+	var i = randi_range(0,len(list)-1)
+	strand = list[i]
+	current_strand = "spacial"
+	
 func show_question():
 	var strand = questions[current_strand]
 	var entry = strand[randi() % strand.size()]
-	#var algebra = questions["Algebra"]
-	#var entry = algebra[randi() % algebra.size()]
 	question_area.text = entry["question"]
 	current_answer = entry["answer"]
+	
+	if entry.has("shape"):
+		if ResourceLoader.exists(entry["shape"]):
+			shape_image.texture = load(entry["shape"])
+			shape_image.visible = true
+		else:
+			print("missing image: ", entry["shape"])
+			
+		answers(current_answer,3)
+	elif entry.has("bar_data"):
+		answers(current_answer,10)
+	else:
+		shape_image.visible = false
+		grid_container.visible = false
+		option_area.visible = true
+		answers(current_answer, 15)
+		
+	if entry.has("bar_data"):
+		bar_graph.visible = true
+		draw_bars(entry["bar_data"], int(v_slider.value))
+		v_slider.max_value = entry["slider_max"]
+		option_area.visible = false
+		current_bar_data = entry["bar_data"]
+		v_slider.value = 50
+		slider_label.text = "50"
+		slider_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
+		draw_bars(current_bar_data, int(v_slider.value))
+		if entry.has("table_headers"):
+			grid_container.visible = true
+			draw_table(entry["table_headers"],entry["table_rows"])
+	else:
+		is_bar_question = false
+		bar_graph.visible = false
+		option_area.visible = true
+		grid_container.visible = false
 	answers(current_answer)
-
-func answers(correct_answer: int):
+	
+func draw_bars(data: Dictionary, slider_val:int):
+	for child in bar_container.get_children():
+		child.queue_free()
+	var max_value = 0
+	
+	for i in data:
+		if data[i] != null and data[i] > max_value:
+			max_value = data[i]
+	
+	if current_answer > max_value:
+		max_value = current_answer
+	for j in data:
+		var value = data[j]
+		var column = VBoxContainer.new()
+		column.custom_minimum_size = Vector2(60, 20)
+		column.alignment = BoxContainer.ALIGNMENT_END
+		
+		if value == null:
+			var bar_height = int((float(slider_val)/ float(max_value)) * max_height)
+			var top_space = Control.new()
+			var val_label = Label.new()
+			var slider_bar = ColorRect.new()
+			
+			val_label.text = str(slider_val)
+			val_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
+			val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			column.add_child(val_label)
+			
+			top_space.custom_minimum_size = Vector2(60, max_height - bar_height)
+			column.add_child(top_space)
+			
+			slider_bar.custom_minimum_size = Vector2(60, bar_height)
+			slider_bar.color = Color(0.431, 0.722, 0.659, 1.0)
+			column.add_child(slider_bar)
+			
+		else:
+			var bar_height = int((float(value)/float(max_value))* max_height)
+			
+			var value_label = Label.new()
+			value_label.text = str(value)
+			value_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
+			value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			column.add_child(value_label)
+			
+			var spacer = Control.new()
+			spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			column.add_child(spacer)
+			
+			var bar = ColorRect.new()
+			bar.custom_minimum_size = Vector2(60,bar_height)
+			bar.color = Color(0.776, 0.314, 0.353, 1.0)
+			column.add_child(bar)
+			
+		var name_label = Label.new()
+		name_label.text = j
+		name_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
+		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		column.add_child(name_label)
+		bar_container.add_child(column)
+func _on_slider_changed(value:float):
+	slider_label.text = str(int(value))
+	slider_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
+	draw_bars(current_bar_data, int(value))
+	
+func _on_submit_pressed():
+	var player_guess = int(v_slider.value)
+	if abs(player_guess - current_answer) == 0:
+		question_area.text = "g"
+	else:
+		question_area.text = "n"
+		
+func draw_table(headers: Array, rows: Array):
+	
+	for child in grid_container.get_children():
+		child.queue_free()
+		
+	grid_container.columns = headers.size()
+	
+	for header in headers:
+		var header_label = Label.new()
+		header_label.add_theme_color_override("font_color", Color(0.0, 0.0, 0.0, 1.0))
+		grid_container.add_child(header_label)
+		
+	for row in rows:
+		for cell in row:
+			var cell_label = Label.new()
+			cell_label.text = str(cell)
+			cell_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
+			grid_container.add_child(cell_label)
+func answers(correct_answer: int, range_val: int = 15):
 	option_area.clear()
 	
 	var wrong_answers = []
 	while wrong_answers.size() < 3:
-		var wrong = correct_answer + randi_range(-15,15)
+		var wrong = correct_answer + randi_range(-range_val, range_val)
 		if wrong != correct_answer and wrong not in wrong_answers:
 			wrong_answers.append(wrong)
 			
 	var all_answers = wrong_answers
 	all_answers.append(correct_answer)
-	
 	all_answers.shuffle()
 	for answer in all_answers:
 		option_area.add_item(str(answer))
-		
+
 func _on_option_area_item_selected(index: int) -> void:
 	var selected_text = option_area.get_item_text(index)
-	var correct = answer_correct(int(selected_text))
-	Battle.question_answered.emit(correct)
-	
-func answer_correct(selected_text: int) -> bool:
-	return selected_text == current_answer
-		
+	if int(selected_text) == current_answer:
+		print("g")
+	else:
+		print("n")
 func generate_questions():
-	questions["Algebra"] = generate_algebra_questions()
-	#questions["Data"] = generate_data_questions()
-#Algebra
-	
+	questions["algebra"] = generate_algebra_questions()
+	questions["data"] = generate_data_questions()
+	questions["spacial"] = generate_Spatial_questions()
+	questions["financial"] = generate_Financial_questions()
+
 func generate_algebra_questions() -> Array:
 	var result = []
 	
@@ -129,7 +268,7 @@ func generate_algebra_questions() -> Array:
 	#Formula questions 
 
 	# x + y = z find z
-	for i in 3:
+	for i in 4:
 		var x = randi_range(1, 100)
 		var y = randi_range(1, 50)
 		result.append({
@@ -138,7 +277,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x + y = z find x
-	for i in 3:
+	for i in 4:
 		var x = randi_range(1, 50)
 		var y = randi_range(1, 100)
 		result.append({
@@ -147,7 +286,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m - n = p find p
-	for i in 3:
+	for i in 4:
 		var m = randi_range(10, 100)
 		var n = randi_range(1, m)
 		result.append({
@@ -156,7 +295,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m - n = p find m
-	for i in 3:
+	for i in 4:
 		var n = randi_range(1, 100)
 		var p = randi_range(1, 100)
 		result.append({
@@ -165,7 +304,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# a x b = c find c
-	for i in 3:
+	for i in 4:
 		var a = randi_range(2, 12)
 		var b = randi_range(2, 12)
 		result.append({
@@ -174,7 +313,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# a x b = c find b
-	for i in 3:
+	for i in 4:
 		var b = randi_range(2, 12)        # answer
 		var a = randi_range(2, 9)
 		var c = a * b                     # guaranteed whole
@@ -184,7 +323,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# q ÷ r = s find s
-	for i in 3:
+	for i in 4:
 		var s = randi_range(2, 12)        # answer
 		var r = randi_range(2, 9)
 		var q = s * r                     # guaranteed whole
@@ -194,7 +333,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# q ÷ r = s find q
-	for i in 3:
+	for i in 4:
 		var s = randi_range(2, 12)
 		var r = randi_range(2, 9)
 		var q = s * r
@@ -204,7 +343,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x + y + z = w find w
-	for i in 3:
+	for i in 4:
 		var x = randi_range(1, 50)
 		var y = randi_range(1, 50)
 		var z = randi_range(1, 50)
@@ -214,7 +353,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m - n + p = q find q
-	for i in 3:
+	for i in 4:
 		var m = randi_range(10, 30)
 		var n = randi_range(1, m)
 		var p = randi_range(1, 50)
@@ -226,7 +365,7 @@ func generate_algebra_questions() -> Array:
 	#BEDMAS
 
 	# a × b ÷ c = d find d
-	for i in 3:
+	for i in 4:
 		var divisor = randi_range(2, 6)
 		var quotient = randi_range(2, 10)
 		var factor = randi_range(2, 6)
@@ -237,7 +376,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x + y - z = w find w
-	for i in 3:
+	for i in 4:
 		var x = randi_range(5, 50)
 		var y = randi_range(1, 50)
 		var z = randi_range(5, x + y)
@@ -247,7 +386,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# p × q + r = s find s
-	for i in 3:
+	for i in 4:
 		var p = randi_range(2, 8)
 		var q = randi_range(2, 8)
 		var r = randi_range(1, 50)
@@ -257,7 +396,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# m ÷ n + o = p find p
-	for i in 3:
+	for i in 4:
 		var quotient = randi_range(2, 12)  # m ÷ n
 		var n = randi_range(2, 9)
 		var m = quotient * n               # guaranteed whole
@@ -268,7 +407,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	# x × y - z ÷ w = v find v
-	for i in 3:
+	for i in 4:
 		var x = randi_range(2, 8)
 		var y = randi_range(2, 8)
 		var w = randi_range(2, 6)
@@ -442,7 +581,34 @@ func generate_algebra_questions() -> Array:
 
 func generate_data_questions() -> Array:
 	var result = []
+	for i in 4:
+		var labels = ["Lap 1", "Lap 2", "Lap 3", "Lap 4", "Lap 5"]
+		var data = {}
+		for label in labels:
+			data[label] = randi_range(80, 200)
 	
+		var missing_key = labels[randi() % labels.size()]
+		var missing_value = data[missing_key]
+		data[missing_key] = null
+	
+		var table_rows = []
+		for label in labels:
+			if data[label] != null:
+				table_rows.append([label, "|" + str(data[label]) + " km/h"])
+			else:
+				table_rows.append([label, "|" + str(missing_value) + " km/h"])
+	
+		result.append({
+			"question": "Lightning McQueen drove these speeds each lap.\nWhat was the missing lap speed in km/h?  ",
+			"answer": missing_value,
+			"bar_data": data,
+			"slider_max": 200,
+			"table_headers": ["Lap", "Speed"],
+			"table_rows": table_rows })
+
+#	for i in 4:
+#		var
+
 	
 	for i in 4:
 		var w = randi_range(20, 30)
@@ -459,7 +625,7 @@ func generate_data_questions() -> Array:
 			"question":"Find the mean of the given set of numbers.\n(%d, %d, %d, %d, %d)" %[w,v,x,y,z],
 			"answer": total / 5
 		})
-	
+
 	for i in 4:
 		
 		var list = []
@@ -489,7 +655,7 @@ func generate_data_questions() -> Array:
 		result.append({
 			"question":"Find the median of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": list[3]})
-		
+
 	for i in 4:
 		
 		var list = []
@@ -554,14 +720,255 @@ func generate_data_questions() -> Array:
 		result.append({
 			"question":"Find the range of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": d })
-	
+			
+		result.append({
+			"question": "Is the number of students in a class quantitative or qualitative?",
+			"answer": 0,
+			"question_type": "two_choice",
+			"choices":["Quantitative","Qualitative"]
+		})
+		result.append({
+			"question": "Is the colour of a car quantitative or qualitative?",
+			"answer": 1,
+			"question_type": "two_choice",
+			"choices":["Quantitative","Qualitative"]
+		})
 	return result
+
 func generate_Spatial_questions() -> Array:
 	var result = []
 	
+	var shapes = [
+		{
+			"image":"res://assets/shapes/rectangle.png",
+			"properties":{
+				"vertices": 4,
+				"sides": 4,
+				"parallel_lines": 2,
+				"perpendicular_lines": 4,
+				"lines_of_symmetry": 2,
+				"right_angles": 4,
+				"acute_angles": 0,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/square.png",
+			"properties":{
+				"vertices": 4,
+				"sides": 4,
+				"parallel_lines": 2,
+				"perpendicular_lines": 4,
+				"lines_of_symmetry": 2,
+				"right_angles": 4,
+				"acute_angles": 0,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/scalene_triandddddddddddddddddddddssdsdadsdadasdwsadasadawdawgle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 0,
+				"right_angles": 0,
+				"acute_angles": 2,
+				"obtuse_angles": 1,
+			}
+		},
+		{
+			"image":"res://assets/shapes/right_triangle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 1,
+				"lines_of_symmetry": 0-1,
+				"right_angles": 1,
+				"acute_angles": 2,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/pentagon.png",
+			"properties":{
+				"vertices": 5,
+				"sides": 5,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 5,
+				"right_angles": 0,
+				"acute_angles": 3,
+				"obtuse_angles": 2,
+			}
+		},
+		{
+			"image":"res://assets/shapes/octagon.png",
+			"properties":{
+				"vertices": 8,
+				"sides": 8,
+				"parallel_lines": 8,
+				"perpendicular_lines":0,
+				"lines_of_symmetry": 4,
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": 8,
+			}
+		},
+		{
+			"image":"res://assets/shapes/isosceles_trangle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 1,
+				"right_angles": 0,
+				"acute_angles": 3,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/hexagon.png",
+			"properties":{
+				"vertices": 6,
+				"sides": 6,
+				"parallel_lines": 2,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 3,
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": 6,
+			}
+		},
+		{
+			"image":"res://assets/shapes/heptagon.png",
+			"properties":{
+				"vertices": 7,
+				"sides": 7,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 7,
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": 7,
+			}
+		},
+		{
+			"image":"res://assets/shapes/equalateral_triangle.png",
+			"properties":{
+				"vertices": 3,
+				"sides": 3,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": 1,
+				"right_angles": 0,
+				"acute_angles": 3,
+				"obtuse_angles": 0,
+			}
+		},
+		{
+			"image":"res://assets/shapes/circle.png",
+			"properties":{
+				"vertices": 0,
+				"sides": 1,
+				"parallel_lines": 0,
+				"perpendicular_lines": 0,
+				"lines_of_symmetry": "infinite",
+				"right_angles": 0,
+				"acute_angles": 0,
+				"obtuse_angles": "infinite",
+			}
+		},
+	]
+	var question_templates = {
+		"vertices": "How many vertices does this shape have?",
+		"sides": "How many sides does this shape have?",
+		"parallel_lines": "How many parallel lines does this shape have?",
+		"perpendicular_lines": "How many perpendicular lines does this shape have?",
+		"lines_of_symmetry": "How many lines of symmetry does this shape have?",
+		"right_angles": "How many right angles does this shape have?",
+		"acute_angles": "How many acute angles does this shape have?",
+		"obtuse_angles": "How many obtuse angles does this shape have?",
+	}
+	for shape in shapes:
+		for property in question_templates:
+			result.append({
+				"question":question_templates[property],
+				"answer": shape["properties"][property],
+				"shape": shape["image"]
+			})
 	return result
 
 func generate_Financial_questions() -> Array:
 	var result = []
+	for i in 4:
+		var x = randi_range(2,50)
+		var y = randi_range(7,21)
+		var z = (x*y)
+		result.append({
+			"question":"Layla is saving money everyday to save up for food she saves $%d every day.\nHow much money for food will she have in %d days?" %[x,y],
+			"answer": z })
+			
+	for i in 4:
+		var x = randi_range(100,500)
+		var y = randi_range(10, 30)
+		var z = x % y
+		
+		x -= z
+		@warning_ignore("integer_division")
+		var v = (x / y)
+		
+		result.append({
+			"question":"Layla is saving $%d for food. She saves $%d everyday.\nHow many days does it take to reach her goal?" %[x,y],
+			"answer": v })
 	
+	for i in 4:
+		var list = [1,5,10,25,100,200]
+		var money = ["pennies","nickles","dimes","quarters","loonies","toonies"]
+		var x = randi() % list.size()
+		var y = randi_range(50,400)
+		var z = list[x]
+		var v = y / z
+		var w = money[x]
+		
+		result.append({
+			"question":"How many %s are in %d¢?" %[w,y],
+			"answer": v })
+			
+	for i in 4:
+		var x = randi_range(1000,10000)
+		var y = randi_range(1000,5000)
+		var z = x - y
+		
+		result.append({
+			"question":"Nathan would like to know if his business made or lost money.\nHis income was $%d and his expenses was $%d.\nWhat is Nathan's total?" %[x,y],
+			"answer": z})
+			
+	for i in 4:
+		var x = randi_range(1,10)
+		var y = randi_range(3,12)
+		var z = randi_range(100,600)*5
+		
+		var v = (x) * (0.01)
+		var w = z + y * (z * v)
+		result.append({
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months what is the total amount you will have earned?" %[z,x,y],
+			"answer": w})
+	
+	for i in 4:
+		var x = randi_range(1,10)
+		var y = randi_range(3,12)
+		var z = randi_range(100,600)*5
+		
+		var v = (x) * (0.01)
+		var w = (v * z) * y
+		result.append({
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months how much extra money will you have earned?" %[z,x,y],
+			"answer": w })
+			
+			
+
 	return result
