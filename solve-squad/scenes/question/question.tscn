@@ -44,6 +44,13 @@ text = "Questions"
 vertical_alignment = 3
 autowrap_mode = 1
 
+[node name="ShapeImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 135.0
+offset_right = 765.0
+offset_bottom = 556.0
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
 offset_right = 889.0

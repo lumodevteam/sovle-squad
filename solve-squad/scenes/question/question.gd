@@ -7,7 +7,7 @@ extends Control
 @onready var submit_button: Button = $Panel/BarGraph/SubmitButton
 @onready var v_slider: VSlider = $Panel/BarGraph/VSlider
 @onready var grid_container: GridContainer = $Panel/GridContainer
-
+@onready var shape_image: TextureRect = $"ShapeImage"
 
 
 
@@ -26,6 +26,7 @@ func _ready():
 	v_slider.value = 50
 	v_slider.value_changed.connect(_on_slider_changed)
 	submit_button.pressed.connect(_on_submit_pressed)
+	shape_image.visible = false
 	generate_questions()
 	set_strand(current_strand)
 	show_question()
@@ -33,16 +34,22 @@ func _ready():
 	print(questions)
 	print(current_strand)
 func set_strand(strand: String):
-	var list = ["Algebra","Data","Spacial","Financial"]
+	var list = ["algebra","data","spacial","financial"]
 	var i = randi_range(0,len(list)-1)
 	strand = list[i]
-	current_strand = strand
+	current_strand = "spacial"
 	
 func show_question():
 	var strand = questions[current_strand]
 	var entry = strand[randi() % strand.size()]
 	question_area.text = entry["question"]
 	current_answer = entry["answer"]
+	
+	if entry.has("shape"):
+		shape_image.visible = true
+		shape_image.texture = load(entry["shape"])
+	else:
+		shape_image.visible = false
 	
 	if entry.has("bar_data"):
 		bar_graph.visible = true
@@ -176,10 +183,10 @@ func _on_option_area_item_selected(index: int) -> void:
 	else:
 		print("n")
 func generate_questions():
-	questions["Algebra"] = generate_algebra_questions()
-	questions["Data"] = generate_data_questions()
-	questions["Spacial"] = generate_Spatial_questions()
-	questions["Financial"] = generate_Financial_questions()
+	questions["algebra"] = generate_algebra_questions()
+	questions["data"] = generate_data_questions()
+	questions["spacial"] = generate_Spatial_questions()
+	questions["financial"] = generate_Financial_questions()
 
 func generate_algebra_questions() -> Array:
 	var result = []
