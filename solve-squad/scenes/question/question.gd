@@ -239,9 +239,9 @@ func answers(correct_answer: int, range_val: int = 15):
 func _on_option_area_item_selected(index: int) -> void:
 	var selected_text = option_area.get_item_text(index)
 	if int(selected_text) == current_answer:
-		print("Correct!")
+		Battle.question_answered.emit(true)
 	else:
-		print("Wrong!")
+		Battle.question_answered.emit(false)
 
 #------------------------------------------Generates all questions for all strands---------------------------------------------
 func generate_questions():

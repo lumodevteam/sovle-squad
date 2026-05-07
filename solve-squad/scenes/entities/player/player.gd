@@ -98,6 +98,12 @@ func _on_gain_item(item) -> void:
 
 func update_inventory() -> void:
 	GlobalSprites.sprites[identifier]["inventory"] = inventory
+	
+func update_health() -> void:
+	GlobalSprites.sprites[identifier]["current_health"] = health
+	
+func update_max_health() -> void:
+	GlobalSprites.sprites[identifier]["max_health"] = max_health
 
 func exp_gained() -> void:
 	if exp >= 100:
@@ -109,8 +115,11 @@ func exp_gained() -> void:
 		
 func update_stats() -> void:
 	max_health += 10
+	health += 10
 	dmg += 10
 	def += 0.05
+	update_max_health()
+	update_health()
 	
 func _on_setup_battle() -> void:
 	animation_tree.active = false
@@ -123,9 +132,6 @@ func _on_end_battle(player_won) -> void:
 	if player_won:
 		health = max_health
 	update_health()
-	
-func update_health() -> void:
-	GlobalSprites.sprites[identifier]["health"] = health
 	
 func _on_gain_exp(gained_exp) -> void:
 	exp += gained_exp

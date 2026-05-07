@@ -31,7 +31,8 @@ func _ready() -> void:
 		GlobalSprites.sprites[player.identifier] = {
 			"sprite" : player,
 			"position" : player_starting_pos,
-			"health" : player.max_health,
+			"max_health" : player.max_health,
+			"current_health" : player.health,
 			"inventory" : []
 		}
 		enemy1 = spawn_sprite(enemy1_starting_pos, enemy_scene)
