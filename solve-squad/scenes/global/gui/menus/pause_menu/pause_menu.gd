@@ -1,4 +1,4 @@
-extends Control
+extends Control # extends control
 
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
 
