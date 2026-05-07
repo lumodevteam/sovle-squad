@@ -1,4 +1,6 @@
 extends Control
+
+#------------------------------------------Node References---------------------------------------------
 @onready var question_area: Label = $"CanvasLayer/Question Area"
 @onready var option_area: ItemList = $"CanvasLayer/Option Area"
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
@@ -10,38 +12,50 @@ extends Control
 @onready var grid_container: GridContainer = $Panel/GridContainer
 @onready var shape_image: TextureRect = $"ShapeImage"
 
-var questions = {}
-var current_strand = ""
-var current_answer: int = 0
-var max_height = 200
-var is_bar_question = false
-var current_bar_data = {}
+#------------------------------------------Variables---------------------------------------------
+var questions = {} # Stores all of the generated questions by strand
+var current_strand = "" # Which strand is currently active
+var current_answer: int = 0 # The correct answer for the question given
+var max_height = 200 # Max heights of the bars for the bar graph
+var is_bar_question = false # Changes if the current question is a bar graph question
+var current_bar_data = {} # Stores the bar data for the current bar question
 
 func _ready():
+	# Connect to the battle signal so questions are shown when asked
 	Battle.ask_question.connect(_on_ask_question)
+	
+	# Set up option area and make sure you can only select one
 	option_area.select_mode = ItemList.SELECT_SINGLE
+	
+	# Gernerate all questions for all strands
 	generate_questions()
-	option_area.select_mode = ItemList.SELECT_SINGLE
+	
+	# Set up slider for bar graph questions
 	v_slider.min_value = 0
-	v_slider.max_value = 100
+	v_slider.max_value = 200
 	v_slider.step = 1
 	v_slider.value = 50
 	v_slider.value_changed.connect(_on_slider_changed)
 	submit_button.pressed.connect(_on_submit_pressed)
-	shape_image.visible = false
-	generate_questions()
-	set_strand(current_strand)
 	
+	# Hide shape images by default
+	shape_image.visible = false
+	
+	# Set the starting strand
+	set_strand()
+
+#------------------------------------------Called When Using Any Attack---------------------------------------------
 func _on_ask_question():
 	GlobalSprites.hide_sprites([])
 	show_question()
 
-func set_strand(strand: String):
+#------------------------------------------Sets the current strand randomly---------------------------------------------
+func set_strand():
 	var list = ["algebra","data","spacial","financial"]
 	var i = randi_range(0,len(list)-1)
-	strand = list[i]
-	current_strand = "data"
-	
+	current_strand = list[i]
+
+#------------------------------------------Picks and displayes a random question from the current strand---------------------------------------------
 func show_question():
 	GlobalSprites.hide_sprites([])
 	var strand = questions[current_strand]
@@ -49,24 +63,19 @@ func show_question():
 	question_area.text = entry["question"]
 	current_answer = entry["answer"]
 	
+	# Loads shape images for spatial questions
 	if entry.has("shape"):
 		if ResourceLoader.exists(entry["shape"]):
 			shape_image.texture = load(entry["shape"])
 			shape_image.visible = true
 		else:
 			print("missing image: ", entry["shape"])
-		answers(current_answer,3)
-	elif entry.has("bar_data"):
-		answers(current_answer,10)
-	else:
-		shape_image.visible = false
-		grid_container.visible = false
-		option_area.visible = true
-		answers(current_answer, 15)
-		
+		answers(current_answer,3) # smaller range for spatial questions
+
+# Bar graph questions
 	if entry.has("bar_data"):
 		bar_graph.visible = true
-		draw_bars(entry["bar_data"], int(v_slider.value))
+		draw_bars(entry["bar_data"], int(v_slider.value)) # Set the slider max to match the data range
 		v_slider.max_value = entry["slider_max"]
 		option_area.visible = false
 		current_bar_data = entry["bar_data"]
@@ -78,23 +87,38 @@ func show_question():
 			grid_container.visible = true
 			draw_table(entry["table_headers"],entry["table_rows"])
 	else:
+		# Hide bar graph for non bar questions
 		is_bar_question = false
 		bar_graph.visible = false
 		option_area.visible = true
 		grid_container.visible = false
-	answers(current_answer)
-	
+		
+		# Creates two choice qwuestions for quantitatve vs qualitative
+		if entry.has("question_type") and entry["question_type"] == "two_choice":
+			option_area.clear()
+			for choice in entry ["choices"]:
+				option_area.add_item(choice)
+		else:
+			answers(current_answer, 15)# Different range for everything else
+			
+#------------------------------------------Draws The Bar Graph---------------------------------------------
 func draw_bars(data: Dictionary, slider_val:int):
+	# Clear old bars
 	for child in bar_container.get_children():
 		child.queue_free()
+		
 	var max_value = 0
 	
+	# Find the highest value to scale all bars relative to it
 	for i in data:
 		if data[i] != null and data[i] > max_value:
 			max_value = data[i]
 	
+	# Make sure the corrent answer fits in the scale
 	if current_answer > max_value:
 		max_value = current_answer
+		
+	# Draws each bar
 	for j in data:
 		var value = data[j]
 		var column = VBoxContainer.new()
@@ -102,107 +126,135 @@ func draw_bars(data: Dictionary, slider_val:int):
 		column.alignment = BoxContainer.ALIGNMENT_END
 		
 		if value == null:
+			# Missing bar shows the bar in a different colour
 			var bar_height = int((float(slider_val)/ float(max_value)) * max_height)
 			var top_space = Control.new()
 			var val_label = Label.new()
 			var slider_bar = ColorRect.new()
 			
+			# Value above missing bar
 			val_label.text = str(slider_val)
 			val_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 			val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			column.add_child(val_label)
 			
+			# Space makes the label even
 			top_space.custom_minimum_size = Vector2(60, max_height - bar_height)
 			column.add_child(top_space)
 			
+			# The sliding bar
 			slider_bar.custom_minimum_size = Vector2(60, bar_height)
 			slider_bar.color = Color(0.431, 0.722, 0.659, 1.0)
 			column.add_child(slider_bar)
 			
 		else:
+			# Normal bars (shows actual value)
 			var bar_height = int((float(value)/float(max_value))* max_height)
 			
+			# Value above bars
 			var value_label = Label.new()
 			value_label.text = str(value)
 			value_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 			value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			column.add_child(value_label)
 			
+			# Spacer makes the labels evenly 
 			var spacer = Control.new()
 			spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 			column.add_child(spacer)
 			
+			# The bar itself
 			var bar = ColorRect.new()
 			bar.custom_minimum_size = Vector2(60,bar_height)
 			bar.color = Color(0.776, 0.314, 0.353, 1.0)
 			column.add_child(bar)
-			
+		
+		# Each lap under the corresponding bar
 		var name_label = Label.new()
 		name_label.text = j
 		name_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		column.add_child(name_label)
 		bar_container.add_child(column)
+
+#------------------------------------------Calls every time the sliders moves to redraw the missing bar---------------------------------------------
 func _on_slider_changed(value:float):
 	slider_label.text = str(int(value))
 	slider_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
-	draw_bars(current_bar_data, int(value))
-	
+	if not current_bar_data.is_empty():
+		draw_bars(current_bar_data, int(value))
+
+#------------------------------------------Called when user preesses submit on the bar graph questions---------------------------------------------
 func _on_submit_pressed():
 	var player_guess = int(v_slider.value)
 	if abs(player_guess - current_answer) == 0:
-		question_area.text = "g"
+		question_area.text = "Correct!"
 	else:
-		question_area.text = "n"
-		
+		question_area.text = "Wrong! So close you were %d away" % abs(player_guess - current_answer)
+
+#------------------------------------------Draws the data table beside the bar graph---------------------------------------------
 func draw_table(headers: Array, rows: Array):
-	
+		# Clears the old table
 	for child in grid_container.get_children():
 		child.queue_free()
 		
+	# Set columns to mactch numbers of headers
 	grid_container.columns = headers.size()
 	
+	# add header row
 	for header in headers:
 		var header_label = Label.new()
 		header_label.add_theme_color_override("font_color", Color(0.0, 0.0, 0.0, 1.0))
 		grid_container.add_child(header_label)
-		
+	
+	# add data rows
 	for row in rows:
 		for cell in row:
 			var cell_label = Label.new()
 			cell_label.text = str(cell)
 			cell_label.add_theme_color_override("font_color", Color(0.184, 0.078, 0.184, 1.0))
 			grid_container.add_child(cell_label)
+			
+#------------------------------------------Generates multiple choice wrong answers---------------------------------------------
 func answers(correct_answer: int, range_val: int = 15):
 	option_area.clear()
-	
 	var wrong_answers = []
+	
+	# Keep generating wrong answers until there are 3
 	while wrong_answers.size() < 3:
 		var wrong = correct_answer + randi_range(-range_val, range_val)
+		# Checks to ensure the wrong answer isn't the correct or duplicates
 		if wrong != correct_answer and wrong not in wrong_answers:
 			wrong_answers.append(wrong)
-			
+	
+	# Add correct answers and shuffle so it is in a random spot
 	var all_answers = wrong_answers
 	all_answers.append(correct_answer)
 	all_answers.shuffle()
+	
 	for answer in all_answers:
 		option_area.add_item(str(answer))
 
+#------------------------------------------Called when user selects an answer---------------------------------------------
 func _on_option_area_item_selected(index: int) -> void:
 	var selected_text = option_area.get_item_text(index)
 	if int(selected_text) == current_answer:
-		print("g")
+		print("Correct!")
 	else:
-		print("n")
+		print("Wrong!")
+
+#------------------------------------------Generates all questions for all strands---------------------------------------------
 func generate_questions():
 	questions["algebra"] = generate_algebra_questions()
 	questions["data"] = generate_data_questions()
 	questions["spacial"] = generate_Spatial_questions()
 	questions["financial"] = generate_Financial_questions()
 
+
+#------------------------------------------Algebra Questions---------------------------------------------
 func generate_algebra_questions() -> Array:
 	var result = []
-	
+#------------------------------------------Solving for missing variable---------------------------------------------
 	# Solve for x addition
 	for i in 4:
 		var x = randi_range(20, 100)
@@ -268,7 +320,7 @@ func generate_algebra_questions() -> Array:
 			"answer": x
 		})
 
-	#Formula questions 
+#------------------------------------------Formula Questions---------------------------------------------
 
 	# x + y = z find z
 	for i in 4:
@@ -420,6 +472,10 @@ func generate_algebra_questions() -> Array:
 			"question": "Using this formula x × y - z ÷ w = v\nGiven x = %d, y = %d, z = %d and w = %d. What is v?" % [x, y, z, w],
 			"answer": x * y - zdivw
 		})
+	
+#------------------------------------------Patterns---------------------------------------------
+	
+	# Find the multiplier
 	for i in 4:
 		var multiplier = randi_range(2,5)
 		
@@ -434,6 +490,7 @@ func generate_algebra_questions() -> Array:
 			"answer": multiplier
 		})
 	
+	# Find the addition pattern
 	for i in 4:
 		
 		var addition = randi_range(-20,20)
@@ -450,7 +507,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	for i in 4:
-		
+	# Find the subtraction patter
 		var subtraction = randi_range(-15,-2)
 		
 		var x = randi_range(2,80)
@@ -464,7 +521,7 @@ func generate_algebra_questions() -> Array:
 			"answer": subtraction
 		})
 	for  i in 4:
-		
+	# Find the divisor
 		var division = randi_range(2,4)
 		var x = randi_range(2,20)
 		var y = x * division
@@ -477,6 +534,7 @@ func generate_algebra_questions() -> Array:
 		})
 		
 	for i in 4:
+	# Next term (multiplication)
 		var multiplier = randi_range(2,5)
 		
 		var x = randi_range (2,5)
@@ -491,7 +549,7 @@ func generate_algebra_questions() -> Array:
 		})
 	
 	for i in 4:
-		
+	# Next term (addition)
 		var addition = randi_range(-20,20)
 		
 		var x = randi_range(2,15)
@@ -506,7 +564,7 @@ func generate_algebra_questions() -> Array:
 		})
 
 	for i in 4:
-		
+	# Next term (subtraction)
 		var subtraction = randi_range(-15,-2)
 		
 		var x = randi_range(2,80)
@@ -520,7 +578,7 @@ func generate_algebra_questions() -> Array:
 			"answer": v + subtraction
 		})
 	for  i in 4:
-		
+	# Next term (division)
 		var division = randi_range(2,4)
 		var u = randi_range(2,20)
 		var x = u * division
@@ -532,9 +590,8 @@ func generate_algebra_questions() -> Array:
 			"question": "What is the next term given\n %d, %d, %d, %d, %d" %[v,w,z,y,x],
 			"answer": u
 		})
-	
-	
-	
+
+#------------------------------------------Word Problems---------------------------------------------
 	for i in 4:
 		var y = randi_range(20,30)
 		var z = randi_range(20,30)
@@ -581,7 +638,7 @@ func generate_algebra_questions() -> Array:
 		})
 	
 	return result
-
+#------------------------------------------Node References---------------------------------------------
 func generate_data_questions() -> Array:
 	var result = []
 	for i in 400:
@@ -733,7 +790,7 @@ func generate_data_questions() -> Array:
 			"choices":["Quantitative","Qualitative"]
 		})
 	return result
-
+#------------------------------------------Node References---------------------------------------------
 func generate_Spatial_questions() -> Array:
 	var result = []
 	
@@ -900,7 +957,7 @@ func generate_Spatial_questions() -> Array:
 				"shape": shape["image"]
 			})
 	return result
-
+#------------------------------------------Node References---------------------------------------------
 func generate_Financial_questions() -> Array:
 	var result = []
 	for i in 4:
