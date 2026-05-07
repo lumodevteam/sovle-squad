@@ -81,25 +81,40 @@ grow_vertical = 2
 
 [node name="VSlider" type="VSlider" parent="CanvasLayer/Panel/BarGraph"]
 layout_mode = 0
-offset_right = 16.0
-offset_bottom = 8.0
+offset_left = -434.0
+offset_top = 19.0
+offset_right = -418.0
+offset_bottom = 231.0
 
 [node name="SliderLabel" type="Label" parent="CanvasLayer/Panel/BarGraph"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -511.0
+offset_top = -42.0
+offset_right = -339.0
+offset_bottom = 29.0
 
 [node name="SubmitButton" type="Button" parent="CanvasLayer/Panel/BarGraph"]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = -549.0
+offset_top = 250.0
+offset_right = -284.0
+offset_bottom = 324.0
+text = "Submit
+"
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_left = 504.0
-offset_top = 296.0
-offset_right = 544.0
-offset_bottom = 336.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -361.0
+offset_top = -10.0
+offset_right = -61.0
+offset_bottom = 208.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="Option Area" type="ItemList" parent="CanvasLayer"]
 offset_left = 18.0

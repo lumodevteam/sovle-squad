@@ -53,7 +53,7 @@ func _on_ask_question():
 func set_strand():
 	var list = ["algebra","data","spacial","financial"]
 	var i = randi_range(0,len(list)-1)
-	current_strand = list[i]
+	current_strand = "data"
 
 #------------------------------------------Picks and displayes a random question from the current strand---------------------------------------------
 func show_question():
@@ -643,7 +643,7 @@ func generate_data_questions() -> Array:
 	var result = []
 	
 	# bar graph
-	for i in 4:
+	for i in 40:
 		var labels = ["Lap 1", "Lap 2", "Lap 3", "Lap 4", "Lap 5"]
 		var data = {}
 		for label in labels:
