@@ -96,5 +96,5 @@ func _on_setup_battle() -> void:
 	
 func _on_end_battle(_player_won) -> void:
 	$Sprite2D.flip_h = false
-	if not defeated:
-		raycast.enabled = true
+	await get_tree().create_timer(5.0).timeout
+	raycast.enabled = true

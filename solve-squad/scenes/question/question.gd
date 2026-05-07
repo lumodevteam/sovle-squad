@@ -4,13 +4,13 @@ extends Control
 @onready var question_area: Label = $"CanvasLayer/Question Area"
 @onready var option_area: ItemList = $"CanvasLayer/Option Area"
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
-@onready var bar_graph: Control = $"Panel/BarGraph"
-@onready var bar_container: HBoxContainer = $"Panel/BarGraph/HBoxContainer" 
-@onready var slider_label: Label = $Panel/BarGraph/SliderLabel
-@onready var submit_button: Button = $Panel/BarGraph/SubmitButton
-@onready var v_slider: VSlider = $Panel/BarGraph/VSlider
-@onready var grid_container: GridContainer = $Panel/GridContainer
-@onready var shape_image: TextureRect = $"ShapeImage"
+@onready var bar_graph: Control = $"CanvasLayer/Panel/BarGraph"
+@onready var bar_container: HBoxContainer = $"CanvasLayer/Panel/BarGraph/HBoxContainer" 
+@onready var slider_label: Label = $CanvasLayer/Panel/BarGraph/SliderLabel
+@onready var submit_button: Button = $CanvasLayer/Panel/BarGraph/SubmitButton
+@onready var v_slider: VSlider = $CanvasLayer/Panel/BarGraph/VSlider
+@onready var grid_container: GridContainer = $CanvasLayer/Panel/GridContainer
+@onready var shape_image: TextureRect = $"CanvasLayer/ShapeImage"
 
 #------------------------------------------Variables---------------------------------------------
 var questions = {} # Stores all of the generated questions by strand

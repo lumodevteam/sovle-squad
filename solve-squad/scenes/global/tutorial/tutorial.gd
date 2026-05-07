@@ -70,8 +70,8 @@ func _ready() -> void:
 		enemy2.position = GlobalSprites.sprites["enemy2"]["position"]
 		npc = GlobalSprites.sprites["npc"]["sprite"]
 		npc.position = GlobalSprites.sprites["npc"]["position"]
-		fountain = GlobalSprites.sprite["fountain"]["sprite"]
-		fountain.position = GlobalSprites.sprite["fountain"]["position"]
+		fountain = GlobalSprites.sprites["fountain"]["sprite"]
+		fountain.position = GlobalSprites.sprites["fountain"]["position"]
 	
 func spawn_sprite(pos: Vector2, sprite: PackedScene) -> Node2D:
 	var new_sprite = sprite.instantiate()
@@ -92,7 +92,3 @@ func spawn_number_line() -> void:
 			"sprite" : number_line,
 			"position" : number_line_starting_pos
 		}
-		
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug"):
-		print(get_global_mouse_position())

@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://ddo6rftuvfcr2"]
 
 [ext_resource type="Script" uid="uid://brruxthjn53il" path="res://scenes/entities/objects/fountain.gd" id="1_7pcg1"]
-[ext_resource type="Texture2D" uid="uid://df7vvu30kjtpx" path="res://assets/Village tiles (1).png" id="1_swr4m"]
+[ext_resource type="Texture2D" uid="uid://dgpmcedve6fot" path="res://assets/Village tiles (1).png" id="1_swr4m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7pcg1"]
 radius = 26.0
