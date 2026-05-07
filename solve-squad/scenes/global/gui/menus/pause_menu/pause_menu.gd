@@ -1,6 +1,10 @@
 extends Control
 
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var settingPanel: Panel = $CanvasLayer/settingPanel
+@onready var optionsPanel: Panel = $CanvasLayer/optionsPanel
+@onready var creditsPanel: Panel = $CanvasLayer/creditsPanel
+
 
 func resume() -> void:
 	canvas_layer.visible = false
@@ -19,12 +23,45 @@ func check_for_pause() -> void:
 			resume()
 		else:
 			pause()
-	
 
+func openOptions() -> void:
+	canvas_layer.visible = true
+	optionsPanel.visible = true
+	settingPanel.visible = false
+	creditsPanel.visible = false
+	
+func backOptions() -> void:
+	canvas_layer.visible = true
+	optionsPanel.visible = false
+	settingPanel.visible = true
+	creditsPanel.visible = false
+	
+func credits() -> void:
+	canvas_layer.visible = true
+	optionsPanel.visible = false
+	settingPanel.visible = false
+	creditsPanel.visible = true
 
 func _on_button_pressed() -> void:
+	#resume
 	resume()
 
 
 func _on_button_options_pressed() -> void:
-	pass # Replace with function body.
+	#options
+	openOptions()
+
+
+func _on_back_button_pressed() -> void:
+	#back button
+	backOptions()
+
+
+func _on_credits_button_pressed() -> void:
+	#credits
+	credits()
+
+
+func _on_back_credits_button_pressed() -> void:
+	#back from credits
+	openOptions()
