@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2nh1tce5gdx"]
+[gd_scene load_steps=5 format=3 uid="uid://d2nh1tce5gdx"]
 
 [ext_resource type="Script" uid="uid://curqd4bvn4fu0" path="res://scenes/global/tutorial/tutorial.gd" id="1_4kmhl"]
 [ext_resource type="PackedScene" uid="uid://hmmd3dnle0qa" path="res://scenes/global/gui/dialogue/dialogue.tscn" id="2_nj7lw"]
 [ext_resource type="PackedScene" uid="uid://fpm6w0c6t35c" path="res://scenes/global/gui/menus/pause_menu/PauseMenu.tscn" id="3_s1bwy"]
+[ext_resource type="PackedScene" uid="uid://dkmvqvk24fxen" path="res://scenes/tile_map/tileMap.tscn" id="4_obiph"]
 
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("1_4kmhl")
@@ -11,5 +12,24 @@ script = ExtResource("1_4kmhl")
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_s1bwy")]
 
+[node name="Enemy2Placeholder" type="Node2D" parent="."]
+position = Vector2(1487.9729, -1134.3556)
+
+[node name="Enemy1Placeholder" type="Node2D" parent="."]
+position = Vector2(1391.3131, -1353.3182)
+
+[node name="NumberLinePlaceholder" type="Node2D" parent="."]
+position = Vector2(2057.7266, -1257.5167)
+
+[node name="PlayerPlaceholder" type="Node2D" parent="."]
+position = Vector2(1997.5557, -1299.938)
+
+[node name="NPCPlaceholder" type="Node2D" parent="."]
+position = Vector2(1566.7196, -1277.5615)
+
+[node name="TileMap" parent="." instance=ExtResource("4_obiph")]
+show_behind_parent = true
+z_index = -1
+
 [node name="FountainPlaceholder" type="Node2D" parent="."]
-position = Vector2(791, 316)
+position = Vector2(1838, -867)

@@ -23,6 +23,8 @@ enum State { # player states
 @export var dmg: int = 60 # dmg of the player
 @export var def: float = 0.0 # how much defense the player has
 
+var stats = [max_health, health, lvl, exp, dmg, def]
+
 @warning_ignore("integer_division")
 var moves: Dictionary = {
 	1: {
@@ -63,14 +65,18 @@ var heal_text: Array = ["You went up to the well...", "You healed fully!"]
 
 func _ready() -> void:
 	Battle.setup_battle.connect(_on_setup_battle)
+	Battle.start_battle.connect(_on_start_battle)
 	Battle.end_battle.connect(_on_end_battle)
 	Battle.gain_exp.connect(_on_gain_exp)
-	Tutorial.gain_exp.connect(_on_gain_exp)
-	Tutorial.gain_item.connect(_on_gain_item)
-	Tutorial.interWell.connect(_on_interWell)
+	GlobalSprites.gain_exp.connect(_on_gain_exp)
+	GlobalSprites.gain_item.connect(_on_gain_item)
+	TutorialEvents.interWell.connect(_on_interWell)
 	Gui.dialogue_started.connect(_on_dialogue_started)
 	Gui.conversation_over.connect(_on_conversation_over)
 	SnapManager.all_correct.connect(_on_all_correct)
+	
+func _on_start_battle(_player, _enemy) -> void:
+	update_position()
 	
 func _on_all_correct() -> void:
 	in_conversation = true
@@ -88,6 +94,16 @@ func _on_interWell() -> void:
 func _on_gain_item(item) -> void:
 	inventory.append(item)
 	Gui.info.emit([item_text % item])
+	update_inventory()
+
+func update_inventory() -> void:
+	GlobalSprites.sprites[identifier]["inventory"] = inventory
+	
+func update_health() -> void:
+	GlobalSprites.sprites[identifier]["current_health"] = health
+	
+func update_max_health() -> void:
+	GlobalSprites.sprites[identifier]["max_health"] = max_health
 
 func exp_gained() -> void:
 	if exp >= 100:
@@ -99,8 +115,11 @@ func exp_gained() -> void:
 		
 func update_stats() -> void:
 	max_health += 10
+	health += 10
 	dmg += 10
 	def += 0.05
+	update_max_health()
+	update_health()
 	
 func _on_setup_battle() -> void:
 	animation_tree.active = false
@@ -109,8 +128,10 @@ func _on_setup_battle() -> void:
 	
 func _on_end_battle(player_won) -> void:
 	animation_tree.active = true
+	update_inventory()
 	if player_won:
 		health = max_health
+	update_health()
 	
 func _on_gain_exp(gained_exp) -> void:
 	exp += gained_exp
@@ -119,7 +140,9 @@ func _on_gain_exp(gained_exp) -> void:
 func _physics_process(_delta: float) -> void: # called every physics frame
 	if not Battle.battling and not in_conversation:
 		movement_loop() # handle player movement
-		
+
+func update_position() -> void:
+	GlobalSprites.sprites[identifier]["position"] = global_position
 
 func movement_loop() -> void: # handles player movement input and movement
 	move_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) # get horizontal input

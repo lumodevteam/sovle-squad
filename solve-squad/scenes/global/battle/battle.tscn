@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqu1bdl7daoaa"]
+[gd_scene load_steps=4 format=3 uid="uid://dqu1bdl7daoaa"]
 
 [ext_resource type="PackedScene" uid="uid://6dcbdnuudcvc" path="res://scenes/question/question.tscn" id="2_b1xms"]
+[ext_resource type="PackedScene" uid="uid://d1ajq5car00cd" path="res://scenes/global/battle/background.tscn" id="3_qrdqo"]
 [ext_resource type="PackedScene" uid="uid://b0jnhnrqsshx0" path="res://scenes/global/gui/battle/battle_gui.tscn" id="3_v2tsk"]
 
 [node name="BattleScene" type="Node2D"]
@@ -12,4 +13,15 @@
 [node name="Question" parent="CanvasLayer" instance=ExtResource("2_b1xms")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -325)
 offset = Vector2(576, 0)
+
+[node name="Background" parent="." instance=ExtResource("3_qrdqo")]
+
+[node name="PlayerPlaceholder" type="Node2D" parent="."]
+position = Vector2(476, -324)
+
+[node name="EnemyPlaceholder" type="Node2D" parent="."]
+position = Vector2(676, -324)
+
+[editable path="CanvasLayer/Question"]

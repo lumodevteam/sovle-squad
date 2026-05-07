@@ -9,6 +9,10 @@ signal gain_exp(gained_exp: int)
 signal ask_question
 signal question_answered(question_correct: bool)
 signal instantiate_question
+signal run
+
+const player_position: Vector2 = Vector2(376, -324)
+const enemy_position: Vector2 = Vector2(776, -324)
 
 var battling: bool = false # is there a battle happening
 var rng = RandomNumberGenerator.new()
@@ -26,6 +30,7 @@ func _ready():
 	ask_question.connect(_on_ask_question)
 	question_answered.connect(_question_answered)
 	end_battle.connect(_on_end_battle)
+	run.connect(_on_run)
 	
 func _on_end_battle(_player_won) -> void:
 	battling = false
@@ -40,8 +45,8 @@ func _on_setup_battle() -> void:
 	var battle_scene = get_tree().get_root().get_node("BattleScene")
 	battle_player.reparent(battle_scene)
 	battle_enemy.reparent(battle_scene)
-	battle_player.position = Vector2(476, 0)
-	battle_enemy.position = Vector2(676, 0)
+	battle_player.position = player_position
+	battle_enemy.position = enemy_position
 	
 func show_sprites(visible: bool) -> void:
 	battle_player.visible = visible
@@ -136,7 +141,12 @@ func battle_over(player_won: bool) -> void:
 		if battle_player.lvl > old_player_lvl:
 			await get_battle_gui().add_log("You leveled up! " + str(old_player_lvl) + " -> " + str(battle_player.lvl))
 		battle_enemy.defeated = true
+	battle_enemy.set_cooldown(5.0)
 	end_battle.emit(player_won)
+	
+func _on_run() -> void:
+	battle_over(false)
+	end_battle.emit(false)
 	
 func update_gui() -> void:
 	get_battle_gui().update_health_bars(battle_player.health, battle_enemy.health)
