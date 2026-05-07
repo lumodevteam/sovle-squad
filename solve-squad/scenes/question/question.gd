@@ -638,10 +638,12 @@ func generate_algebra_questions() -> Array:
 		})
 	
 	return result
-#------------------------------------------Node References---------------------------------------------
+#------------------------------------------Data Questions---------------------------------------------
 func generate_data_questions() -> Array:
 	var result = []
-	for i in 400:
+	
+	# bar graph
+	for i in 4:
 		var labels = ["Lap 1", "Lap 2", "Lap 3", "Lap 4", "Lap 5"]
 		var data = {}
 		for label in labels:
@@ -666,6 +668,7 @@ func generate_data_questions() -> Array:
 			"table_headers": ["Lap", "Speed"],
 			"table_rows": table_rows })
 	
+	# Mean
 	for i in 4:
 		var w = randi_range(20, 30)
 		var v = randi_range(20,30)
@@ -681,7 +684,8 @@ func generate_data_questions() -> Array:
 			"question":"Find the mean of the given set of numbers.\n(%d, %d, %d, %d, %d)" %[w,v,x,y,z],
 			"answer": total / 5
 		})
-
+	
+	# Median
 	for i in 4:
 		
 		var list = []
@@ -712,6 +716,7 @@ func generate_data_questions() -> Array:
 			"question":"Find the median of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": list[3]})
 
+	# Mode
 	for i in 4:
 		
 		var list = []
@@ -745,7 +750,7 @@ func generate_data_questions() -> Array:
 		result.append({
 			"question":"Find the mode of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
 			"answer": a })
-		
+	# Range
 	for i in 4:
 		
 		var list = []
@@ -772,10 +777,9 @@ func generate_data_questions() -> Array:
 		list.append(z)
 		
 		list.sort()
-		var d = list[6] - list[0]
 		result.append({
 			"question":"Find the range of the given set of numbers.\n(%d, %d, %d, %d, %d, %d, %d)" %[t,u,w,v,x,y,z],
-			"answer": d })
+			"answer": list[6] - list[0] })
 			
 		result.append({
 			"question": "Is the number of students in a class quantitative or qualitative?",
@@ -790,7 +794,7 @@ func generate_data_questions() -> Array:
 			"choices":["Quantitative","Qualitative"]
 		})
 	return result
-#------------------------------------------Node References---------------------------------------------
+#------------------------------------------Spatial Questions---------------------------------------------
 func generate_Spatial_questions() -> Array:
 	var result = []
 	
@@ -822,7 +826,7 @@ func generate_Spatial_questions() -> Array:
 			}
 		},
 		{
-			"image":"res://assets/shapes/scalene_triandddddddddddddddddddddssdsdadsdadasdwsadasadawdawgle.png",
+			"image":"res://assets/shapes/scalene_triangle.png",
 			"properties":{
 				"vertices": 3,
 				"sides": 3,
@@ -841,7 +845,7 @@ func generate_Spatial_questions() -> Array:
 				"sides": 3,
 				"parallel_lines": 0,
 				"perpendicular_lines": 1,
-				"lines_of_symmetry": 0-1,
+				"lines_of_symmetry": 0,
 				"right_angles": 1,
 				"acute_angles": 2,
 				"obtuse_angles": 0,
@@ -874,7 +878,7 @@ func generate_Spatial_questions() -> Array:
 			}
 		},
 		{
-			"image":"res://assets/shapes/isosceles_trangle.png",
+			"image":"res://assets/shapes/isosceles_triangle.png",
 			"properties":{
 				"vertices": 3,
 				"sides": 3,
@@ -891,7 +895,7 @@ func generate_Spatial_questions() -> Array:
 			"properties":{
 				"vertices": 6,
 				"sides": 6,
-				"parallel_lines": 2,
+				"parallel_lines": 3,
 				"perpendicular_lines": 0,
 				"lines_of_symmetry": 3,
 				"right_angles": 0,
@@ -919,23 +923,10 @@ func generate_Spatial_questions() -> Array:
 				"sides": 3,
 				"parallel_lines": 0,
 				"perpendicular_lines": 0,
-				"lines_of_symmetry": 1,
+				"lines_of_symmetry": 3,
 				"right_angles": 0,
 				"acute_angles": 3,
 				"obtuse_angles": 0,
-			}
-		},
-		{
-			"image":"res://assets/shapes/circle.png",
-			"properties":{
-				"vertices": 0,
-				"sides": 1,
-				"parallel_lines": 0,
-				"perpendicular_lines": 0,
-				"lines_of_symmetry": "infinite",
-				"right_angles": 0,
-				"acute_angles": 0,
-				"obtuse_angles": "infinite",
 			}
 		},
 	]
@@ -957,9 +948,11 @@ func generate_Spatial_questions() -> Array:
 				"shape": shape["image"]
 			})
 	return result
-#------------------------------------------Node References---------------------------------------------
+#------------------------------------------Financial Questions---------------------------------------------
 func generate_Financial_questions() -> Array:
 	var result = []
+	
+	# Saving money per day
 	for i in 4:
 		var x = randi_range(2,50)
 		var y = randi_range(7,21)
@@ -967,7 +960,8 @@ func generate_Financial_questions() -> Array:
 		result.append({
 			"question":"Layla is saving money everyday to save up for food she saves $%d every day.\nHow much money for food will she have in %d days?" %[x,y],
 			"answer": z })
-			
+	
+	# Days to reach goal
 	for i in 4:
 		var x = randi_range(100,500)
 		var y = randi_range(10, 30)
@@ -980,7 +974,8 @@ func generate_Financial_questions() -> Array:
 		result.append({
 			"question":"Layla is saving $%d for food. She saves $%d everyday.\nHow many days does it take to reach her goal?" %[x,y],
 			"answer": v })
-	
+			
+	# Coin counting
 	for i in 4:
 		var list = [1,5,10,25,100,200]
 		var money = ["pennies","nickles","dimes","quarters","loonies","toonies"]
@@ -993,7 +988,8 @@ func generate_Financial_questions() -> Array:
 		result.append({
 			"question":"How many %s are in %d¢?" %[w,y],
 			"answer": v })
-			
+	
+	# Profit or loss balance sheet
 	for i in 4:
 		var x = randi_range(1000,10000)
 		var y = randi_range(1000,5000)
@@ -1003,6 +999,7 @@ func generate_Financial_questions() -> Array:
 			"question":"Nathan would like to know if his business made or lost money.\nHis income was $%d and his expenses was $%d.\nWhat is Nathan's total?" %[x,y],
 			"answer": z})
 			
+	# Simple intrest + total
 	for i in 4:
 		var x = randi_range(1,10)
 		var y = randi_range(3,12)
@@ -1011,9 +1008,9 @@ func generate_Financial_questions() -> Array:
 		var v = (x) * (0.01)
 		var w = z + y * (z * v)
 		result.append({
-			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months what is the total amount you will have earned?" %[z,x,y],
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %d months what is the total amount you will have earned?" %[z,x,y],
 			"answer": w})
-	
+	# Simple intrest - interest earned only
 	for i in 4:
 		var x = randi_range(1,10)
 		var y = randi_range(3,12)
@@ -1022,7 +1019,7 @@ func generate_Financial_questions() -> Array:
 		var v = (x) * (0.01)
 		var w = (v * z) * y
 		result.append({
-			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months how much extra money will you have earned?" %[z,x,y],
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %d months how much extra money will you have earned?" %[z,x,y],
 			"answer": w })
 			
 			
