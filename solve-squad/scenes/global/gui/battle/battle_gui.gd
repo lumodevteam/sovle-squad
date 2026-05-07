@@ -118,4 +118,4 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 
 func _on_run_pressed() -> void:
-	Battle.end_battle.emit(false)
+	Battle.run.emit()

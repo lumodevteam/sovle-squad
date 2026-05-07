@@ -23,6 +23,7 @@ func _on_defeated() -> void:
 	raycast.enabled = false
 
 var atk: int # which attack the npc will use
+var cooldown: bool = true
 
 @export_category("Stats")
 @export var health: int = 100 # enemy health
@@ -58,7 +59,7 @@ func update_stats() -> void:
 	def = randf_range(0.01, 0.10) + 0.05 * lvl
 
 func _physics_process(_delta: float) -> void:
-	if raycast.is_colliding() and not Battle.battling:
+	if raycast.is_colliding() and not Battle.battling and cooldown:
 		collision(raycast.get_collider())
 		
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -92,9 +93,11 @@ func attack() -> Dictionary:
 func _on_setup_battle() -> void:
 	update_stats()
 	$Sprite2D.flip_h = true
-	raycast.enabled = false
 	
 func _on_end_battle(_player_won) -> void:
 	$Sprite2D.flip_h = false
-	await get_tree().create_timer(5.0).timeout
-	raycast.enabled = true
+	
+func set_cooldown(time: float) -> void:
+	cooldown = false
+	await get_tree().create_timer(time).timeout
+	cooldown = true
