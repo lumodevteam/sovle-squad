@@ -469,7 +469,7 @@ func generate_algebra_questions() -> Array:
 		var w = z * division
 		var v = w * division
 		result.append({
-			"question": "What is the divisor this set of numbers given\n %d, %d, %d, %d, %d" %[v,w,z,y,x],
+			"question": "What is the divisor of this set of numbers given\n %d, %d, %d, %d, %d" %[v,w,z,y,x],
 			"answer": division
 		})
 		
@@ -538,7 +538,7 @@ func generate_algebra_questions() -> Array:
 		var v = randi_range(20,30)
 		var x = z + v + y
 		result.append({
-			"question": "Evan went to the mall. He spent $%d on Hollister, $%d on food and $%d for a gift for Maria\n How much did Evan spend at the mall?" %[y,z,v,],
+			"question": "Evan went to the mall. He spent $%d on Hollister, $%d on food and $%d on a gift for Maria\n How much did Evan spend at the mall?" %[y,z,v,],
 			"answer": x
 	
 		})
@@ -561,7 +561,7 @@ func generate_algebra_questions() -> Array:
 		var x = randi_range(100,150)
 		var z = x - y - v
 		result.append({
-			"question": "Dih went on a shopping haul she spent $%d. She had bought 3 things.\n She spent $%d on Jewlery, $%d on clothes the rest she spent on shoes.\n How much did she spend on shoes?" %[x,y,v],
+			"question": "Dih went on a shopping haul, she spent $%d. She had bought 3 things.\n She spent $%d on Jewlery, $%d on clothes the rest she spent on shoes.\n How much did she spend on shoes?" %[x,y,v],
 			"answer": z
 		})
 	
@@ -573,7 +573,7 @@ func generate_algebra_questions() -> Array:
 		var a = total - (x + y + z)
 		
 		result.append({
-			"question": "John Pork is driving all the way to British Colombia. It will take %d Km. The trip took 4 days, The first day he drove %d Km. The second he drove %d Km and the third day he drove %d Km.\nHow many kilometers did John Pork on the last day?" %[total,x,y,z],
+			"question": "John Pork is driving all the way to British Columbia. It will take %d Km. The trip took 4 days. The first day he drove %d Km. The second day he drove %d Km, and the third day he drove %d Km.\nHow many kilometres did John Pork drive on the last day?" %[total,x,y,z],
 			"answer": a
 		})
 	
@@ -909,7 +909,7 @@ func generate_Financial_questions() -> Array:
 		var y = randi_range(7,21)
 		var z = (x*y)
 		result.append({
-			"question":"Layla is saving money everyday to save up for food she saves $%d every day.\nHow much money for food will she have in %d days?" %[x,y],
+			"question":"Layla is saving money every day to save up for food. She saves $%d every day.\nHow much money for food will she have in %d days?" %[x,y],
 			"answer": z })
 			
 	for i in 4:
@@ -922,12 +922,12 @@ func generate_Financial_questions() -> Array:
 		var v = (x / y)
 		
 		result.append({
-			"question":"Layla is saving $%d for food. She saves $%d everyday.\nHow many days does it take to reach her goal?" %[x,y],
+			"question":"Layla is saving $%d for food. She saves $%d every day.\nHow many days does it take to reach her goal?" %[x,y],
 			"answer": v })
 	
 	for i in 4:
 		var list = [1,5,10,25,100,200]
-		var money = ["pennies","nickles","dimes","quarters","loonies","toonies"]
+		var money = ["pennies","nickels","dimes","quarters","loonies","toonies"]
 		var x = randi() % list.size()
 		var y = randi_range(50,400)
 		var z = list[x]
@@ -944,7 +944,7 @@ func generate_Financial_questions() -> Array:
 		var z = x - y
 		
 		result.append({
-			"question":"Nathan would like to know if his business made or lost money.\nHis income was $%d and his expenses was $%d.\nWhat is Nathan's total?" %[x,y],
+			"question":"Nathan would like to know if his business made or lost money.\nHis income was $%d and his expenses were $%d.\nWhat is Nathan's total?" %[x,y],
 			"answer": z})
 			
 	for i in 4:
@@ -955,7 +955,7 @@ func generate_Financial_questions() -> Array:
 		var v = (x) * (0.01)
 		var w = z + y * (z * v)
 		result.append({
-			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months what is the total amount you will have earned?" %[z,x,y],
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months, what is the total amount you will have earned?" %[z,x,y],
 			"answer": w})
 	
 	for i in 4:
@@ -966,7 +966,7 @@ func generate_Financial_questions() -> Array:
 		var v = (x) * (0.01)
 		var w = (v * z) * y
 		result.append({
-			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months how much extra money will you have earned?" %[z,x,y],
+			"question":"If you invest $%d into a bank at %d%% simple intrest.\nIn %ddsdsd months, how much extra money will you have earned?" %[z,x,y],
 			"answer": w })
 			
 			
