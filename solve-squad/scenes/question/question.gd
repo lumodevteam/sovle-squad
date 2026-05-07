@@ -188,9 +188,9 @@ func _on_slider_changed(value:float):
 func _on_submit_pressed():
 	var player_guess = int(v_slider.value)
 	if abs(player_guess - current_answer) == 0:
-		question_area.text = "Correct!"
+		Battle.question_answered.emit(true)
 	else:
-		question_area.text = "Wrong! So close you were %d away" % abs(player_guess - current_answer)
+		Battle.question_answered.emit(false)
 
 #------------------------------------------Draws the data table beside the bar graph---------------------------------------------
 func draw_table(headers: Array, rows: Array):
