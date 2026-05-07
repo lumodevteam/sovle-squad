@@ -92,6 +92,7 @@ offset_left = -511.0
 offset_top = -42.0
 offset_right = -339.0
 offset_bottom = 29.0
+horizontal_alignment = 1
 
 [node name="SubmitButton" type="Button" parent="CanvasLayer/Panel/BarGraph"]
 layout_mode = 0
