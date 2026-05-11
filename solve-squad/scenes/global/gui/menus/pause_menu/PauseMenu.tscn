@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://fpm6w0c6t35c"]
+[gd_scene load_steps=5 format=3 uid="uid://fpm6w0c6t35c"]
 
 [ext_resource type="Script" uid="uid://djw875qtkbekg" path="res://scenes/global/gui/menus/pause_menu/pause_menu.gd" id="1_4ljee"]
+[ext_resource type="Texture2D" uid="uid://mfbgx1gaxbib" path="res://assets/sound.png" id="2_4a2q2"]
+[ext_resource type="Texture2D" uid="uid://beotqphrnye3m" path="res://assets/credits.png" id="3_q57oi"]
+[ext_resource type="Texture2D" uid="uid://b86xcpdjcegf5" path="res://assets/back.png" id="4_q7emq"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -15,8 +18,8 @@ script = ExtResource("1_4ljee")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-anchors_preset = -1
+[node name="pausePanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -200.0
@@ -25,7 +28,7 @@ offset_right = -40.0
 offset_bottom = 300.0
 grow_horizontal = 0
 
-[node name="Label" type="Label" parent="CanvasLayer/Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/pausePanel"]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 10
@@ -36,7 +39,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/pausePanel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -48,34 +51,119 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="resumeButton" type="Button" parent="CanvasLayer/pausePanel/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 text = "Resume"
 
-[node name="Button2" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
-texture_filter = 2
-layout_mode = 2
-size_flags_vertical = 3
-text = "Inventory"
-
-[node name="Button3" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="optionsButton" type="Button" parent="CanvasLayer/pausePanel/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 text = "Options"
 
-[node name="Button4" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="saveButton" type="Button" parent="CanvasLayer/pausePanel/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 text = "Save"
 
-[node name="Button5" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="quitButton" type="Button" parent="CanvasLayer/pausePanel/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 text = "Quit"
 
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="optionsPanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.99597
+offset_top = -82.78398
+offset_right = 124.99597
+offset_bottom = 82.78398
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/optionsPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.16800001
+offset_right = 1.0
+offset_bottom = -1.736002
+text = "Options"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/optionsPanel"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 250.99597
+offset_bottom = 163.784
+
+[node name="soundButton" type="CheckButton" parent="CanvasLayer/optionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Sound"
+icon = ExtResource("2_4a2q2")
+
+[node name="creditsButton" type="Button" parent="CanvasLayer/optionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+icon = ExtResource("3_q57oi")
+flat = true
+alignment = 0
+
+[node name="backOptsButton" type="Button" parent="CanvasLayer/optionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+icon = ExtResource("4_q7emq")
+flat = true
+alignment = 0
+
+[node name="creditsPanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -156.0
+offset_right = 112.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/creditsPanel"]
+layout_mode = 0
+offset_right = 224.0
+offset_bottom = 309.0
+text = "Credits
+
+Developed by
+Nathan Kung
+Evan Chung
+Nicolas Vranas
+
+Developed for
+Mr. Cummings
+
+
+ICS4U"
+horizontal_alignment = 1
+
+[node name="backCredsButton" type="Button" parent="CanvasLayer/creditsPanel"]
+layout_mode = 0
+offset_left = 184.0
+offset_right = 224.0
+offset_bottom = 40.0
+icon = ExtResource("4_q7emq")
+flat = true
+
+[connection signal="pressed" from="CanvasLayer/pausePanel/VBoxContainer/resumeButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/pausePanel/VBoxContainer/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/optionsPanel/VBoxContainer/creditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/optionsPanel/VBoxContainer/backOptsButton" to="." method="_on_back_opts_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/creditsPanel/backCredsButton" to="." method="_on_back_creds_button_pressed"]
