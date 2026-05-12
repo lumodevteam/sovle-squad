@@ -64,22 +64,6 @@ theme = SubResource("Theme_eq12t")
 text = "Run"
 autowrap_mode = 2
 
-[node name="tbd" type="Button" parent="CanvasLayer/Battle_Menu/Menu"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = SubResource("Theme_eq12t")
-text = "Nothing"
-autowrap_mode = 2
-
-[node name="tbd2" type="Button" parent="CanvasLayer/Battle_Menu/Menu"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = SubResource("Theme_eq12t")
-text = "Nothing"
-autowrap_mode = 2
-
 [node name="Moves" type="GridContainer" parent="CanvasLayer/Battle_Menu"]
 visible = false
 layout_mode = 1
