@@ -12,9 +12,6 @@ const GAME_SCENE := "res://scenes/global/tutorial/tutorial.tscn"
 @onready var close_credits_button: Button = $CreditsPanel/CreditsVbox/CloseCreditsButton
 
 func _ready():
-	print("ready called")
-	print(play_button)
-	print(settings_button)
 	play_button.pressed.connect(_on_play_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	credits_button.pressed.connect(_on_credits_pressed)
