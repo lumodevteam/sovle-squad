@@ -3,6 +3,7 @@ extends Node
 const battle_scene = preload("res://scenes/global/battle/battle.tscn")
 const tutorial_scene = preload("res://scenes/global/tutorial/tutorial.tscn")
 const question_scene = preload("res://scenes/question/question.tscn")
+const main_menu_scene = preload("res://scenes/global/gui/menus/main_menu/main_menu.tscn")
 
 var visited_before: Array = []
 

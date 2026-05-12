@@ -63,12 +63,6 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Options"
 
-[node name="saveButton" type="Button" parent="CanvasLayer/pausePanel/VBoxContainer"]
-texture_filter = 2
-layout_mode = 2
-size_flags_vertical = 3
-text = "Save"
-
 [node name="quitButton" type="Button" parent="CanvasLayer/pausePanel/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
@@ -164,6 +158,7 @@ flat = true
 
 [connection signal="pressed" from="CanvasLayer/pausePanel/VBoxContainer/resumeButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/pausePanel/VBoxContainer/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/pausePanel/VBoxContainer/quitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/optionsPanel/VBoxContainer/creditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/optionsPanel/VBoxContainer/backOptsButton" to="." method="_on_back_opts_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/creditsPanel/backCredsButton" to="." method="_on_back_creds_button_pressed"]

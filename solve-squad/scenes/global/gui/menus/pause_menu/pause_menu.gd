@@ -60,3 +60,7 @@ func _on_credits_button_pressed() -> void:
 
 func _on_back_creds_button_pressed() -> void:
 	openOptions()
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
