@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp8m80k3241ri"
-path="res://.godot/imported/robedPlayerSpriteSheet.png-7b17cfad481422f52f735ea6ddda0215.ctex"
+uid="uid://bkk2wqv4n5n88"
+path="res://.godot/imported/Cat-Sheet.png-b9fb60a5bce228be7ba6d2eefd9db67d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/robedPlayerSpriteSheet.png"
-dest_files=["res://.godot/imported/robedPlayerSpriteSheet.png-7b17cfad481422f52f735ea6ddda0215.ctex"]
+source_file="res://assets/sprites/Cat-Sheet.png"
+dest_files=["res://.godot/imported/Cat-Sheet.png-b9fb60a5bce228be7ba6d2eefd9db67d.ctex"]
 
 [params]
 

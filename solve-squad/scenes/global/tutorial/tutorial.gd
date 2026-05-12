@@ -9,6 +9,13 @@ const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fount
 @onready var player_starting_pos: Vector2 = $PlayerPlaceholder.position
 @onready var enemy1_starting_pos: Vector2 = $Enemy1Placeholder.position
 @onready var enemy2_starting_pos: Vector2 = $Enemy2Placeholder.position
+@onready var enemy3_starting_pos: Vector2 = $Enemy3Placeholder.position
+@onready var enemy4_starting_pos: Vector2 = $Enemy4Placeholder.position
+@onready var enemy5_starting_pos: Vector2 = $Enemy5Placeholder.position
+@onready var enemy6_starting_pos: Vector2 = $Enemy6Placeholder.position
+@onready var enemy7_starting_pos: Vector2 = $Enemy7Placeholder.position
+@onready var enemy8_starting_pos: Vector2 = $Enemy8Placeholder.position
+@onready var enemy9_starting_pos: Vector2 = $Enemy9Placeholder.position
 @onready var npc_starting_pos: Vector2 = $NPCPlaceholder.position
 @onready var number_line_starting_pos: Vector2 = $NumberLinePlaceholder.position
 @onready var fountain_starting_pos: Vector2 = $FountainPlaceholder.position
@@ -16,6 +23,13 @@ const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fount
 var player: Node2D
 var enemy1: Node2D
 var enemy2: Node2D
+var enemy3: Node2D
+var enemy4: Node2D
+var enemy5: Node2D
+var enemy6: Node2D
+var enemy7: Node2D
+var enemy8: Node2D
+var enemy9: Node2D
 var npc: Node2D
 var number_line: Node2D
 var fountain: Node2D
@@ -26,58 +40,57 @@ func _ready() -> void:
 	TutorialEvents.quest_started.connect(_on_quest_started)
 	if Navigation.tutorial_scene not in Navigation.visited_before:
 		Navigation.visited_before.append(Navigation.tutorial_scene)
-		player = spawn_sprite(player_starting_pos, player_scene)
-		player.identifier = "player"
-		GlobalSprites.sprites[player.identifier] = {
-			"sprite" : player,
-			"position" : player_starting_pos,
-			"max_health" : player.max_health,
-			"current_health" : player.health,
-			"inventory" : []
-		}
-		enemy1 = spawn_sprite(enemy1_starting_pos, enemy_scene)
-		enemy1.identifier = "enemy1"
-		GlobalSprites.sprites[enemy1.identifier] = {
-			"sprite" : enemy1,
-			"position" : enemy1_starting_pos
-		}
-		enemy2 = spawn_sprite(enemy2_starting_pos, enemy_scene)
-		enemy2.identifier = "enemy2"
-		GlobalSprites.sprites[enemy2.identifier] = {
-			"sprite" : enemy2,
-			"position" : enemy2_starting_pos
-		}
-		npc = spawn_sprite(npc_starting_pos, npc_scene)
-		npc.identifier = "npc"
-		GlobalSprites.sprites[npc.identifier] = {
-			"sprite" : npc,
-			"position" : npc_starting_pos
-		}
-		fountain = spawn_sprite(fountain_starting_pos, fountain_scene)
-		fountain.identifier = "fountain"
-		GlobalSprites.sprites[fountain.identifier] = {
-			"sprite" : fountain,
-			"position" : fountain_starting_pos
-		}
+		create_player()
+		enemy1 = spawn_sprite(enemy1_starting_pos, enemy_scene, "enemy1")
+		enemy2 = spawn_sprite(enemy2_starting_pos, enemy_scene, "enemy2")
+		enemy3 = spawn_sprite(enemy3_starting_pos, enemy_scene, "enemy3")
+		enemy4 = spawn_sprite(enemy4_starting_pos, enemy_scene, "enemy4")
+		enemy5 = spawn_sprite(enemy5_starting_pos, enemy_scene, "enemy5")
+		enemy6 = spawn_sprite(enemy6_starting_pos, enemy_scene, "enemy6")
+		enemy7 = spawn_sprite(enemy7_starting_pos, enemy_scene, "enemy7")
+		enemy8 = spawn_sprite(enemy8_starting_pos, enemy_scene, "enemy8")
+		enemy9 = spawn_sprite(enemy9_starting_pos, enemy_scene, "enemy9")	
+		npc = spawn_sprite(npc_starting_pos, npc_scene, "npc")
+		fountain = spawn_sprite(fountain_starting_pos, fountain_scene, "fountain")
 	else:
 		if number_line_exists:
-			number_line = GlobalSprites.sprites["number_line"]["sprite"]
-			number_line.position = GlobalSprites.sprites["number_line"]["position"]
-		player = GlobalSprites.sprites["player"]["sprite"]
-		player.position = GlobalSprites.sprites["player"]["position"]
-		enemy1 = GlobalSprites.sprites["enemy1"]["sprite"]
-		enemy1.position = GlobalSprites.sprites["enemy1"]["position"]
-		enemy2 = GlobalSprites.sprites["enemy2"]["sprite"]
-		enemy2.position = GlobalSprites.sprites["enemy2"]["position"]
-		npc = GlobalSprites.sprites["npc"]["sprite"]
-		npc.position = GlobalSprites.sprites["npc"]["position"]
-		fountain = GlobalSprites.sprites["fountain"]["sprite"]
-		fountain.position = GlobalSprites.sprites["fountain"]["position"]
+			number_line = respawn_sprite("number_line")
+		player = respawn_sprite("player")
+		enemy1 = respawn_sprite("enemy1")
+		enemy2 = respawn_sprite("enemy2")
+		enemy3 = respawn_sprite("enemy3")
+		enemy4 = respawn_sprite("enemy4")
+		enemy5 = respawn_sprite("enemy5")
+		enemy6 = respawn_sprite("enemy6")
+		enemy7 = respawn_sprite("enemy7")
+		enemy8 = respawn_sprite("enemy8")
+		enemy9 = respawn_sprite("enemy9")
+		npc = respawn_sprite("npc")
+		fountain = respawn_sprite("fountain")
+		
+func respawn_sprite(id: String) -> Node2D:
+	var sprite = GlobalSprites.sprites[id]["sprite"]
+	sprite.position = GlobalSprites.sprites[id]["position"]
+	return sprite
+		
+func create_player() -> void:
+	player = spawn_sprite(player_starting_pos, player_scene, "player")
+	GlobalSprites.sprites[player.identifier].merge({
+		"max_health" : player.max_health,
+		"current_health" : player.health,
+		"inventory" : []
+	})
 	
-func spawn_sprite(pos: Vector2, sprite: PackedScene) -> Node2D:
+func spawn_sprite(pos: Vector2, sprite: PackedScene, id: String) -> Node2D:
 	var new_sprite = sprite.instantiate()
 	new_sprite.position = pos
 	add_child(new_sprite)
+	new_sprite.identifier = id
+	GlobalSprites.sprites[id] = {
+		"sprite" : new_sprite,
+		"position" : pos
+	}
+	
 	return new_sprite
 	
 func _on_quest_started() -> void:
@@ -86,10 +99,5 @@ func _on_quest_started() -> void:
 		spawn_number_line()
 	
 func spawn_number_line() -> void:
-	number_line = spawn_sprite(number_line_starting_pos, number_line_scene)
+	number_line = spawn_sprite(number_line_starting_pos, number_line_scene, "number_line")
 	number_line.create_number_line()
-	number_line.identifier = "number_line"
-	GlobalSprites.sprites[number_line.identifier] = {
-			"sprite" : number_line,
-			"position" : number_line_starting_pos
-		}

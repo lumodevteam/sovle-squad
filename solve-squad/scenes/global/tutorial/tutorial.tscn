@@ -12,11 +12,36 @@ script = ExtResource("1_4kmhl")
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_s1bwy")]
 
-[node name="Enemy2Placeholder" type="Node2D" parent="."]
-position = Vector2(1487.9729, -1134.3556)
+[node name="TileMap" parent="." instance=ExtResource("4_obiph")]
+show_behind_parent = true
+z_index = -1
 
 [node name="Enemy1Placeholder" type="Node2D" parent="."]
 position = Vector2(1391.3131, -1353.3182)
+
+[node name="Enemy2Placeholder" type="Node2D" parent="."]
+position = Vector2(1487.9729, -1134.3556)
+
+[node name="Enemy3Placeholder" type="Node2D" parent="."]
+position = Vector2(1028, -1823)
+
+[node name="Enemy4Placeholder" type="Node2D" parent="."]
+position = Vector2(3054, -1438)
+
+[node name="Enemy5Placeholder" type="Node2D" parent="."]
+position = Vector2(2449, -621)
+
+[node name="Enemy6Placeholder" type="Node2D" parent="."]
+position = Vector2(1745, -526)
+
+[node name="Enemy7Placeholder" type="Node2D" parent="."]
+position = Vector2(2005, -296)
+
+[node name="Enemy8Placeholder" type="Node2D" parent="."]
+position = Vector2(1975, -771)
+
+[node name="Enemy9Placeholder" type="Node2D" parent="."]
+position = Vector2(2349, -790)
 
 [node name="NumberLinePlaceholder" type="Node2D" parent="."]
 position = Vector2(2057.7266, -1257.5167)
@@ -26,10 +51,6 @@ position = Vector2(1997.5557, -1299.938)
 
 [node name="NPCPlaceholder" type="Node2D" parent="."]
 position = Vector2(1566.7196, -1277.5615)
-
-[node name="TileMap" parent="." instance=ExtResource("4_obiph")]
-show_behind_parent = true
-z_index = -1
 
 [node name="FountainPlaceholder" type="Node2D" parent="."]
 position = Vector2(1838, -867)
