@@ -13,7 +13,7 @@ enum State { # player states
 
 @export_category("Stats")
 @export var speed: int = 150 # base movement speed of the player
-@export var sprint_speed: int = 200 # sprint speed of the player
+@export var sprint_speed: int = 250 # sprint speed of the player
 @export var current_speed: int # speed of the player
 @export var max_health: int = 100 # max health of the player
 @export var health: int = 100 # health of the player
