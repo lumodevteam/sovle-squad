@@ -12,6 +12,7 @@ const GAME_SCENE := "res://scenes/global/tutorial/tutorial.tscn"
 @onready var close_credits_button: Button = $CreditsPanel/CreditsVbox/CloseCreditsButton
 
 func _ready():
+	# Connect main menu buttons
 	play_button.pressed.connect(_on_play_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	credits_button.pressed.connect(_on_credits_pressed)
@@ -19,25 +20,31 @@ func _ready():
 	close_settings_button.pressed.connect(_close_settings)
 	close_credits_button.pressed.connect(_close_credits)
 	
+	#Connects volume slider and looks at the saved settings
 	master_slider.value_changed.connect(_on_volume_changed)
 	master_slider.value = _load_volume("master_volume",1.0)
 	_apply_volume("Master", master_slider.value)
 	
+	#Hides the settings and credits at the start
 	settings_panel.hide()
 	credits_panel.hide()
 	
 func _on_play_pressed():
+	#Loads the game when press play button
 	get_tree().change_scene_to_file(GAME_SCENE)
 	
 func _on_settings_pressed():
+	#Shows settings
 	settings_panel.show()
 	credits_panel.hide()
 	
 func _on_credits_pressed():
+	#Shows credits
 	settings_panel.hide()
 	credits_panel.show()
 
 func _on_quit_pressed():
+	#Quit the application
 	get_tree().quit()
 	
 func _close_credits():
@@ -47,10 +54,12 @@ func _close_settings():
 	settings_panel.hide()
 	
 func _on_volume_changed(value: float):
+	# Called whenever the master volume slider value changes
 	_apply_volume("Master", value)
 	_save_volume("master_volume", value)
 	
 func _apply_volume(bus_name: String, linear_value: float):
+	# For the future if we want to add more audios
 	var bus_index := AudioServer.get_bus_index(bus_name)
 	if bus_index == -1:
 		return
