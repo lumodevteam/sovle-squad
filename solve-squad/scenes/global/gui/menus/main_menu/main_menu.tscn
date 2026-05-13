@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dunlxe08sravw"]
+[gd_scene load_steps=3 format=3 uid="uid://dunlxe08sravw"]
 
 [ext_resource type="Script" uid="uid://de5ypltjbjfrd" path="res://scenes/global/gui/menus/main_menu/main_menu.gd" id="1_g5p0u"]
+[ext_resource type="Texture2D" uid="uid://b86xcpdjcegf5" path="res://assets/back.png" id="2_b1pn0"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -133,6 +134,18 @@ horizontal_alignment = 1
 
 [node name="CreditsText" type="Label" parent="CreditsPanel/CreditsVbox"]
 layout_mode = 2
+text = "Credits
+
+Developed by
+Nathan Kung
+Evan Chung
+Nicolas Vranas
+
+Developed for
+Mr. Cummings
+
+
+ICS4U"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -140,4 +153,6 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(300, 45)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Close"
+text = "Close "
+icon = ExtResource("2_b1pn0")
+alignment = 2
