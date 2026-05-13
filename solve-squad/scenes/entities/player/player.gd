@@ -93,11 +93,11 @@ func _on_interWell() -> void:
 
 func _on_gain_item(item) -> void:
 	inventory.append(item)
-	if item == GlobalSprites.sprites["npc2"].quest_item:
+	if item == GlobalSprites.sprites["npc2"]["sprite"].quest_item:
 		Gui.info.emit([item_text % item, "I should probably return this to the owner..."])
 	else:
 		Gui.info.emit([item_text % item])
-	update_inventory()
+	update_inventory() 
 
 func update_inventory() -> void:
 	GlobalSprites.sprites[identifier]["inventory"] = inventory
