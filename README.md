@@ -31,4 +31,17 @@ Contact us at: [lumodevteam@gmail.com](mailto:lumodevteam@gmail.com)
 
 ## Sources
 
-- 
+- [Let's Build a Calculator in Godot 4 - Part 1](https://www.youtube.com/watch?v=qaMZptkLCvc)
+  - Used for creating a layout for the calculator. 
+- [How to Create a Simple Quiz Game With Godot](https://www.youtube.com/watch?v=mtbcbxxsOI0&t=464s)
+  - Used for creating a layout and the idea for the multiple choice questions.
+- [Figma](Figma.com)
+  - Used for creating images and exporting them to the game.
+- [How To Get a Custom Font in Godot 4](https://www.youtube.com/watch?v=VrbkuU0giaU)
+  - Used for how to impliment a custom font into our text.
+- [Aseprite Animation Tutorial (Pixel Art)](https://www.youtube.com/watch?v=B0enS9BJne4)
+  - Used for learning the basics of animations.
+- [Aseprite Tutorial For Beginners (Pixel Art)](https://www.youtube.com/watch?v=tFsETEP01k8)
+  - Used for learning how to create pixel art and all the basics of pixel art.
+- [Let's Build a Calculator in Godot 4 - Part 2 (Logic Coding)](https://www.youtube.com/watch?v=9PsgpuHj3XI)
+  - Most of the operations of the calculator. To learn how to use buttons on godot and to have the concept of the operations with edits to it later based on errors or dislikes about it.
