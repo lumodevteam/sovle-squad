@@ -7,7 +7,6 @@ var is_interacting: bool = false
 var interactions: int = 0
 
 var quest_completed: bool = false
-var quest_exp: int = 300
 var quest_item: String = "Key to the Village"
 
 var dialogue_tree: Dictionary = {
@@ -31,22 +30,7 @@ var dialogue_tree: Dictionary = {
 }
 
 func _ready() -> void:
-	TutorialEvents.quest_completed.connect(_on_quest_completed)
 	Gui.conversation_over.connect(_on_conversation_over)
-	
-func _on_quest_completed() -> void:
-	dialogue_tree["start"]["options"].append(
-		{
-			"text" : "I found the key!",
-			"next" : "end"
-		}
-	)
-	dialogue_tree["about"]["options"].append(
-		{
-			"text" : "I found the key!",
-			"next" : "end"
-		}
-	)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -66,6 +50,20 @@ func interact() -> void:
 		dialogue_tree["start"]["text"] = ["I still haven't found my key..."]
 		dialogue_tree["start"]["options"].remove_at(0)
 	interactions += 1
+	if quest_item in GlobalSprites.sprites["player"]["inventory"] and not quest_completed:
+		quest_completed = true
+		dialogue_tree["start"]["options"].append(
+			{
+				"text" : "I found the key!",
+				"next" : "end"
+			}
+		)
+		dialogue_tree["about"]["options"].append(
+			{
+				"text" : "I found the key!",
+				"next" : "end"
+			}
+		)
 	Gui.dialogue_started.emit(dialogue_tree)
 	
 func _on_conversation_over(node_key) -> void:
