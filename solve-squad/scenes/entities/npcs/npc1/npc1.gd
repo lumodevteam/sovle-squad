@@ -8,7 +8,7 @@ var interacted: bool = false
 
 var quest_completed: bool = false
 var quest_exp: int = 300
-var quest_item: String = "Key to the Village"
+var quest_item: String = "Lost Key"
 
 var dialogue_tree: Dictionary = {
 	"start" : {
@@ -98,7 +98,7 @@ var dialogue_tree: Dictionary = {
 		"text" : [
 			"Wow I should ask you for more help!",
 			"I have some rewards for you...",
-			"Anyways off you go now!"
+			"Anyways off you go now!",
 		],
 		"options" : []
 	}

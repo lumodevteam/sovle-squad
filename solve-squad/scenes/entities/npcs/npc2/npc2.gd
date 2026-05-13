@@ -7,7 +7,7 @@ var is_interacting: bool = false
 var interactions: int = 0
 
 var quest_completed: bool = false
-var quest_item: String = "Key to the Village"
+var quest_item: String = "Lost Key"
 
 var dialogue_tree: Dictionary = {
 	"start" : {
