@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvmg4t5s1i6in"]
+[gd_scene load_steps=5 format=3 uid="uid://cbnub73na0t1s"]
 
-[ext_resource type="Texture2D" uid="uid://cpv84lmwrum68" path="res://assets/sprites/Dog-Sheet.png" id="2_m4bpi"]
-[ext_resource type="Script" uid="uid://ss65pautb0ni" path="res://scenes/entities/npcs/npc/npc.gd" id="2_xjnpb"]
+[ext_resource type="Script" uid="uid://bec2ca5j33fdl" path="res://scenes/entities/npcs/npc2/npc2.gd" id="1_585rb"]
+[ext_resource type="Texture2D" uid="uid://bkk2wqv4n5n88" path="res://assets/sprites/Cat-Sheet.png" id="2_ew375"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p5uw1"]
 radius = 9.0
@@ -11,7 +11,7 @@ radius = 45.0
 height = 102.0
 
 [node name="NPC" type="CharacterBody2D" groups=["npc"]]
-script = ExtResource("2_xjnpb")
+script = ExtResource("1_585rb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)
@@ -25,7 +25,7 @@ position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_p5uw1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_m4bpi")
+texture = ExtResource("2_ew375")
 hframes = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

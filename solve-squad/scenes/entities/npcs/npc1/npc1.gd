@@ -75,7 +75,8 @@ var dialogue_tree: Dictionary = {
 			"A quest you say?", 
 			"Well legend tells of this number line (whatever that means),",
 			"it is believed that if it is in the right order something majestic happens",
-			"come back when you've completed the quest!"
+			"come back when you've completed the quest!",
+			"(A number line spawned somewhere on the map...)"
 			],
 		"options" : []
 	},

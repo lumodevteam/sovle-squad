@@ -21,7 +21,6 @@ func _ready() -> void:
 	SnapManager.all_correct.connect(_on_all_correct)
 	
 func _on_all_correct() -> void:
-	TutorialEvents.quest_completed.emit()
 	disabled = true
 
 func _on_body_entered(body_position: Vector2, id: int) -> void:

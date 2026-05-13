@@ -13,6 +13,7 @@ var correct: int: #amount of slots correct
 		_correct = value
 		if _correct == total:
 			all_correct.emit()
+			TutorialEvents.quest_completed.emit()	
 	get:
 		return _correct
 		

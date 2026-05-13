@@ -2,7 +2,8 @@ extends Node2D
 
 const player_scene: PackedScene = preload("res://scenes/entities/player/player.tscn")
 const enemy_scene: PackedScene = preload("res://scenes/entities/npcs/enemy/enemy.tscn")
-const npc_scene: PackedScene = preload("res://scenes/entities/npcs/npc/npc.tscn")
+const npc1_scene: PackedScene = preload("res://scenes/entities/npcs/npc1/npc1.tscn")
+const npc2_scene: PackedScene = preload("res://scenes/entities/npcs/npc2/npc2.tscn")
 const number_line_scene: PackedScene = preload("res://scenes/entities/numberLine/numberLine.tscn")
 const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fountain.tscn")
 
@@ -16,7 +17,8 @@ const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fount
 @onready var enemy7_starting_pos: Vector2 = $Enemy7Placeholder.position
 @onready var enemy8_starting_pos: Vector2 = $Enemy8Placeholder.position
 @onready var enemy9_starting_pos: Vector2 = $Enemy9Placeholder.position
-@onready var npc_starting_pos: Vector2 = $NPCPlaceholder.position
+@onready var npc1_starting_pos: Vector2 = $NPC1Placeholder.position
+@onready var npc2_starting_pos: Vector2 = $NPC2Placeholder.position
 @onready var number_line_starting_pos: Vector2 = $NumberLinePlaceholder.position
 @onready var fountain_starting_pos: Vector2 = $FountainPlaceholder.position
 
@@ -30,7 +32,8 @@ var enemy6: Node2D
 var enemy7: Node2D
 var enemy8: Node2D
 var enemy9: Node2D
-var npc: Node2D
+var npc1: Node2D
+var npc2: Node2D
 var number_line: Node2D
 var fountain: Node2D
 
@@ -50,7 +53,8 @@ func _ready() -> void:
 		enemy7 = spawn_sprite(enemy7_starting_pos, enemy_scene, "enemy7")
 		enemy8 = spawn_sprite(enemy8_starting_pos, enemy_scene, "enemy8")
 		enemy9 = spawn_sprite(enemy9_starting_pos, enemy_scene, "enemy9")	
-		npc = spawn_sprite(npc_starting_pos, npc_scene, "npc")
+		npc1 = spawn_sprite(npc1_starting_pos, npc1_scene, "npc1")
+		npc2 = spawn_sprite(npc2_starting_pos, npc2_scene, "npc2")
 		fountain = spawn_sprite(fountain_starting_pos, fountain_scene, "fountain")
 	else:
 		if number_line_exists:
@@ -65,7 +69,8 @@ func _ready() -> void:
 		enemy7 = respawn_sprite("enemy7")
 		enemy8 = respawn_sprite("enemy8")
 		enemy9 = respawn_sprite("enemy9")
-		npc = respawn_sprite("npc")
+		npc1 = respawn_sprite("npc1")
+		npc2 = respawn_sprite("npc2")
 		fountain = respawn_sprite("fountain")
 		
 func respawn_sprite(id: String) -> Node2D:

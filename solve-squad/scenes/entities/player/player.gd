@@ -28,16 +28,16 @@ var stats = [max_health, health, lvl, exp, dmg, def]
 @warning_ignore("integer_division")
 var moves: Dictionary = {
 	1: {
-		"name" : "basic attack",
+		"name" : "Fireball",
 		"dmg" : (dmg / 3) * lvl
 	},
 	2: {
-		"name" : "less basic attack",
-		"dmg" : (dmg / 2) * lvl
+		"name" : "Shadow Swipe",
+		"dmg" : ((dmg / 3) * lvl) + randi_range(-30, 40)
 	},
 	3: {
-		"name" : "even less basic attack",
-		"dmg" : dmg * lvl
+		"name" : "Thunder Strike",
+		"dmg" : ((dmg / 3) * lvl) + randi_range(-5, 10)
 	},
 	4: {
 		"name" : "back",

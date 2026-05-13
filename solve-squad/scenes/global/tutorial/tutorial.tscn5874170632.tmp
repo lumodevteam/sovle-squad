@@ -26,7 +26,7 @@ position = Vector2(1487.9729, -1134.3556)
 position = Vector2(1028, -1823)
 
 [node name="Enemy4Placeholder" type="Node2D" parent="."]
-position = Vector2(2582, -1011)
+position = Vector2(3054, -1438)
 
 [node name="Enemy5Placeholder" type="Node2D" parent="."]
 position = Vector2(2449, -621)
@@ -44,12 +44,12 @@ position = Vector2(1975, -771)
 position = Vector2(2349, -790)
 
 [node name="NumberLinePlaceholder" type="Node2D" parent="."]
-position = Vector2(2642, -1003)
+position = Vector2(2057.7266, -1257.5167)
 
 [node name="PlayerPlaceholder" type="Node2D" parent="."]
 position = Vector2(1997.5557, -1299.938)
 
-[node name="NPC1Placeholder" type="Node2D" parent="."]
+[node name="NPCPlaceholder" type="Node2D" parent="."]
 position = Vector2(1566.7196, -1277.5615)
 
 [node name="NPC2Placeholder" type="Node2D" parent="."]
