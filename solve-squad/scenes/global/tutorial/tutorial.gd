@@ -8,6 +8,7 @@ const number_line_scene: PackedScene = preload("res://scenes/entities/numberLine
 const fountain_scene: PackedScene = preload("res://scenes/entities/objects/fountain.tscn")
 
 @onready var player_starting_pos: Vector2 = $PlayerPlaceholder.position
+@onready var player_respawn_point: Vector2 = $PlayerRespawnPoint.position
 @onready var enemy1_starting_pos: Vector2 = $Enemy1Placeholder.position
 @onready var enemy2_starting_pos: Vector2 = $Enemy2Placeholder.position
 @onready var enemy3_starting_pos: Vector2 = $Enemy3Placeholder.position

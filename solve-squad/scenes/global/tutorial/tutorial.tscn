@@ -49,6 +49,9 @@ position = Vector2(2642, -1003)
 [node name="PlayerPlaceholder" type="Node2D" parent="."]
 position = Vector2(1997.5557, -1299.938)
 
+[node name="PlayerRespawnPoint" type="Node2D" parent="."]
+position = Vector2(1785, -894)
+
 [node name="NPC1Placeholder" type="Node2D" parent="."]
 position = Vector2(1566.7196, -1277.5615)
 

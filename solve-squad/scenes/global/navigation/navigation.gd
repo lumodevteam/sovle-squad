@@ -4,12 +4,14 @@ const battle_scene = preload("res://scenes/global/battle/battle.tscn")
 const tutorial_scene = preload("res://scenes/global/tutorial/tutorial.tscn")
 const question_scene = preload("res://scenes/question/question.tscn")
 const main_menu_scene = preload("res://scenes/global/gui/menus/main_menu/main_menu.tscn")
+const win_scene = preload("res://scenes/global/gui/menus/win_screen/win_screen.tscn")
 
 var visited_before: Array = []
 
 func _ready() -> void:
 	Battle.start_battle.connect(_on_start_battle)
 	Battle.end_battle.connect(_on_end_battle)
+	TutorialEvents.game_won.connect(_on_game_won)
 	
 func change_scene(scene: PackedScene) -> void:
 	if scene != null:
@@ -36,4 +38,8 @@ func _on_end_battle(_player_won) -> void:
 	Battle.battle_player.reparent(world)
 	Battle.battle_enemy.reparent(world)
 	GlobalSprites.show_sprites(GlobalSprites.sprites.keys())
+	
+func _on_game_won() -> void:
+	GlobalSprites.hide_sprites()
+	await change_scene(win_scene)
 	
