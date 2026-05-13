@@ -28,3 +28,7 @@ Solve Squad features a big map with various terrains, as well as enemies and int
 ## Support
 
 Contact us at: [lumodevteam@gmail.com](mailto:lumodevteam@gmail.com)
+
+## Sources
+
+- 
